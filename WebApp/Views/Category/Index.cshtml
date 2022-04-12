@@ -1,0 +1,51 @@
+﻿@using Entities.Concrete
+@model List<Category>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <title>Kategoriler</title>
+</head>
+<body>
+    <table class="table table-hover">
+        <tr>
+            <th>ID</th>
+            <th>Kategori Adı</th>
+            <th>Açıklama</th>
+            <th>Durum</th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.CategoryId</td>
+                <td>@item.CategoryName</td>
+                <td>@item.CategoryDescription</td>
+                <td><span class="badge @if (@item.CategoryStatus)
+                                       {
+                                           Write("badge-success");
+                                       }
+                                       else
+                                       {
+                                           Write("badge-danger");
+                                       }">@if (@item.CategoryStatus)
+                                       {
+                                           Write("Aktif");
+                                       }
+                                       else
+                                       {
+                                           Write("Pasif");
+                                       }</span></td>
+                <td><a href="#" class="btn btn-warning">Düzenle</a> <a href="#" class="btn btn-danger">Sil</a></td>
+            </tr>
+        }
+    </table>
+</body>
+</html>
