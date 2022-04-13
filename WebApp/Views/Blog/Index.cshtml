@@ -1,5 +1,6 @@
 ﻿@using Entities.Concrete
 @model List<Blog>
+
 @{
 	ViewData["Title"] = "Blog";
 	Layout = "~/Views/Shared/_UserLayout.cshtml";
@@ -34,7 +35,12 @@
 											</i>
 										</a>
 									</li>
-									<li class="mx-2">
+									<li>
+										<a href="/Blog/Read/@item.BlogId">
+											<i class="fas fa-user"></i> @item.Writer.User.UserFirstName
+										</a>
+									</li>
+									<li>
 										<a href="/Blog/Read/@item.BlogId">
 											<i class="fas fa-list"></i> @item.Category.CategoryName
 										</a>

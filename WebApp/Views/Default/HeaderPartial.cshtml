@@ -1,5 +1,4 @@
-﻿
-<header>
+﻿<header>
 	<div class="top-bar_sub_w3layouts container-fluid">
 		<div class="row">
 			<div class="col-md-4 logo text-left">
@@ -58,14 +57,16 @@
 					<li class="nav-item">
 						<a class="nav-link" href="#">
 							Ana Sayfa
-							<span class="sr-only">(current)</span>
 						</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#">Hakkımızda</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Bloglar</a>
+					<li class="nav-item @if (Context.Request.Path.ToString().Contains("Blog"))
+									   {
+										   Write("active");
+									   }">
+						<a class="nav-link" href="/Blog">Bloglar</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#">İletişim</a>

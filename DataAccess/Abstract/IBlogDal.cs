@@ -4,8 +4,10 @@ using System.Collections.Generic;
 
 namespace DataAccess.Abstract
 {
-    public interface IBlogDal : IEntityRepository<Blog>
-    {
-        List<Blog> GetAllWithCategory();
-    }
+	public interface IBlogDal : IEntityRepository<Blog>
+	{
+		List<Blog> GetAllWithCategoryAndWriter();
+
+		Blog GetByIdWithCategoryAndWriter(int id);
+	}
 }

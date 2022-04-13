@@ -1,4 +1,5 @@
 ﻿using Core.Entities.Abstract;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Entities.Concrete
@@ -13,5 +14,7 @@ namespace Entities.Concrete
 
         public int UserId { get; set; }
         public User User { get; set; }
+
+        public List<Blog> Blogs { get; set; }
     }
 }

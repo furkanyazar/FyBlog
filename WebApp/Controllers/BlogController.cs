@@ -4,20 +4,27 @@ using System.Linq;
 
 namespace WebApp.Controllers
 {
-    public class BlogController : Controller
-    {
-        private IBlogService _blogService;
+	public class BlogController : Controller
+	{
+		private IBlogService _blogService;
 
-        public BlogController(IBlogService blogService)
-        {
-            _blogService = blogService;
-        }
+		public BlogController(IBlogService blogService)
+		{
+			_blogService = blogService;
+		}
 
-        public IActionResult Index()
-        {
-            var result = _blogService.GetAllWithCategory().OrderByDescending(x => x.BlogDateOf).ToList();
+		public IActionResult Index()
+		{
+			var result = _blogService.GetAllWithCategoryAndWriter().OrderByDescending(x => x.BlogDateOf).ToList();
 
-            return View(result);
-        }
-    }
+			return View(result);
+		}
+
+		public IActionResult Read(int id)
+		{
+			var result = _blogService.GetByIdWithCategoryAndWriter(id);
+
+			return View(result);
+		}
+	}
 }

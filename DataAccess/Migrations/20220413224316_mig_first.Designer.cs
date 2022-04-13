@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(MvcCoreDbContext))]
-    [Migration("20220412185654_mig_first")]
+    [Migration("20220413224316_mig_first")]
     partial class mig_first
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -70,9 +70,14 @@ namespace DataAccess.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
+                    b.Property<int>("WriterId")
+                        .HasColumnType("int");
+
                     b.HasKey("BlogId");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("WriterId");
 
                     b.ToTable("Blogs");
                 });
@@ -218,7 +223,15 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Entities.Concrete.Writer", "Writer")
+                        .WithMany("Blogs")
+                        .HasForeignKey("WriterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Category");
+
+                    b.Navigation("Writer");
                 });
 
             modelBuilder.Entity("Entities.Concrete.Comment", b =>
@@ -256,6 +269,11 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Entities.Concrete.User", b =>
                 {
                     b.Navigation("Writers");
+                });
+
+            modelBuilder.Entity("Entities.Concrete.Writer", b =>
+                {
+                    b.Navigation("Blogs");
                 });
 #pragma warning restore 612, 618
         }

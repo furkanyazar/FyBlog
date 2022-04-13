@@ -73,31 +73,6 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Blogs",
-                columns: table => new
-                {
-                    BlogId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    BlogTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BlogContent = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BlogImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BlogThumbnailImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BlogDateOf = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    BlogStatus = table.Column<bool>(type: "bit", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Blogs", x => x.BlogId);
-                    table.ForeignKey(
-                        name: "FK_Blogs_Categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Categories",
-                        principalColumn: "CategoryId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Writers",
                 columns: table => new
                 {
@@ -115,6 +90,38 @@ namespace DataAccess.Migrations
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Blogs",
+                columns: table => new
+                {
+                    BlogId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BlogTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BlogContent = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BlogImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BlogThumbnailImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BlogDateOf = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    BlogStatus = table.Column<bool>(type: "bit", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    WriterId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Blogs", x => x.BlogId);
+                    table.ForeignKey(
+                        name: "FK_Blogs_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "CategoryId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Blogs_Writers_WriterId",
+                        column: x => x.WriterId,
+                        principalTable: "Writers",
+                        principalColumn: "WriterId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -148,6 +155,11 @@ namespace DataAccess.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Blogs_WriterId",
+                table: "Blogs",
+                column: "WriterId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Comments_BlogId",
                 table: "Comments",
                 column: "BlogId");
@@ -170,16 +182,16 @@ namespace DataAccess.Migrations
                 name: "Contacts");
 
             migrationBuilder.DropTable(
-                name: "Writers");
-
-            migrationBuilder.DropTable(
                 name: "Blogs");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Categories");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "Writers");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }

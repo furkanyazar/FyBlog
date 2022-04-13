@@ -3,18 +3,20 @@ using System.Collections.Generic;
 
 namespace Business.Abstract
 {
-    public interface IBlogService
-    {
-        List<Blog> GetAll();
+	public interface IBlogService
+	{
+		List<Blog> GetAll();
 
-        List<Blog> GetAllWithCategory();
+		List<Blog> GetAllWithCategoryAndWriter();
 
-        Blog GetById(int id);
+		Blog GetById(int id);
 
-        void Add(Blog blog);
+		Blog GetByIdWithCategoryAndWriter(int id);
 
-        void Update(Blog blog);
+		void Add(Blog blog);
 
-        void Delete(Blog blog);
-    }
+		void Update(Blog blog);
+
+		void Delete(Blog blog);
+	}
 }
