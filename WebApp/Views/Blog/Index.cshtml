@@ -1,6 +1,74 @@
-﻿@{
+﻿@using Entities.Concrete
+@model List<Blog>
+@{
 	ViewData["Title"] = "Blog";
 	Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 
-<h1>Index</h1>
+<section class="main-content-w3layouts-agileits">
+	<div class="container">
+		<h3 class="tittle">Bloglar</h3>
+		<div class="inner-sec">
+			<!--left-->
+			<div class="left-blog-info-w3layouts-agileits text-left">
+				<div class="row">
+					@foreach (var item in Model)
+					{
+						<div class="col-lg-4 card mb-5">
+							<a href="/Blog/Read/@item.BlogId">
+								<img src="@item.BlogThumbnailImageUrl" class="card-img-top img-fluid" alt="">
+							</a>
+							<div class="card-body">
+								<ul class="blog-icons my-4">
+									<li>
+										<a href="/Blog/Read/@item.BlogId">
+											<i class="far fa-calendar-alt">
+												@if (item.BlogDateOf.Year == DateTime.Now.Year)
+												{
+													Write(item.BlogDateOf.ToString("dd MMMM"));
+												}
+												else
+												{
+													Write(item.BlogDateOf.ToString("dd MMMM yyyy"));
+												}
+											</i>
+										</a>
+									</li>
+									<li class="mx-2">
+										<a href="/Blog/Read/@item.BlogId">
+											<i class="fas fa-list"></i> @item.Category.CategoryName
+										</a>
+									</li>
+								</ul>
+								<h5 class="card-title">
+									<a href="/Blog/Read/@item.BlogId">
+										@if (item.BlogTitle.Length > 25)
+										{
+											Write(item.BlogTitle.Substring(0, 25) + "...");
+										}
+										else
+										{
+											Write(item.BlogTitle);
+										}
+									</a>
+								</h5>
+								<p class="card-text mb-3">
+									@if (item.BlogContent.Length > 100)
+									{
+										Write(item.BlogContent.Substring(0, item.BlogContent.Substring(0, 100).LastIndexOf(" ")) + "...");
+									}
+									else
+									{
+										Write(item.BlogContent);
+									}
+								</p>
+								<a href="/Blog/Read/@item.BlogId" class="btn btn-primary read-m">Devamını Oku</a>
+							</div>
+						</div>
+					}
+				</div>
+				<!--//left-->
+			</div>
+		</div>
+	</div>
+</section>
