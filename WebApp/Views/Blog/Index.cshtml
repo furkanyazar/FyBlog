@@ -1,4 +1,5 @@
-﻿@using Entities.Concrete
+﻿@using System.Text.RegularExpressions
+@using Entities.Concrete
 @model List<Blog>
 
 @{
@@ -15,6 +16,8 @@
 				<div class="row">
 					@foreach (var item in Model)
 					{
+						item.BlogContent = Regex.Replace(item.BlogContent, @"</?\w+((\s+\w+(\s*=\s*(?:"".*?""|'.*?'|[^'"">\s]+))?)+\s*|\s*)/?>", string.Empty);
+
 						<div class="col-lg-4 card mb-5">
 							<a href="/Blog/Read/@item.BlogId">
 								<img src="@item.BlogThumbnailImageUrl" class="card-img-top img-fluid" alt="">
@@ -22,7 +25,7 @@
 							<div class="card-body">
 								<ul class="blog-icons my-4">
 									<li>
-										<a href="/Blog/Read/@item.BlogId">
+										<a href="#">
 											<i class="far fa-calendar-alt">
 												@if (item.BlogDateOf.Year == DateTime.Now.Year)
 												{
@@ -36,12 +39,12 @@
 										</a>
 									</li>
 									<li>
-										<a href="/Blog/Read/@item.BlogId">
+										<a href="#">
 											<i class="fas fa-user"></i> @item.Writer.User.UserFirstName
 										</a>
 									</li>
 									<li>
-										<a href="/Blog/Read/@item.BlogId">
+										<a href="#">
 											<i class="fas fa-list"></i> @item.Category.CategoryName
 										</a>
 									</li>
@@ -61,11 +64,11 @@
 								<p class="card-text mb-3">
 									@if (item.BlogContent.Length > 100)
 									{
-										Write(item.BlogContent.Substring(0, item.BlogContent.Substring(0, 100).LastIndexOf(" ")) + "...");
+										Write(Html.Raw(item.BlogContent.Substring(0, item.BlogContent.Substring(0, 100).LastIndexOf(" ")) + "..."));
 									}
 									else
 									{
-										Write(item.BlogContent);
+										Write(Html.Raw(item.BlogContent));
 									}
 								</p>
 								<a href="/Blog/Read/@item.BlogId" class="btn btn-primary read-m">Devamını Oku</a>

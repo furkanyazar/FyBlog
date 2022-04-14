@@ -10,7 +10,6 @@ namespace Entities.Concrete
         public int CommentId { get; set; }
 
         public string CommentUserFullName { get; set; }
-        public string CommentTitle { get; set; }
         public string CommentContent { get; set; }
         public DateTime CommentDateOf { get; set; } = DateTime.Now;
         public bool CommentStatus { get; set; } = true;
