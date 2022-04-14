@@ -23,6 +23,8 @@
 	<link href="~/web/css/fontawesome-all.css" rel="stylesheet">
 	<link href="//fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800"
 		  rel="stylesheet">
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="~/web/js/jquery-2.2.3.min.js"></script>
 	<style>
 		#model-content img {
 			max-width: 100%;
@@ -47,7 +49,7 @@
 						</a>
 					</span>
 					<span>
-						<a href="#">
+						<a href="/Register/Index">
 							<i class="far fa-user"></i> Kayıt Ol
 						</a>
 					</span>
@@ -99,7 +101,7 @@
 									   {
 										   Write("active");
 									   }">
-							<a class="nav-link" href="/Blog">Bloglar</a>
+							<a class="nav-link" href="/Blog/Index">Bloglar</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="#">İletişim</a>
@@ -167,9 +169,6 @@
 		</div>
 	</footer>
 	<!---->
-	<!-- js -->
-	<script src="~/web/js/jquery-2.2.3.min.js"></script>
-	<!-- //js -->
 	<!--/ start-smoth-scrolling -->
 	<script src="~/web/js/move-top.js"></script>
 	<script src="~/web/js/easing.js"></script>

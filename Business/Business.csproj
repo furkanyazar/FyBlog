@@ -10,12 +10,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ValidationRules\FluentValidation\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Autofac" Version="6.3.0" />
     <PackageReference Include="Autofac.Extras.DynamicProxy" Version="6.0.1" />
+    <PackageReference Include="FluentValidation" Version="10.4.0" />
   </ItemGroup>
 
 </Project>
