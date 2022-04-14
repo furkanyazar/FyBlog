@@ -7,6 +7,8 @@ namespace Business.Abstract
     {
         List<Category> GetAll();
 
+        List<Category> GetAllByStatus(bool status);
+
         Category GetById(int id);
 
         void Add(Category category);

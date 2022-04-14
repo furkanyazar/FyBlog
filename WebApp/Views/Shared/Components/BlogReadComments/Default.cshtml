@@ -1,0 +1,22 @@
+﻿@using Entities.Concrete
+@model List<Comment>
+
+<div class="comment-top">
+	<h4>Yorumlar</h4>
+	@if (Model.Count < 1)
+   {
+	   <p>Henüz yorum yapılmamış</p>
+   }
+	@foreach (var item in Model)
+	{
+		<div class="media">
+			<img src="/web/images/default.jpg" alt="" class="img-fluid" style="max-width:100px" />
+			<div class="media-body">
+				<h5 class="mt-0">@item.CommentUserFullName <i class="font-weight-light">- @item.CommentDateOf.ToString("g")</i></h5>
+				<p>
+					@item.CommentContent
+				</p>
+			</div>
+		</div>
+	}
+</div>

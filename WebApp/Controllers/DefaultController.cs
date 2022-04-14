@@ -1,16 +1,15 @@
 ﻿using Business.Abstract;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 
 namespace WebApp.Controllers
 {
     public class DefaultController : Controller
     {
-        private IBlogService _blogService;
+        private ICommentService _commentService;
 
-        public DefaultController(IBlogService blogService)
+        public DefaultController(ICommentService commentService)
         {
-            _blogService = blogService;
+            _commentService = commentService;
         }
 
         public PartialViewResult HeaderSearchPartial()
@@ -18,22 +17,17 @@ namespace WebApp.Controllers
             return PartialView();
         }
 
-        public PartialViewResult FooterLeftPartial()
+        public PartialViewResult FooterAboutUsPartial()
         {
             return PartialView();
         }
 
-        public PartialViewResult FooterCenterPartial()
+        public PartialViewResult FooterLatestBlogsPartial()
         {
             return PartialView();
         }
 
-        public PartialViewResult FooterRightPartial()
-        {
-            return PartialView();
-        }
-
-        public PartialViewResult BlogReadCommentsPartial()
+        public PartialViewResult FooterSignupNewsletterPartial()
         {
             return PartialView();
         }
@@ -43,27 +37,17 @@ namespace WebApp.Controllers
             return PartialView();
         }
 
-        public PartialViewResult BlogReadRightFirstPartial()
+        public PartialViewResult BlogReadRightSignupNewsletterPartial()
         {
             return PartialView();
         }
 
-        public PartialViewResult BlogReadRightSecondPartial()
+        public PartialViewResult BlogReadRightSimilarBlogsPartial()
         {
             return PartialView();
         }
 
-        public PartialViewResult BlogReadRightThirdPartial()
-        {
-            return PartialView();
-        }
-
-        public PartialViewResult BlogReadRightFourthPartial()
-        {
-            return PartialView();
-        }
-
-        public PartialViewResult BlogReadRightFifthPartial()
+        public PartialViewResult BlogReadRightLatestPartial()
         {
             return PartialView();
         }

@@ -1,0 +1,16 @@
+﻿@using Entities.Concrete
+@model List<Category>
+
+<div class="tech-btm">
+	<h4>Kategoriler</h4>
+	<ul class="list-group single">
+		@foreach (var item in Model)
+		{
+			<a href="#">
+				<li class="list-group-item d-flex justify-content-between align-items-center">
+					@item.CategoryName @await Component.InvokeAsync("BlogReadRightCategoriesCount", item.CategoryId)
+				</li>
+			</a>
+		}
+	</ul>
+</div>
