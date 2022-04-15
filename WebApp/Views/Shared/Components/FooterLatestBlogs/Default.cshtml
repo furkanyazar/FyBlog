@@ -8,13 +8,13 @@
 		{
 			<div class="blog-grids row mb-3">
 				<div class="col-md-5 blog-grid-left">
-					<a href="/Blog/Read/@item.BlogId">
+					<a asp-controller="Blog" asp-action="Read" asp-route-id="@item.BlogId">
 						<img src="@item.BlogThumbnailImageUrl" class="card-img-top img-fluid" alt="">
 					</a>
 				</div>
 				<div class="col-md-7 blog-grid-right">
 					<h5>
-						<a href="/Blog/Read/@item.BlogId">@item.BlogTitle</a>
+						<a asp-controller="Blog" asp-action="Read" asp-route-id="@item.BlogId">@item.BlogTitle</a>
 					</h5>
 					<div class="sub-meta">
 						<span>

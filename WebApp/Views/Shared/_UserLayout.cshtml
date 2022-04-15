@@ -44,12 +44,12 @@
 				<div class="col-md-4 top-forms text-center mt-lg-3 mt-md-1 mt-0">
 					<span>Hoşgeldin, Furkan!</span>
 					<span class="mx-lg-4 mx-md-2  mx-1">
-						<a href="/Login/Index">
+						<a asp-controller="Login" asp-action="Index">
 							<i class="fas fa-lock"></i> Giriş Yap
 						</a>
 					</span>
 					<span>
-						<a href="/Register/Index">
+						<a asp-controller="Register" asp-action="Index">
 							<i class="far fa-user"></i> Kayıt Ol
 						</a>
 					</span>
@@ -101,7 +101,7 @@
 									   {
 										   Write("active");
 									   }">
-							<a class="nav-link" href="/Blog/Index">Bloglar</a>
+							<a class="nav-link" asp-controller="Blog" asp-action="Index">Bloglar</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="#">İletişim</a>

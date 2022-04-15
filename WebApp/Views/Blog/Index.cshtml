@@ -19,7 +19,7 @@
 						item.BlogContent = Regex.Replace(item.BlogContent, @"</?\w+((\s+\w+(\s*=\s*(?:"".*?""|'.*?'|[^'"">\s]+))?)+\s*|\s*)/?>", string.Empty);
 
 						<div class="col-lg-4 card mb-5">
-							<a href="/Blog/Read/@item.BlogId">
+							<a asp-controller="Blog" asp-action="Read" asp-route-id="@item.BlogId">
 								<img src="@item.BlogThumbnailImageUrl" class="card-img-top img-fluid" alt="">
 							</a>
 							<div class="card-body">
@@ -50,7 +50,7 @@
 									</li>
 								</ul>
 								<h5 class="card-title">
-									<a href="/Blog/Read/@item.BlogId">
+									<a asp-controller="Blog" asp-action="Read" asp-route-id="@item.BlogId">
 										@if (item.BlogTitle.Length > 25)
 										{
 											Write(item.BlogTitle.Substring(0, 25) + "...");
@@ -71,7 +71,7 @@
 										Write(Html.Raw(item.BlogContent));
 									}
 								</p>
-								<a href="/Blog/Read/@item.BlogId" class="btn btn-primary read-m">Devamını Oku</a>
+								<a asp-controller="Blog" asp-action="Read" asp-route-id="@item.BlogId" class="btn btn-primary read-m">Devamını Oku</a>
 							</div>
 						</div>
 					}
