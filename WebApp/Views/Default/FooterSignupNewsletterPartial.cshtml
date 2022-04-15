@@ -2,12 +2,45 @@
 	<h2>Haber bültenimize kaydolun</h2>
 	<div class="subscribe-main text-left">
 		<div class="subscribe-form">
-			<form action="#" method="post" class="subscribe_form">
-				<input class="form-control" type="email" placeholder="E-posta adresi" required="">
-				<button type="submit" class="btn btn-primary submit">Gönder</button>
+			<form method="dialog" class="subscribe_form">
+				<input id="txtFooterNewsletterEmail" class="form-control" placeholder="E-posta adresi">
+				<button id="btnFooterNewsletter" type="submit" class="btn btn-primary submit">Gönder</button>
 			</form>
 			<div class="clearfix"> </div>
 		</div>
 		<p>Gizliliğinize saygı duyarız.</p>
 	</div>
 </div>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+	$("#btnFooterNewsletter").click(function() {
+		var newsletter = {
+			NewsletterEmail: txtFooterNewsletterEmail.value
+		};
+
+		signupNewsletter(newsletter);
+	});
+
+	$("#btnBlogRightNewsletter").click(function() {
+		var newsletter = {
+			NewsletterEmail: txtBlogRightNewsletterEmail.value
+		};
+
+		signupNewsletter(newsletter);
+	});
+
+	function signupNewsletter(newsletter) {
+		$.ajax({
+			url: "/Default/SignupNewsletter",
+			type: "POST",
+			data: newsletter,
+			success: function(response) {
+				if (response.success) swal("", response.message, "success");
+				else swal("", response.message, "error");
+			},
+			error: function() {
+				swal("", "Bir hata oluştu", "error");
+			}
+		});
+	}
+</script>
