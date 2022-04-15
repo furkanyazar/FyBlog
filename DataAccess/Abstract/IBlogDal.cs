@@ -8,6 +8,10 @@ namespace DataAccess.Abstract
 	{
 		List<Blog> GetAllWithCategoryAndWriter();
 
+		List<Blog> GetSomeByCategoryIdWithoutId(int blogId, int categoryId);
+
+		List<Blog> GetLatestBlogsWithCount(int count);
+
 		Blog GetByIdWithCategoryAndWriter(int id);
 	}
 }

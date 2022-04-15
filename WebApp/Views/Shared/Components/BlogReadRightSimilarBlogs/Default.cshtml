@@ -1,0 +1,38 @@
+﻿@using Entities.Concrete
+@model List<Blog>
+
+<div class="tech-btm @if (Model.Count < 1)
+					 {
+						 Write("d-none");
+					 }">
+	<h4>Benzer Bloglar</h4>
+	@foreach (var item in Model)
+	{
+		<div class="blog-grids row mb-3">
+			<div class="col-md-5 blog-grid-left">
+				<a href="/Blog/Read/@item.BlogId">
+					<img src="@item.BlogThumbnailImageUrl" class="img-fluid" alt="">
+				</a>
+			</div>
+			<div class="col-md-7 blog-grid-right">
+				<h5>
+					<a href="/Blog/Read/@item.BlogId">@item.BlogTitle</a>
+				</h5>
+				<div class="sub-meta">
+					<span>
+						<i class="far fa-clock"></i>
+						@if (item.BlogDateOf.Year == DateTime.Now.Year)
+						{
+							Write(item.BlogDateOf.ToString("dd MMMM"));
+						}
+						else
+						{
+							Write(item.BlogDateOf.ToString("dd MMMM yyyy"));
+						}
+					</span>
+				</div>
+			</div>
+		</div>
+	}
+</div>
+

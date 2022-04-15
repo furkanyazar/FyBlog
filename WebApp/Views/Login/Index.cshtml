@@ -1,0 +1,36 @@
+﻿@using Entities.Concrete
+@model User
+
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<section class="main-content-w3layouts-agileits">
+	<div class="container">
+		<h3 class="tittle">Giriş Yap</h3>
+		<div class="row inner-sec">
+			<div class="login p-5 bg-light mx-auto mw-100">
+				@using (Html.BeginForm("Index", "Login", FormMethod.Post))
+				{
+					<div class="form-group">
+						@Html.Label("E-posta")
+						@Html.TextBoxFor(x => x.UserEmail, new { @class = "form-control", @placeholder = "E-posta" } )
+						@Html.ValidationMessageFor(x => x.UserEmail, "", new { @class = "text-danger" })
+					</div>
+					<div class="form-group">
+						@Html.Label("Şifre")
+						@Html.TextBoxFor(x => x.UserPassword, new { @class = "form-control", @placeholder = "Şifre" } )
+						@Html.ValidationMessageFor(x => x.UserPassword, "", new { @class = "text-danger" })
+					</div>
+					<div class="form-check mb-2">
+						<input type="checkbox" class="form-check-input" name="checkMeOut">
+						<label class="form-check-label" for="exampleCheck1">Beni Hatırla</label>
+					</div>
+					<button type="submit" class="btn btn-primary submit mb-4">Giriş Yap</button>
+					<p><a href="/Register/Index">Hesabınız yok mu?</a></p>
+				}
+			</div>
+		</div>
+	</div>
+</section>

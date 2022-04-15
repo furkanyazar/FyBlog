@@ -1,0 +1,19 @@
+﻿@using Entities.Concrete
+@model Blog
+
+<div class="single-gd tech-btm">
+	<h4>En Yeni</h4>
+	<div class="blog-grids">
+		<div class="blog-grid-left">
+			<a href="/Blog/Read/@Model.BlogId">
+				<img src="@Model.BlogThumbnailImageUrl" class="img-fluid" alt="">
+			</a>
+		</div>
+		<div class="blog-grid-right">
+			<h5>
+				<a href="/Blog/Read/@Model.BlogId">@Model.BlogTitle</a>
+			</h5>
+		</div>
+		<div class="clearfix"> </div>
+	</div>
+</div>

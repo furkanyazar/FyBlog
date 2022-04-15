@@ -15,7 +15,7 @@ namespace WebApp.Controllers
 
 		public IActionResult Index()
 		{
-			var result = _blogService.GetAllWithCategoryAndWriter().OrderByDescending(x => x.BlogDateOf).ToList();
+			var result = _blogService.GetAllWithCategoryAndWriter().ToList();
 
 			return View(result);
 		}

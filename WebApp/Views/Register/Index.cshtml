@@ -16,31 +16,29 @@
 					<div class="form-row">
 						<div class="col-md-6 mb-3">
 							@Html.Label("Ad")
-							@Html.TextBoxFor(x => x.UserFirstName, new { @class = "form-control", @placeholder = "Furkan" } )
-							@Html.ValidationMessageFor(x => x.UserFirstName)
+							@Html.TextBoxFor(x => x.UserFirstName, new { @class = "form-control", @placeholder = "Ad" } )
+							@Html.ValidationMessageFor(x => x.UserFirstName, "", new { @class = "text-danger" })
 						</div>
 						<div class="col-md-6 mb-3">
 							@Html.Label("Soyad")
-							@Html.TextBoxFor(x => x.UserLastName, new { @class = "form-control", @placeholder = "Yazar" } )
-							@Html.ValidationMessageFor(x => x.UserLastName)
+							@Html.TextBoxFor(x => x.UserLastName, new { @class = "form-control", @placeholder = "Soyad" } )
+							@Html.ValidationMessageFor(x => x.UserLastName, "", new { @class = "text-danger" })
 						</div>
 					</div>
 					<div class="form-row">
 						<div class="form-group col-md-6">
 							@Html.Label("E-posta")
-							@Html.TextBoxFor(x => x.UserEmail, new { @class = "form-control", @placeholder = "furkanyazar9853@gmail.com" } )
-							@Html.ValidationMessageFor(x => x.UserEmail)
+							@Html.TextBoxFor(x => x.UserEmail, new { @class = "form-control", @placeholder = "E-posta" } )
+							@Html.ValidationMessageFor(x => x.UserEmail, "", new { @class = "text-danger" })
 						</div>
 						<div class="form-group col-md-6">
 							@Html.Label("Şifre")
 							@Html.PasswordFor(x => x.UserPassword, new { @class = "form-control", @placeholder = "Şifre" } )
-							@Html.ValidationMessageFor(x => x.UserPassword)
+							@Html.ValidationMessageFor(x => x.UserPassword, "", new { @class = "text-danger" })
 						</div>
 					</div>
 					<button type="submit" class="btn btn-primary submit mb-4">Kayıt Ol</button>
-					<p>
-						<a href="#" id="terms">Kayıt olarak, şartlarınızı kabul ediyorum</a>
-					</p>
+					<p><a href="#" id="terms">Kayıt olarak, şartlarımızı kabul etmiş olursunuz</a></p>
 				}
 			</div>
 		</div>
@@ -48,6 +46,6 @@
 </section>
 <script>
 	$( "#terms" ).click(function() {
-		swal("Kayıt olduğunuz e-posta adresi üzerinden spam ölçüsüne varmadan bilgi ve haber e-postaları gönderilecektir. Eğer e-posta bülteninden çıkmak isterseniz e-posta ileti dizisini durdurabilirsiniz. Şifreniz, şifrelenmiş formatta herhangi bir kullanıcının göremeyeceği şekilde saklanmaktadır.");
+		swal("Kayıt Şartları", "Kayıt olduğunuz e-posta adresi üzerinden spam ölçüsüne varmadan bilgi ve haber e-postaları gönderilecektir. Eğer e-posta bülteninden çıkmak isterseniz e-posta ileti dizisini durdurabilirsiniz. Şifreniz, şifrelenmiş formatta herhangi bir kullanıcının göremeyeceği şekilde saklanmaktadır.");
 	});
 </script>

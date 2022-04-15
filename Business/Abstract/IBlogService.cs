@@ -3,22 +3,26 @@ using System.Collections.Generic;
 
 namespace Business.Abstract
 {
-    public interface IBlogService
-    {
-        List<Blog> GetAll();
+	public interface IBlogService
+	{
+		List<Blog> GetAll();
 
-        List<Blog> GetAllWithCategoryAndWriter();
+		List<Blog> GetAllWithCategoryAndWriter();
 
-        List<Blog> GetAllByCategoryId(int id);
+		List<Blog> GetAllByCategoryId(int id);
 
-        Blog GetById(int id);
+		List<Blog> GetSomeByCategoryIdWithoutId(int blogId, int categoryId);
 
-        Blog GetByIdWithCategoryAndWriter(int id);
+		List<Blog> GetLatestBlogsWithCount(int count);
 
-        void Add(Blog blog);
+		Blog GetById(int id);
 
-        void Update(Blog blog);
+		Blog GetByIdWithCategoryAndWriter(int id);
 
-        void Delete(Blog blog);
-    }
+		void Add(Blog blog);
+
+		void Update(Blog blog);
+
+		void Delete(Blog blog);
+	}
 }

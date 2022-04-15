@@ -65,8 +65,8 @@
 					</div>
 					@await Html.PartialAsync("~/Views/Default/BlogReadRightSignupNewsletterPartial.cshtml")
 					@await Component.InvokeAsync("BlogReadRightCategories")
-					@await Html.PartialAsync("~/Views/Default/BlogReadRightSimilarBlogsPartial.cshtml")
-					@await Html.PartialAsync("~/Views/Default/BlogReadRightLatestPartial.cshtml")
+					@await Component.InvokeAsync("BlogReadRightSimilarBlogs", new { Model.BlogId, Model.CategoryId })
+					@await Component.InvokeAsync("BlogReadRightLatest")
 				</div>
 			</aside>
 			<!--//right-->
