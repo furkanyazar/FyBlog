@@ -4,14 +4,16 @@ using DataAccess.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(MvcCoreDbContext))]
-    partial class MvcCoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220415225553_mig_update_about")]
+    partial class mig_update_about
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,9 +38,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AboutThumbnailImageUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AboutTitle")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("AboutId");

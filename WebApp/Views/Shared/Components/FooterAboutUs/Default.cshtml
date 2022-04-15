@@ -1,0 +1,19 @@
+﻿@using Entities.Concrete
+@model About
+
+<div class="col-lg-4 footer-grid-agileits-w3ls text-left">
+	<h3>Hakkımızda</h3>
+	<p>
+		@if (Model.AboutText.Length > 150)
+		{
+			Write(Model.AboutText.Substring(0, Model.AboutText.Substring(0, 150).LastIndexOf(" ")) + "...");
+		}
+		else
+		{
+			Write(Model.AboutText);
+		}
+	</p>
+	<div class="read">
+		<a asp-controller="About" asp-action="Index" class="btn btn-primary read-m">Devamını oku</a>
+	</div>
+</div>

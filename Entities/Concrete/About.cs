@@ -3,13 +3,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Entities.Concrete
 {
-    public class About : IEntity
-    {
-        [Key]
-        public int AboutId { get; set; }
+	public class About : IEntity
+	{
+		[Key]
+		public int AboutId { get; set; }
 
-        public string AboutText { get; set; }
-        public string AboutImageUrl { get; set; }
-        public bool AboutStatus { get; set; } = true;
-    }
+		public string AboutTitle { get; set; }
+		public string AboutText { get; set; }
+		public string AboutImageUrl { get; set; }
+		public string AboutThumbnailImageUrl { get; set; }
+		public bool AboutStatus { get; set; } = true;
+	}
 }

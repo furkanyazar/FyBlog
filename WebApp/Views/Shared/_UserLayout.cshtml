@@ -94,8 +94,11 @@
 								Ana Sayfa
 							</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">Hakkımızda</a>
+						<li class="nav-item @if (Context.Request.Path.ToString().Contains("About"))
+									   {
+										   Write("active");
+									   }">
+							<a class="nav-link" asp-controller="About" asp-action="Index">Hakkımızda</a>
 						</li>
 						<li class="nav-item @if (Context.Request.Path.ToString().Contains("Blog"))
 									   {
@@ -120,7 +123,7 @@
 	<footer>
 		<div class="container">
 			<div class="row">
-				@await Html.PartialAsync("~/Views/Default/FooterAboutUsPartial.cshtml")
+				@await Component.InvokeAsync("FooterAboutUs")
 				@await Component.InvokeAsync("FooterLatestBlogs")
 				<!-- subscribe -->
 				@await Html.PartialAsync("~/Views/Default/FooterSignupNewsletterPartial.cshtml")
