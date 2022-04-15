@@ -13,5 +13,9 @@
         public static string UserPasswordNotEmpty = "Şifre boş bırakılamaz";
         public static string UserPasswordMinimumLength = "Şifre en az 8 karakterden oluşmalı";
         public static string UserPasswordMaximumLength = "Şifre en fazla 50 karakterden oluşabilir";
+
+        public static string CommentContentNotEmpty = "Yorum boş bırakılamaz";
+        public static string CommentContentMinimumLength = "Yorum en az 5 karakterden oluşmalı";
+        public static string CommentContentMaximumLength = "Yorum en fazla 500 karakterden oluşabilir";
     }
 }

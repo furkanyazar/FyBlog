@@ -3,15 +3,14 @@
 	<div class="subscribe-main text-left">
 		<div class="subscribe-form">
 			<form method="dialog" class="subscribe_form">
-				<input id="txtFooterNewsletterEmail" class="form-control" placeholder="E-posta adresi">
+				<input id="txtFooterNewsletterEmail" class="form-control" type="email" placeholder="E-posta adresi" required="">
 				<button id="btnFooterNewsletter" type="submit" class="btn btn-primary submit">Gönder</button>
+				<div class="clearfix"> </div>
 			</form>
-			<div class="clearfix"> </div>
 		</div>
 		<p>Gizliliğinize saygı duyarız.</p>
 	</div>
 </div>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
 	$("#btnFooterNewsletter").click(function() {
 		var newsletter = {

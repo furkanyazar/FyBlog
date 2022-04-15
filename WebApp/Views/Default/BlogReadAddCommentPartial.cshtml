@@ -1,10 +1,35 @@
-﻿<div class="comment-top">
+﻿@model int
+
+<div class="comment-top">
 	<h4>Yorum Yap</h4>
 	<div class="comment-bottom">
-		<form action="#" method="post">
-			<input class="form-control" type="text" name="Name" placeholder="Ad" required="">
-			<textarea class="form-control" name="Message" placeholder="Yorum" required="" rows="5"></textarea>
-			<button type="submit" class="btn btn-primary submit">Gönder</button>
+		<form method="dialog">
+			<input type="hidden" id="txtBlogId" value="@Model" />
+			<input class="form-control" type="text" id="txtCommentUserFullName" placeholder="Ad">
+			<textarea class="form-control" id="txtCommentContent" placeholder="Yorum" rows="5"></textarea>
+			<button id="btnComment" type="submit" class="btn btn-primary submit">Gönder</button>
 		</form>
 	</div>
 </div>
+<script>
+	$("#btnComment").click(function() {
+		var comment = {
+			BlogId: txtBlogId.value,
+			CommentUserFullName: txtCommentUserFullName.value,
+			CommentContent: txtCommentContent.value
+		};
+
+		$.ajax({
+			url: "/Default/Comment",
+			type: "POST",
+			data: comment,
+			success: function(response) {
+				if (response.success) location.reload();
+				else swal("", response.message, "error");
+			},
+			error: function() {
+				swal("", "Bir hata oluştu", "error");
+			}
+		});
+	});
+</script>

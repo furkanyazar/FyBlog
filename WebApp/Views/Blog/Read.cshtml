@@ -54,7 +54,7 @@
 					</div>
 				</div>
 				@await Component.InvokeAsync("BlogReadComments", Model.BlogId)
-				@await Html.PartialAsync("~/Views/Default/BlogReadAddCommentPartial.cshtml")
+				@await Html.PartialAsync("~/Views/Default/BlogReadAddCommentPartial.cshtml", Model.BlogId)
 			</div>
 			<!--//left-->
 			<!--right-->
