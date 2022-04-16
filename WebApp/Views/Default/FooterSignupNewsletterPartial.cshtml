@@ -34,7 +34,7 @@
 			type: "POST",
 			data: newsletter,
 			success: function(response) {
-				if (response.success) swal("", response.message, "success");
+				if (response.success) swal("", response.message, "success").then(() => { location.reload() });
 				else swal("", response.message, "error");
 			},
 			error: function() {

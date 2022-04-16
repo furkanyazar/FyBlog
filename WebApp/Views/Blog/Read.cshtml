@@ -21,7 +21,7 @@
 							<ul>
 								<li>
 									<a href="#">
-										<i class="far fa-calendar-alt">
+										<i class="fas fa-calendar-alt">
 											@if (Model.BlogDateOf.Year == DateTime.Now.Year)
 											{
 												Write(Model.BlogDateOf.ToString("dd MMMM"));
@@ -73,3 +73,9 @@
 		</div>
 	</div>
 </section>
+<script>
+	$(document).ready(function() {
+		var yOffset = $(window.location.hash).offset().top;
+		$("body").scrollTop(yOffset);
+	});
+</script>

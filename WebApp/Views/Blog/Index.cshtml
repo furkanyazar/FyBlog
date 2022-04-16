@@ -24,23 +24,14 @@
 							</a>
 							<div class="card-body">
 								<ul class="blog-icons my-4">
-									<li>
-										<a href="#">
-											<i class="far fa-calendar-alt">
-												@if (item.BlogDateOf.Year == DateTime.Now.Year)
-												{
-													Write(item.BlogDateOf.ToString("dd MMMM"));
-												}
-												else
-												{
-													Write(item.BlogDateOf.ToString("dd MMMM yyyy"));
-												}
-											</i>
+									<li class="mx-2">
+										<a asp-controller="Blog" asp-action="Read" asp-route-id="@item.BlogId" asp-fragment="comments">
+											@await Component.InvokeAsync("BlogIndexCommentsCount", item.BlogId)
 										</a>
 									</li>
-									<li>
+									<li class="ml-3">
 										<a href="#">
-											<i class="fas fa-user"></i> @item.Writer.User.UserFirstName
+											<i class="fas fa-user"></i> @item.Writer.User.UserFirstName[0]. @item.Writer.User.UserLastName
 										</a>
 									</li>
 									<li>
