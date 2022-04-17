@@ -1,0 +1,74 @@
+﻿@using System.Text.RegularExpressions
+@using Entities.Concrete
+@model List<Blog>
+
+@{
+	ViewData["Title"] = "Bloglar";
+	Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<section class="main-content-w3layouts-agileits">
+	<div class="container">
+		<h3 class="tittle">Bloglar</h3>
+		<div class="inner-sec">
+			<!--left-->
+			<div class="left-blog-info-w3layouts-agileits text-left">
+				<div class="row">
+					@foreach (var item in Model)
+					{
+						item.BlogContent = Regex.Replace(item.BlogContent, @"</?\w+((\s+\w+(\s*=\s*(?:"".*?""|'.*?'|[^'"">\s]+))?)+\s*|\s*)/?>", string.Empty);
+
+						<div class="col-lg-4 card mb-5">
+							<a asp-controller="Blog" asp-action="Read" asp-route-id="@item.BlogId">
+								<img src="@item.BlogThumbnailImageUrl" class="card-img-top img-fluid" alt="">
+							</a>
+							<div class="card-body">
+								<ul class="blog-icons my-4">
+									<li class="mx-2">
+										<a asp-controller="Blog" asp-action="Read" asp-route-id="@item.BlogId" asp-fragment="comments">
+											@await Component.InvokeAsync("BlogIndexCommentsCount", item.BlogId)
+										</a>
+									</li>
+									<li class="ml-3">
+										<a asp-controller="Blog" asp-action="Writer" asp-route-id="@item.WriterId">
+											<i class="fas fa-user"></i> @item.Writer.User.UserFirstName[0]. @item.Writer.User.UserLastName
+										</a>
+									</li>
+									<li>
+										<a asp-controller="Blog" asp-action="Category" asp-route-id="@item.CategoryId">
+											<i class="fas fa-list"></i> @item.Category.CategoryName
+										</a>
+									</li>
+								</ul>
+								<h5 class="card-title">
+									<a asp-controller="Blog" asp-action="Read" asp-route-id="@item.BlogId">
+										@if (item.BlogTitle.Length > 25)
+										{
+											Write(item.BlogTitle.Substring(0, 25) + "...");
+										}
+										else
+										{
+											Write(item.BlogTitle);
+										}
+									</a>
+								</h5>
+								<p class="card-text mb-3">
+									@if (item.BlogContent.Length > 100)
+									{
+										Write(Html.Raw(item.BlogContent.Substring(0, item.BlogContent.Substring(0, 100).LastIndexOf(" ")) + "..."));
+									}
+									else
+									{
+										Write(Html.Raw(item.BlogContent));
+									}
+								</p>
+								<a asp-controller="Blog" asp-action="Read" asp-route-id="@item.BlogId" class="btn btn-primary read-m">Devamını Oku</a>
+							</div>
+						</div>
+					}
+				</div>
+				<!--//left-->
+			</div>
+		</div>
+	</div>
+</section>

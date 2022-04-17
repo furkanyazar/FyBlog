@@ -50,5 +50,12 @@ namespace WebApp.Controllers
 
             return View(result);
         }
+
+        public IActionResult Search(string searchKey)
+        {
+            var result = _blogService.GetAllBySearchKey(searchKey);
+
+            return View(result);
+        }
     }
 }

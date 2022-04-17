@@ -45,6 +45,11 @@ namespace Business.Concrete
             return _blogDal.GetAllByDateOfWithCategoryAndWriter(dateOf);
         }
 
+        public List<Blog> GetAllBySearchKey(string searchKey)
+        {
+            return _blogDal.GetAllBySearchKey(searchKey);
+        }
+
         public List<Blog> GetAllByWriterIdWithCategoryAndWriter(int id)
         {
             return _blogDal.GetAllByWriterIdWithCategoryAndWriter(id);

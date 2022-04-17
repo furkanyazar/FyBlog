@@ -26,6 +26,14 @@ namespace DataAccess.Concrete.EntityFramework
             }
         }
 
+        public List<Blog> GetAllBySearchKey(string searchKey)
+        {
+            using (var context = new MvcCoreDbContext())
+            {
+                return context.Blogs.Where(x => x.BlogTitle.ToLower().Contains(searchKey.ToLower().Trim()) || x.BlogContent.ToLower().Contains(searchKey.ToLower().Trim())).OrderByDescending(x => x.BlogDateOf).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).ToList();
+            }
+        }
+
         public List<Blog> GetAllByWriterIdWithCategoryAndWriter(int id)
         {
             using (var context = new MvcCoreDbContext())

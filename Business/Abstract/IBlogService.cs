@@ -10,6 +10,8 @@ namespace Business.Abstract
 
         List<Blog> GetAllWithCategoryAndWriter();
 
+        List<Blog> GetAllBySearchKey(string searchKey);
+
         List<Blog> GetAllByCategoryId(int id);
 
         List<Blog> GetAllByCategoryIdWithCategoryAndWriter(int id);
