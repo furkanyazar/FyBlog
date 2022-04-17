@@ -183,25 +183,37 @@
                 <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
               </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item @if (Context.Request.Path.Value == "/Writer" || Context.Request.Path.Value == "/Writer/Index")
+                               {
+                                   Write("active");
+                               }">
               <a class="nav-link" asp-controller="Writer" asp-action="Index">
                 <span class="menu-title">Ana Sayfa</span>
                 <i class="mdi mdi-home menu-icon"></i>
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" asp-controller="Writer" asp-action="Blog" asp-route-id="@Context.User.Claims.SingleOrDefault(x => x.Type == "UserId").Value">
+            <li class="nav-item @if (Context.Request.Path.Value.Contains("Blog"))
+                               {
+                                   Write("active");
+                               }">
+              <a class="nav-link" asp-controller="Writer" asp-action="MyBlogs" asp-route-id="@Context.User.Claims.SingleOrDefault(x => x.Type == "UserId").Value">
                 <span class="menu-title">Bloglarım</span>
                 <i class="mdi mdi-checkbox-multiple-blank menu-icon"></i>
               </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item @if (false)
+                               {
+                                   Write("active");
+                               }">
               <a class="nav-link" href="#">
                 <span class="menu-title">Mesajlar</span>
                 <i class="mdi mdi-android-messages menu-icon"></i>
               </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item @if (false)
+                               {
+                                   Write("active");
+                               }">
               <a class="nav-link" href="#">
                 <span class="menu-title">Ayarlar</span>
                 <i class="mdi mdi-tune menu-icon"></i>
@@ -209,7 +221,7 @@
             </li>
             <li class="nav-item sidebar-actions">
               <span class="nav-link">
-                <button class="btn btn-block btn-lg btn-gradient-primary">+ Yeni Blog</button>
+                <a class="btn btn-block btn-lg btn-gradient-primary" asp-controller="Writer" asp-action="AddBlog">+ Yeni Blog</a>
               </span>
             </li>
           </ul>
@@ -246,5 +258,6 @@
     <!-- endinject -->
     <!-- Custom js for this page -->
     <!-- End custom js for this page -->
+    <script src="/writer/js/file-upload.js"></script>
   </body>
 </html>
