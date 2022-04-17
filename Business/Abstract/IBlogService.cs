@@ -1,28 +1,35 @@
 ﻿using Entities.Concrete;
+using System;
 using System.Collections.Generic;
 
 namespace Business.Abstract
 {
-	public interface IBlogService
-	{
-		List<Blog> GetAll();
+    public interface IBlogService
+    {
+        List<Blog> GetAll();
 
-		List<Blog> GetAllWithCategoryAndWriter();
+        List<Blog> GetAllWithCategoryAndWriter();
 
-		List<Blog> GetAllByCategoryId(int id);
+        List<Blog> GetAllByCategoryId(int id);
 
-		List<Blog> GetSomeByCategoryIdWithoutId(int blogId, int categoryId);
+        List<Blog> GetAllByCategoryIdWithCategoryAndWriter(int id);
 
-		List<Blog> GetLatestBlogsWithCount(int count);
+        List<Blog> GetAllByWriterIdWithCategoryAndWriter(int id);
 
-		Blog GetById(int id);
+        List<Blog> GetAllByDateOfWithCategoryAndWriter(DateTime dateOf);
 
-		Blog GetByIdWithCategoryAndWriter(int id);
+        List<Blog> GetSomeByCategoryIdWithoutId(int blogId, int categoryId);
 
-		void Add(Blog blog);
+        List<Blog> GetLatestBlogsWithCount(int count);
 
-		void Update(Blog blog);
+        Blog GetById(int id);
 
-		void Delete(Blog blog);
-	}
+        Blog GetByIdWithCategoryAndWriter(int id);
+
+        void Add(Blog blog);
+
+        void Update(Blog blog);
+
+        void Delete(Blog blog);
+    }
 }

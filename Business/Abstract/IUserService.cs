@@ -9,6 +9,8 @@ namespace Business.Abstract
 
         User GetById(int id);
 
+        User GetByEmailAndPassword(User user);
+
         void Add(User user);
 
         void Update(User user);

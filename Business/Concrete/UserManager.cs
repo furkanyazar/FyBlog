@@ -29,6 +29,11 @@ namespace Business.Concrete
             return _userDal.GetAll();
         }
 
+        public User GetByEmailAndPassword(User user)
+        {
+            return _userDal.GetByEmailAndPassword(user);
+        }
+
         public User GetById(int id)
         {
             return _userDal.Get(x => x.UserId == id);

@@ -95,7 +95,6 @@
 <script>
 	$(document).ready(function() {
 		let urlParams = new URLSearchParams(window.location.search).get("Status");
-		
-		if (urlParams) swal("Mesaj gönderildi");
+		if (urlParams) swal("", "Mesaj gönderildi", "success");
 	});
 </script>

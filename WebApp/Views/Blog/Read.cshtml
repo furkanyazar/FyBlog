@@ -20,7 +20,7 @@
 						<div class="blog-info-middle">
 							<ul>
 								<li>
-									<a href="#">
+									<a asp-controller="Blog" asp-action="Date" asp-route-dateOf="@Model.BlogDateOf.ToShortDateString()">
 										<i class="fas fa-calendar-alt">
 											@if (Model.BlogDateOf.Year == DateTime.Now.Year)
 											{
@@ -34,12 +34,12 @@
 									</a>
 								</li>
 								<li class="mx-3">
-									<a href="#">
+									<a asp-controller="Blog" asp-action="Writer" asp-route-id="@Model.WriterId">
 										<i class="fas fa-user"></i> @Model.Writer.User.UserFirstName @Model.Writer.User.UserLastName
 									</a>
 								</li>
 								<li>
-									<a href="#">
+									<a asp-controller="Blog" asp-action="Category" asp-route-id="@Model.CategoryId">
 										<i class="fas fa-list"></i> @Model.Category.CategoryName
 									</a>
 								</li>

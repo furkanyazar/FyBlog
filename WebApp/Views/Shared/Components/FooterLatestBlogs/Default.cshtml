@@ -17,17 +17,19 @@
 						<a asp-controller="Blog" asp-action="Read" asp-route-id="@item.BlogId">@item.BlogTitle</a>
 					</h5>
 					<div class="sub-meta">
-						<span>
-							<i class="far fa-clock"></i>
-							@if (item.BlogDateOf.Year == DateTime.Now.Year)
-							{
-								Write(item.BlogDateOf.ToString("dd MMMM"));
-							}
-							else
-							{
-								Write(item.BlogDateOf.ToString("dd MMMM yyyy"));
-							}
-						</span>
+						<a asp-controller="Blog" asp-action="Date" asp-route-dateOf="@item.BlogDateOf.Date.ToShortDateString()">
+							<span>
+								<i class="far fa-clock"></i>
+								@if (item.BlogDateOf.Year == DateTime.Now.Year)
+								{
+									Write(item.BlogDateOf.ToString("dd MMMM"));
+								}
+								else
+								{
+									Write(item.BlogDateOf.ToString("dd MMMM yyyy"));
+								}
+							</span>
+						</a>
 					</div>
 				</div>
 			</div>

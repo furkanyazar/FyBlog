@@ -1,17 +1,24 @@
 ﻿using Core.DataAccess;
 using Entities.Concrete;
+using System;
 using System.Collections.Generic;
 
 namespace DataAccess.Abstract
 {
-	public interface IBlogDal : IEntityRepository<Blog>
-	{
-		List<Blog> GetAllWithCategoryAndWriter();
+    public interface IBlogDal : IEntityRepository<Blog>
+    {
+        List<Blog> GetAllWithCategoryAndWriter();
 
-		List<Blog> GetSomeByCategoryIdWithoutId(int blogId, int categoryId);
+        List<Blog> GetAllByCategoryIdWithCategoryAndWriter(int id);
 
-		List<Blog> GetLatestBlogsWithCount(int count);
+        List<Blog> GetAllByWriterIdWithCategoryAndWriter(int id);
 
-		Blog GetByIdWithCategoryAndWriter(int id);
-	}
+        List<Blog> GetAllByDateOfWithCategoryAndWriter(DateTime dateOf);
+
+        List<Blog> GetSomeByCategoryIdWithoutId(int blogId, int categoryId);
+
+        List<Blog> GetLatestBlogsWithCount(int count);
+
+        Blog GetByIdWithCategoryAndWriter(int id);
+    }
 }
