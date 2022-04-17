@@ -1,6 +1,4 @@
-﻿@using System.Security.Claims
-
-@{
+﻿@{
 	Layout = null;
 }
 
@@ -38,7 +36,11 @@
 				<div class="col-md-4 top-forms text-center mt-lg-3 mt-md-1 mt-0">
 					@if (Context.User.Claims.Count() > 0)
 					{
-						<span>Hoşgeldin, @Context.User.Claims.SingleOrDefault(x => x.Type == ClaimTypes.Name).Value!</span>
+						<span class="mx-lg-4 mx-md-2  mx-1">
+							<a asp-controller="Writer" asp-action="Index">
+								<i class="fas fa-columns"></i> Yazar Paneli
+							</a>
+						</span>
 						<span class="mx-lg-4 mx-md-2  mx-1">
 							<a asp-controller="Login" asp-action="Logout">
 								<i class="fas fa-lock"></i> Çıkış Yap

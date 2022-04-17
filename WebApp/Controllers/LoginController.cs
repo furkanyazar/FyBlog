@@ -9,51 +9,57 @@ using System.Threading.Tasks;
 
 namespace WebApp.Controllers
 {
-    [AllowAnonymous]
-    public class LoginController : Controller
-    {
-        private IUserService _userService;
+	[AllowAnonymous]
+	public class LoginController : Controller
+	{
+		private IUserService _userService;
+		private IWriterService _writerService;
 
-        public LoginController(IUserService userService)
-        {
-            _userService = userService;
-        }
+		public LoginController(IUserService userService, IWriterService writerService)
+		{
+			_userService = userService;
+			_writerService = writerService;
+		}
 
-        [HttpGet]
-        public IActionResult Index()
-        {
-            return View();
-        }
+		[HttpGet]
+		public IActionResult Index()
+		{
+			return View();
+		}
 
-        [HttpPost]
-        public async Task<IActionResult> Index(User user)
-        {
-            var result = _userService.GetByEmailAndPassword(user);
+		[HttpPost]
+		public async Task<IActionResult> Index(User user)
+		{
+			var result = _userService.GetByEmailAndPassword(user);
 
-            if (result is not null)
-            {
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Email, result.UserEmail),
-                    new Claim(ClaimTypes.Name, result.UserFirstName),
-                    new Claim(ClaimTypes.Surname, result.UserLastName),
-                };
+			if (result is not null)
+			{
+				var writer = _writerService.GetById(result.UserId);
 
-                var claimIdentity = new ClaimsIdentity(claims, "A");
-                var claimsPrincipal = new ClaimsPrincipal(claimIdentity);
+				var claims = new List<Claim>
+				{
+					new Claim("UserEmail", result.UserEmail),
+					new Claim("UserFirstName", result.UserFirstName),
+					new Claim("UserLastName", result.UserLastName),
+					new Claim("WriterImageUrl", writer.WriterImageUrl)
+				};
 
-                await HttpContext.SignInAsync(claimsPrincipal);
+				var claimIdentity = new ClaimsIdentity(claims, "A");
+				var claimsPrincipal = new ClaimsPrincipal(claimIdentity);
 
-                return RedirectToAction("Index", "Blog");
-            }
+				await HttpContext.SignInAsync(claimsPrincipal);
 
-            return View();
-        }
+				return RedirectToAction("Index", "Writer");
+			}
 
-        public async Task<IActionResult> Logout()
-        {
-            await HttpContext.SignOutAsync();
-            return RedirectToAction("Index", "Blog");
-        }
-    }
+			return View();
+		}
+
+		public async Task<IActionResult> Logout()
+		{
+			await HttpContext.SignOutAsync();
+
+			return RedirectToAction("Index", "Login");
+		}
+	}
 }
