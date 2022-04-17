@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Business;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -6,83 +7,55 @@ using System.Collections.Generic;
 
 namespace Business.Concrete
 {
-    public class BlogManager : IBlogService
+    public class BlogManager : EntityManager<Blog, IBlogDal>, IBlogService
     {
-        private IBlogDal _blogDal;
-
-        public BlogManager(IBlogDal blogDal)
+        public BlogManager(IBlogDal tdal) : base(tdal)
         {
-            _blogDal = blogDal;
-        }
-
-        public void Add(Blog blog)
-        {
-            _blogDal.Add(blog);
-        }
-
-        public void Delete(Blog blog)
-        {
-            _blogDal.Delete(blog);
-        }
-
-        public List<Blog> GetAll()
-        {
-            return _blogDal.GetAll();
         }
 
         public List<Blog> GetAllByCategoryId(int id)
         {
-            return _blogDal.GetAll(x => x.CategoryId == id);
+            return _tdal.GetAll(x => x.CategoryId == id);
         }
 
         public List<Blog> GetAllByCategoryIdWithCategoryAndWriter(int id)
         {
-            return _blogDal.GetAllByCategoryIdWithCategoryAndWriter(id);
+            return _tdal.GetAllByCategoryIdWithCategoryAndWriter(id);
         }
 
         public List<Blog> GetAllByDateOfWithCategoryAndWriter(DateTime dateOf)
         {
-            return _blogDal.GetAllByDateOfWithCategoryAndWriter(dateOf);
+            return _tdal.GetAllByDateOfWithCategoryAndWriter(dateOf);
         }
 
         public List<Blog> GetAllBySearchKey(string searchKey)
         {
-            return _blogDal.GetAllBySearchKey(searchKey);
+            return _tdal.GetAllBySearchKey(searchKey);
         }
 
         public List<Blog> GetAllByWriterIdWithCategoryAndWriter(int id)
         {
-            return _blogDal.GetAllByWriterIdWithCategoryAndWriter(id);
+            return _tdal.GetAllByWriterIdWithCategoryAndWriter(id);
         }
 
         public List<Blog> GetAllWithCategoryAndWriter()
         {
-            return _blogDal.GetAllWithCategoryAndWriter();
-        }
-
-        public Blog GetById(int id)
-        {
-            return _blogDal.Get(x => x.BlogId == id);
+            return _tdal.GetAllWithCategoryAndWriter();
         }
 
         public Blog GetByIdWithCategoryAndWriter(int id)
         {
-            return _blogDal.GetByIdWithCategoryAndWriter(id);
+            return _tdal.GetByIdWithCategoryAndWriter(id);
         }
 
         public List<Blog> GetLatestBlogsWithCount(int count)
         {
-            return _blogDal.GetLatestBlogsWithCount(count);
+            return _tdal.GetLatestBlogsWithCount(count);
         }
 
         public List<Blog> GetSomeByCategoryIdWithoutId(int blogId, int categoryId)
         {
-            return _blogDal.GetSomeByCategoryIdWithoutId(blogId, categoryId);
-        }
-
-        public void Update(Blog blog)
-        {
-            _blogDal.Update(blog);
+            return _tdal.GetSomeByCategoryIdWithoutId(blogId, categoryId);
         }
     }
 }

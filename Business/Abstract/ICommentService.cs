@@ -1,20 +1,11 @@
-﻿using Entities.Concrete;
+﻿using Core.Business;
+using Entities.Concrete;
 using System.Collections.Generic;
 
 namespace Business.Abstract
 {
-    public interface ICommentService
+    public interface ICommentService : IEntityService<Comment>
     {
-        List<Comment> GetAll();
-
         List<Comment> GetAllByBlogId(int id);
-
-        Comment GetById(int id);
-
-        void Add(Comment comment);
-
-        void Update(Comment comment);
-
-        void Delete(Comment comment);
     }
 }

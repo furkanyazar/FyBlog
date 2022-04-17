@@ -1,13 +1,12 @@
-﻿using Entities.Concrete;
+﻿using Core.Business;
+using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 
 namespace Business.Abstract
 {
-    public interface IBlogService
+    public interface IBlogService : IEntityService<Blog>
     {
-        List<Blog> GetAll();
-
         List<Blog> GetAllWithCategoryAndWriter();
 
         List<Blog> GetAllBySearchKey(string searchKey);
@@ -24,14 +23,6 @@ namespace Business.Abstract
 
         List<Blog> GetLatestBlogsWithCount(int count);
 
-        Blog GetById(int id);
-
         Blog GetByIdWithCategoryAndWriter(int id);
-
-        void Add(Blog blog);
-
-        void Update(Blog blog);
-
-        void Delete(Blog blog);
     }
 }

@@ -1,18 +1,9 @@
-﻿using Entities.Concrete;
-using System.Collections.Generic;
+﻿using Core.Business;
+using Entities.Concrete;
 
 namespace Business.Abstract
 {
-    public interface INewsletterService
+    public interface INewsletterService : IEntityService<Newsletter>
     {
-        List<Newsletter> GetAll();
-
-        Newsletter GetById(int id);
-
-        void Add(Newsletter newsletter);
-
-        void Update(Newsletter newsletter);
-
-        void Delete(Newsletter newsletter);
     }
 }

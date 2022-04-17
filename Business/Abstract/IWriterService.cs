@@ -1,18 +1,10 @@
-﻿using Entities.Concrete;
-using System.Collections.Generic;
+﻿using Core.Business;
+using Entities.Concrete;
 
 namespace Business.Abstract
 {
-	public interface IWriterService
-	{
-		List<Writer> GetAll();
-
-		Writer GetById(int id);
-
-		void Add(Writer writer);
-
-		void Update(Writer writer);
-
-		void Delete(Writer writer);
-	}
+    public interface IWriterService : IEntityService<Writer>
+    {
+        Writer GetById(int id);
+    }
 }
