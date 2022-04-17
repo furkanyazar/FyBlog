@@ -38,6 +38,7 @@ namespace WebApp.Controllers
 
 				var claims = new List<Claim>
 				{
+					new Claim("UserId", result.UserId.ToString()),
 					new Claim("UserEmail", result.UserEmail),
 					new Claim("UserFirstName", result.UserFirstName),
 					new Claim("UserLastName", result.UserLastName),

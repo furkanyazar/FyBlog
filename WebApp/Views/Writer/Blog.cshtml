@@ -1,0 +1,71 @@
+﻿@using Entities.Concrete
+@model List<Blog>
+
+@{
+	ViewData["Title"] = "Bloglarım";
+	Layout = "~/Views/Shared/_WriterLayout.cshtml";
+}
+
+<div class="row">
+	<div class="col-12 grid-margin">
+		<div class="card">
+			<div class="card-body">
+				<h4 class="card-title">Bloglarım</h4>
+				<div class="table-responsive">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Başlık</th>
+								<th>Kategori</th>
+								<th>Tarih</th>
+								<th>Durum</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var item in Model)
+							{
+								<tr>
+									<td>@item.BlogId</td>
+									<td>@item.BlogTitle</td>
+									<td>@item.Category.CategoryName</td>
+									<td>@item.BlogDateOf.ToShortDateString()</td>
+									<td>
+										<span class="badge @{
+									    switch (item.BlogStatus)
+										{
+											case true:
+												Write("badge-gradient-success");
+												break;
+											default:
+												Write("badge-gradient-danger");
+												break;
+									}
+}">
+											@{
+												switch (item.BlogStatus)
+												{
+													case true:
+														Write("Aktif");
+														break;
+													default:
+														Write("Pasif");
+														break;
+												}
+											}
+										</span>
+									</td>
+									<td>
+										<button type="button" class="btn btn-gradient-info btn-fw">Düzenle</button>
+										<a class="btn btn-gradient-danger btn-fw" asp-controller="Writer" asp-action="Delete" asp-route-id="@item.BlogId">Sil</a>
+									</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
