@@ -7,7 +7,7 @@
     //  document.querySelector('#proBanner').classList.add('d-none');
     //});
     
-    Chart.defaults.global.legend.labels.usePointStyle = true;
+    //Chart.defaults.global.legend.labels.usePointStyle = true;
     
     if ($("#serviceSaleProgress").length) {
       var bar = new ProgressBar.Circle(serviceSaleProgress, {
