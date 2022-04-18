@@ -16,5 +16,10 @@ namespace Business.Concrete
         {
             return _tdal.GetAll(x => x.BlogId == id);
         }
+
+        public List<Comment> GetAllByLastWeekAndBlogId(int id)
+        {
+            return _tdal.GetAllByLastWeekAndBlogId(id);
+        }
     }
 }
