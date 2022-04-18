@@ -25,28 +25,28 @@ namespace WebApp.Controllers
 
         public IActionResult Read(int id)
         {
-            var result = _blogService.GetByIdWithCategoryAndWriter(id);
+            var result = _blogService.GetById(id);
 
             return View(result);
         }
 
         public IActionResult Category(int id)
         {
-            var result = _blogService.GetAllByCategoryIdWithCategoryAndWriter(id);
+            var result = _blogService.GetAllByCategoryId(id);
 
             return View(result);
         }
 
         public IActionResult Writer(int id)
         {
-            var result = _blogService.GetAllByWriterIdWithCategoryAndWriter(id);
+            var result = _blogService.GetAllByWriterId(id);
 
             return View(result);
         }
 
         public IActionResult Date(string dateOf)
         {
-            var result = _blogService.GetAllByDateOfWithCategoryAndWriter(DateTime.Parse(dateOf));
+            var result = _blogService.GetAllByDateOf(DateTime.Parse(dateOf));
 
             return View(result);
         }

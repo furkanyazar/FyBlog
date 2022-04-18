@@ -13,16 +13,14 @@ namespace Business.Abstract
 
         List<Blog> GetAllByCategoryId(int id);
 
-        List<Blog> GetAllByCategoryIdWithCategoryAndWriter(int id);
+        List<Blog> GetAllByWriterId(int id);
 
-        List<Blog> GetAllByWriterIdWithCategoryAndWriter(int id);
-
-        List<Blog> GetAllByDateOfWithCategoryAndWriter(DateTime dateOf);
+        List<Blog> GetAllByDateOf(DateTime dateOf);
 
         List<Blog> GetSomeByCategoryIdWithoutId(int blogId, int categoryId);
 
-        List<Blog> GetLatestBlogsWithCount(int count);
+        List<Blog> GetLatestsWithCount(int count);
 
-        Blog GetByIdWithCategoryAndWriter(int id);
+        Blog GetById(int id);
     }
 }

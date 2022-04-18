@@ -10,7 +10,7 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfBlogDal : EfEntityRepository<Blog, MvcCoreDbContext>, IBlogDal
     {
-        public List<Blog> GetAllByCategoryIdWithCategoryAndWriter(int id)
+        public List<Blog> GetAllByCategoryId(int id)
         {
             using (var context = new MvcCoreDbContext())
             {
@@ -18,7 +18,7 @@ namespace DataAccess.Concrete.EntityFramework
             }
         }
 
-        public List<Blog> GetAllByDateOfWithCategoryAndWriter(DateTime dateOf)
+        public List<Blog> GetAllByDateOf(DateTime dateOf)
         {
             using (var context = new MvcCoreDbContext())
             {
@@ -34,7 +34,7 @@ namespace DataAccess.Concrete.EntityFramework
             }
         }
 
-        public List<Blog> GetAllByWriterIdWithCategoryAndWriter(int id)
+        public List<Blog> GetAllByWriterId(int id)
         {
             using (var context = new MvcCoreDbContext())
             {
@@ -50,7 +50,7 @@ namespace DataAccess.Concrete.EntityFramework
             }
         }
 
-        public Blog GetByIdWithCategoryAndWriter(int id)
+        public Blog GetById(int id)
         {
             using (var context = new MvcCoreDbContext())
             {
@@ -58,11 +58,11 @@ namespace DataAccess.Concrete.EntityFramework
             }
         }
 
-        public List<Blog> GetLatestBlogsWithCount(int count)
+        public List<Blog> GetLatestsWithCount(int count)
         {
             using (var context = new MvcCoreDbContext())
             {
-                return context.Blogs.OrderByDescending(x => x.BlogDateOf).Take(count).ToList();
+                return context.Blogs.OrderByDescending(x => x.BlogDateOf).Take(count).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).ToList();
             }
         }
 
@@ -70,7 +70,7 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (var context = new MvcCoreDbContext())
             {
-                return context.Blogs.OrderByDescending(x => x.BlogDateOf).Where(x => x.BlogId != blogId && x.CategoryId == categoryId).Take(3).ToList();
+                return context.Blogs.OrderByDescending(x => x.BlogDateOf).Where(x => x.BlogId != blogId && x.CategoryId == categoryId).Take(3).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).ToList();
             }
         }
     }

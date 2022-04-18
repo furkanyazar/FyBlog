@@ -34,7 +34,7 @@ namespace WebApp.Controllers
 
 		public IActionResult MyBlogs(int id)
 		{
-			var result = _blogService.GetAllByWriterIdWithCategoryAndWriter(id);
+			var result = _blogService.GetAllByWriterId(id);
 
 			return View(result);
 		}
@@ -95,7 +95,7 @@ namespace WebApp.Controllers
 		[HttpGet]
 		public IActionResult UpdateBlog(int id)
 		{
-			var result = _blogService.GetByIdWithCategoryAndWriter(id);
+			var result = _blogService.GetById(id);
 
 			ViewBag.Categories = GetCategoriesSeletListItems();
 
@@ -105,7 +105,7 @@ namespace WebApp.Controllers
 		[HttpPost]
 		public IActionResult UpdateBlog(Blog blog)
 		{
-			var result = _blogService.GetByIdWithCategoryAndWriter(blog.BlogId);
+			var result = _blogService.GetById(blog.BlogId);
 
 			blog.WriterId = result.WriterId;
 			blog.BlogDateOf = result.BlogDateOf;
@@ -158,7 +158,7 @@ namespace WebApp.Controllers
 
 		public IActionResult DeleteBlog(int id)
 		{
-			var result = _blogService.GetByIdWithCategoryAndWriter(id);
+			var result = _blogService.GetById(id);
 
 			result.BlogStatus = result.BlogStatus ? false : true;
 
