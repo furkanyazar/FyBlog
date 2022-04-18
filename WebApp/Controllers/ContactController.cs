@@ -12,8 +12,8 @@ namespace WebApp.Controllers
     {
         private IContactService _contactService;
 
-        private ContactValidator _contactValidator = new ContactValidator();
-        private ValidationResult _validation;
+        private ContactValidator contactValidator = new ContactValidator();
+        private ValidationResult validation;
 
         public ContactController(IContactService contactService)
         {
@@ -29,16 +29,16 @@ namespace WebApp.Controllers
         [HttpPost]
         public IActionResult Index(Contact contact)
         {
-            _validation = _contactValidator.Validate(contact);
+            validation = contactValidator.Validate(contact);
 
-            if (_validation.IsValid)
+            if (validation.IsValid)
             {
                 _contactService.Add(contact);
 
                 return RedirectToAction("Index", "Contact", new { Status = true }, "contact");
             }
 
-            foreach (var item in _validation.Errors)
+            foreach (var item in validation.Errors)
             {
                 ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
             }

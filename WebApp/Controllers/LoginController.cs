@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
+using Business.ValidationRules.FluentValidation;
 using Entities.Concrete;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +16,9 @@ namespace WebApp.Controllers
 	{
 		private IUserService _userService;
 		private IWriterService _writerService;
+
+		private LoginValidator userValidator = new LoginValidator();
+		private ValidationResult validation;
 
 		public LoginController(IUserService userService, IWriterService writerService)
 		{
@@ -30,13 +35,17 @@ namespace WebApp.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Index(User user)
 		{
-			var result = _userService.GetByEmailAndPassword(user);
+			validation = userValidator.Validate(user);
 
-			if (result is not null)
-			{
-				var writer = _writerService.GetById(result.UserId);
+			if (validation.IsValid)
+            {
+				var result = _userService.GetByEmailAndPassword(user);
 
-				var claims = new List<Claim>
+				if (result is not null)
+				{
+					var writer = _writerService.GetById(result.UserId);
+
+					var claims = new List<Claim>
 				{
 					new Claim("UserId", result.UserId.ToString()),
 					new Claim("UserEmail", result.UserEmail),
@@ -45,12 +54,18 @@ namespace WebApp.Controllers
 					new Claim("WriterImageUrl", writer.WriterImageUrl)
 				};
 
-				var claimIdentity = new ClaimsIdentity(claims, "A");
-				var claimsPrincipal = new ClaimsPrincipal(claimIdentity);
+					var claimIdentity = new ClaimsIdentity(claims, "A");
+					var claimsPrincipal = new ClaimsPrincipal(claimIdentity);
 
-				await HttpContext.SignInAsync(claimsPrincipal);
+					await HttpContext.SignInAsync(claimsPrincipal);
 
-				return RedirectToAction("Index", "Writer");
+					return RedirectToAction("Index", "Writer");
+				}
+			}
+
+			foreach (var item in validation.Errors)
+			{
+				ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
 			}
 
 			return View();

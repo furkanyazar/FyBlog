@@ -18,8 +18,8 @@ namespace WebApp.Controllers
 		private IBlogService _blogService;
 		private ICategoryService _categoryService;
 
-		private BlogValidator _blogValidator = new BlogValidator();
-		private ValidationResult _validation;
+		private BlogValidator blogValidator = new BlogValidator();
+		private ValidationResult validation;
 
 		public WriterController(IBlogService blogService, ICategoryService categoryService)
 		{
@@ -73,16 +73,16 @@ namespace WebApp.Controllers
 				stream.Close();
 			}
 
-			_validation = _blogValidator.Validate(blog);
+			validation = blogValidator.Validate(blog);
 
-			if (_validation.IsValid)
+			if (validation.IsValid)
 			{
 				_blogService.Add(blog);
 
 				return RedirectToAction("MyBlogs", new { Id = HttpContext.User.Claims.SingleOrDefault(x => x.Type == "UserId").Value });
 			}
 
-			foreach (var item in _validation.Errors)
+			foreach (var item in validation.Errors)
 			{
 				ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
 			}
@@ -137,16 +137,16 @@ namespace WebApp.Controllers
 				stream.Close();
 			}
 
-			_validation = _blogValidator.Validate(blog);
+			validation = blogValidator.Validate(blog);
 
-			if (_validation.IsValid)
+			if (validation.IsValid)
 			{
 				_blogService.Update(blog);
 
 				return RedirectToAction("MyBlogs", new { Id = HttpContext.User.Claims.SingleOrDefault(x => x.Type == "UserId").Value });
 			}
 
-			foreach (var item in _validation.Errors)
+			foreach (var item in validation.Errors)
 			{
 				ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
 			}

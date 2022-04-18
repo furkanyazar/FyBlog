@@ -15,8 +15,8 @@ namespace WebApp.Controllers
         private IUserService _userService;
         private IWriterService _writerService;
 
-        private UserValidator _userValidator = new UserValidator();
-        private ValidationResult _validation;
+        private UserValidator userValidator = new UserValidator();
+        private ValidationResult validation;
 
         public RegisterController(IUserService userService, IWriterService writerService)
         {
@@ -33,9 +33,9 @@ namespace WebApp.Controllers
         [HttpPost]
         public IActionResult Index(User user)
         {
-            _validation = _userValidator.Validate(user);
+            validation = userValidator.Validate(user);
 
-            if (_validation.IsValid)
+            if (validation.IsValid)
             {
                 _userService.Add(user);
 
@@ -46,7 +46,7 @@ namespace WebApp.Controllers
                 return RedirectToAction("Index", "Login");
             }
 
-            foreach (var item in _validation.Errors)
+            foreach (var item in validation.Errors)
             {
                 ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
             }

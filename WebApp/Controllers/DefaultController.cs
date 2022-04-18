@@ -13,9 +13,9 @@ namespace WebApp.Controllers
         private INewsletterService _newsletterService;
         private ICommentService _commentService;
 
-        private NewsletterValidator _newsletterValidator = new NewsletterValidator();
-        private CommentValidator _commentValidator = new CommentValidator();
-        private ValidationResult _validation;
+        private NewsletterValidator newsletterValidator = new NewsletterValidator();
+        private CommentValidator commentValidator = new CommentValidator();
+        private ValidationResult validation;
 
         public DefaultController(INewsletterService newsletterService, ICommentService commentService)
         {
@@ -45,30 +45,30 @@ namespace WebApp.Controllers
 
         public IActionResult SignupNewsletter(Newsletter newsletter)
         {
-            _validation = _newsletterValidator.Validate(newsletter);
+            validation = newsletterValidator.Validate(newsletter);
 
-            if (_validation.IsValid)
+            if (validation.IsValid)
             {
                 _newsletterService.Add(newsletter);
 
                 return Json(new { success = true, message = "E-posta bültenine başarıyla kayıt oldunuz" });
             }
 
-            return Json(new { success = false, message = _validation.Errors[0].ErrorMessage });
+            return Json(new { success = false, message = validation.Errors[0].ErrorMessage });
         }
 
         public IActionResult Comment(Comment comment)
         {
-            _validation = _commentValidator.Validate(comment);
+            validation = commentValidator.Validate(comment);
 
-            if (_validation.IsValid)
+            if (validation.IsValid)
             {
                 _commentService.Add(comment);
 
                 return Json(new { success = true });
             }
 
-            return Json(new { success = false, message = _validation.Errors[0].ErrorMessage });
+            return Json(new { success = false, message = validation.Errors[0].ErrorMessage });
         }
     }
 }
