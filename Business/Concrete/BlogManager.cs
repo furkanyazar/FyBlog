@@ -18,9 +18,19 @@ namespace Business.Concrete
             return _tdal.GetAllByCategoryId(id);
         }
 
+        public List<Blog> GetAllByCategoryIdAndWriterId(int writerId, int categoryId)
+        {
+            return _tdal.GetAllByCategoryIdAndWriterId(writerId, categoryId);
+        }
+
         public List<Blog> GetAllByDateOf(DateTime dateOf)
         {
             return _tdal.GetAllByDateOf(dateOf);
+        }
+
+        public List<Blog> GetAllByDateOfAndWriterId(int writerId, DateTime dateOf)
+        {
+            return _tdal.GetAllByDateOfAndWriterId(writerId, dateOf);
         }
 
         public List<Blog> GetAllBySearchKey(string searchKey)

@@ -18,11 +18,27 @@ namespace DataAccess.Concrete.EntityFramework
             }
         }
 
+        public List<Blog> GetAllByCategoryIdAndWriterId(int writerId, int categoryId)
+        {
+            using (var context = new MvcCoreDbContext())
+            {
+                return context.Blogs.Where(x => x.WriterId == writerId && x.CategoryId == categoryId).OrderByDescending(x => x.BlogDateOf).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).ToList();
+            }
+        }
+
         public List<Blog> GetAllByDateOf(DateTime dateOf)
         {
             using (var context = new MvcCoreDbContext())
             {
                 return context.Blogs.Where(x => x.BlogDateOf.Date == dateOf.Date).OrderByDescending(x => x.BlogDateOf).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).ToList();
+            }
+        }
+
+        public List<Blog> GetAllByDateOfAndWriterId(int writerId, DateTime dateOf)
+        {
+            using (var context = new MvcCoreDbContext())
+            {
+                return context.Blogs.Where(x => x.WriterId == writerId && x.BlogDateOf.Date == dateOf.Date).OrderByDescending(x => x.BlogDateOf).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).ToList();
             }
         }
 

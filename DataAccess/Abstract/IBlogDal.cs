@@ -13,9 +13,13 @@ namespace DataAccess.Abstract
 
         List<Blog> GetAllByCategoryId(int id);
 
+        List<Blog> GetAllByCategoryIdAndWriterId(int writerId, int categoryId);
+
         List<Blog> GetAllByWriterId(int id);
 
         List<Blog> GetAllByDateOf(DateTime dateOf);
+
+        List<Blog> GetAllByDateOfAndWriterId(int writerId, DateTime dateOf);
 
         List<Blog> GetSomeByCategoryIdWithoutId(int blogId, int categoryId);
 

@@ -39,6 +39,20 @@ namespace WebApp.Controllers
 			return View(result);
 		}
 
+		public IActionResult MyBlogsByCategory(int writerId, int categoryId)
+		{
+			var result = _blogService.GetAllByCategoryIdAndWriterId(writerId, categoryId);
+
+			return View(result);
+		}
+
+		public IActionResult MyBlogsByDate(int writerId, string dateOf)
+		{
+			var result = _blogService.GetAllByDateOfAndWriterId(writerId, DateTime.Parse(dateOf));
+
+			return View(result);
+		}
+
 		[HttpGet]
 		public IActionResult AddBlog()
 		{
