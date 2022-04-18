@@ -1,0 +1,41 @@
+﻿@using Entities.Concrete
+@model List<Blog>
+
+<div class="row">
+	<div class="col-12 grid-margin">
+		<div class="card">
+			<div class="card-body">
+				<h4 class="card-title">Son Bloglar</h4>
+				<div class="table-responsive">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>Yazar</th>
+								<th>Başlık</th>
+								<th>Tarih</th>
+								<th>Kategori</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var item in Model)
+							{
+								<tr>
+									<td>
+										<a class="text-black" asp-controller="Blog" asp-action="Writer" asp-route-id="@item.WriterId">
+											<img src="@item.Writer.WriterImageUrl" class="mr-2" alt="image"> @item.Writer.User.UserFirstName @item.Writer.User.UserLastName
+										</a>
+									</td>
+									<td><a class="text-black" asp-controller="Blog" asp-action="Read" asp-route-id="@item.BlogId">@item.BlogTitle</a></td>
+									<td><a class="text-black" asp-controller="Blog" asp-action="Date" asp-route-dateOf="@item.BlogDateOf.ToShortDateString()">@item.BlogDateOf.ToShortDateString()</a></td>
+									<td>
+										<a class="text-black" asp-controller="Blog" asp-action="Category" asp-route-id="@item.CategoryId"><span class="badge badge-gradient-dark">@item.Category.CategoryName</span></a>
+									</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

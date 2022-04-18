@@ -74,6 +74,14 @@ namespace DataAccess.Concrete.EntityFramework
             }
         }
 
+        public List<Blog> GetLatestsByWriterIdWithCount(int writerId, int count)
+        {
+            using (var context = new MvcCoreDbContext())
+            {
+                return context.Blogs.Where(x => x.WriterId == writerId).OrderByDescending(x => x.BlogDateOf).Take(count).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).ToList();
+            }
+        }
+
         public List<Blog> GetLatestsWithCount(int count)
         {
             using (var context = new MvcCoreDbContext())

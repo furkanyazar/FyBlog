@@ -25,6 +25,8 @@ namespace Business.Abstract
 
         List<Blog> GetLatestsWithCount(int count);
 
+        List<Blog> GetLatestsByWriterIdWithCount(int writerId, int count);
+
         Blog GetById(int id);
     }
 }

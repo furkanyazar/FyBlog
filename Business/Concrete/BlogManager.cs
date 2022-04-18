@@ -53,6 +53,11 @@ namespace Business.Concrete
             return _tdal.GetById(id);
         }
 
+        public List<Blog> GetLatestsByWriterIdWithCount(int writerId, int count)
+        {
+            return _tdal.GetLatestsByWriterIdWithCount(writerId, count);
+        }
+
         public List<Blog> GetLatestsWithCount(int count)
         {
             return _tdal.GetLatestsWithCount(count);
