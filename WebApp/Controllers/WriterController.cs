@@ -92,6 +92,70 @@ namespace WebApp.Controllers
 			return View();
 		}
 
+		[HttpGet]
+		public IActionResult UpdateBlog(int id)
+		{
+			var result = _blogService.GetByIdWithCategoryAndWriter(id);
+
+			ViewBag.Categories = GetCategoriesSeletListItems();
+
+			return View(result);
+		}
+
+		[HttpPost]
+		public IActionResult UpdateBlog(Blog blog)
+		{
+			var result = _blogService.GetByIdWithCategoryAndWriter(blog.BlogId);
+
+			blog.WriterId = result.WriterId;
+			blog.BlogDateOf = result.BlogDateOf;
+
+			if (Request.Form.Files["BlogImage"] is null)
+				blog.BlogImageUrl = result.BlogImageUrl;
+
+			if (Request.Form.Files["BlogThumbnailImage"] is null)
+				blog.BlogThumbnailImageUrl = result.BlogThumbnailImageUrl;
+
+			if (Request.Form.Files["BlogImage"] is not null && Request.Form.Files["BlogThumbnailImage"] is not null)
+			{
+				string fileName = Guid.NewGuid().ToString() + Path.GetExtension(Request.Form.Files[0].FileName);
+				string path = Path.Combine(Directory.GetCurrentDirectory(), Defaults.DEFAULT_IMAGE_UPLOAD_PATH, fileName);
+
+				var stream = new FileStream(path, FileMode.Create);
+				Request.Form.Files["BlogImage"].CopyTo(stream);
+
+				blog.BlogImageUrl = Defaults.DEFAULT_IMAGE_URL_PATH + fileName;
+
+				fileName = Guid.NewGuid().ToString() + Path.GetExtension(Request.Form.Files[1].FileName);
+				path = Path.Combine(Directory.GetCurrentDirectory(), Defaults.DEFAULT_IMAGE_UPLOAD_PATH, fileName);
+
+				stream = new FileStream(path, FileMode.Create);
+				Request.Form.Files["BlogThumbnailImage"].CopyTo(stream);
+
+				blog.BlogThumbnailImageUrl = Defaults.DEFAULT_IMAGE_URL_PATH + fileName;
+
+				stream.Close();
+			}
+
+			_validation = _blogValidator.Validate(blog);
+
+			if (_validation.IsValid)
+			{
+				_blogService.Update(blog);
+
+				return RedirectToAction("MyBlogs", new { Id = HttpContext.User.Claims.SingleOrDefault(x => x.Type == "UserId").Value });
+			}
+
+			foreach (var item in _validation.Errors)
+			{
+				ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+			}
+
+			ViewBag.Categories = GetCategoriesSeletListItems();
+
+			return View();
+		}
+
 		public IActionResult DeleteBlog(int id)
 		{
 			var result = _blogService.GetByIdWithCategoryAndWriter(id);

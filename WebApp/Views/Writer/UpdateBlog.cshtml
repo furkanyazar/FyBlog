@@ -1,0 +1,139 @@
+﻿@using Entities.Concrete
+@model Blog
+
+@{
+	ViewData["Title"] = "Blog Düzenle";
+	Layout = "~/Views/Shared/_WriterLayout.cshtml";
+}
+
+<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
+<div class="col-12 grid-margin stretch-card">
+	<div class="card">
+		<div class="card-body">
+			<h4 class="card-title">Yeni Blog Ekle</h4>
+			@using (Html.BeginForm("UpdateBlog", "Writer", FormMethod.Post, new { enctype="multipart/form-data"}))
+			{
+				@Html.HiddenFor(x => x.BlogId)
+				<div class="form-group">
+					@Html.Label("Başlık")
+					@Html.TextBoxFor(x => x.BlogTitle, new { @class = "form-control", @placeholder = "Başlık" })
+					@Html.ValidationMessageFor(x => x.BlogTitle, "", new { @class = "text-danger" })
+				</div>
+				<div class="form-group">
+					@Html.Label("Kategori")
+					@Html.DropDownListFor(x => x.CategoryId, (List<SelectListItem>)ViewBag.Categories, new { @class = "form-control" })
+					@Html.ValidationMessageFor(x => x.CategoryId, "", new { @class = "text-danger" })
+				</div>
+				<div class="form-group">
+					@Html.Label("Ana Resim")
+					<input type="file" accept="image/png, image/jpeg" name="BlogImage" class="file-upload-default">
+					<div class="input-group col-xs-12">
+						<input type="text" class="form-control file-upload-info" disabled placeholder="Ana Resim">
+						<span class="input-group-append">
+							<button class="file-upload-browse btn btn-gradient-primary" type="button">Yükle</button>
+						</span>
+					</div>
+					@Html.ValidationMessageFor(x => x.BlogImageUrl, "", new { @class = "text-danger" })
+				</div>
+				<div class="form-group">
+					@Html.Label("Yan Resim")
+					<input type="file" accept="image/png, image/jpeg" name="BlogThumbnailImage" class="file-upload-default">
+					<div class="input-group col-xs-12">
+						<input type="text" class="form-control file-upload-info" disabled placeholder="Yan Resim">
+						<span class="input-group-append">
+							<button class="file-upload-browse btn btn-gradient-primary" type="button">Yükle</button>
+						</span>
+					</div>
+					@Html.ValidationMessageFor(x => x.BlogThumbnailImageUrl, "", new { @class = "text-danger" })
+				</div>
+				<div class="form-group">
+					@Html.Label("İçerik")
+					<textarea id="editor" class="form-control" name="BlogContent" placeholder="İçerik">@Model.BlogContent</textarea>
+					@Html.ValidationMessageFor(x => x.BlogContent, "", new { @class = "text-danger" })
+				</div>
+				<button type="submit" class="btn btn-gradient-primary mr-2">Gönder</button>
+				<a class="btn btn-light" asp-controller="Writer" asp-action="MyBlogs" asp-route-id="@Context.User.Claims.SingleOrDefault(x => x.Type == "UserId").Value">İptal</a>
+			}
+		</div>
+	</div>
+</div>
+<script>
+	class MyUploadAdapter {
+		constructor( loader ) {
+			this.loader = loader;
+		}
+
+		upload() {
+			return this.loader.file
+				.then( file => new Promise( ( resolve, reject ) => {
+					this._initRequest();
+					this._initListeners( resolve, reject, file );
+					this._sendRequest( file );
+				} ) );
+		}
+
+		abort() {
+			if ( this.xhr ) {
+				this.xhr.abort();
+			}
+		}
+
+		_initRequest() {
+			const xhr = this.xhr = new XMLHttpRequest();
+
+			xhr.open( 'POST', '@Url.Action("UploadFile", "Writer")', true );
+			xhr.responseType = 'json';
+		}
+
+		_initListeners( resolve, reject, file ) {
+			const xhr = this.xhr;
+			const loader = this.loader;
+			const genericErrorText = `Dosya yüklenemedi: ${ file.name }`;
+
+			xhr.addEventListener( 'error', () => reject( genericErrorText ) );
+			xhr.addEventListener( 'abort', () => reject() );
+			xhr.addEventListener( 'load', () => {
+				const response = xhr.response;
+
+				if ( !response || response.error ) {
+					return reject( response && response.error ? response.error.message : genericErrorText );
+				}
+
+				resolve( {
+					default: response.url
+				} );
+			} );
+
+			if ( xhr.upload ) {
+				xhr.upload.addEventListener( 'progress', evt => {
+					if ( evt.lengthComputable ) {
+						loader.uploadTotal = evt.total;
+						loader.uploaded = evt.loaded;
+					}
+				} );
+			}
+		}
+
+		_sendRequest( file ) {
+			const data = new FormData();
+
+			data.append( 'upload', file );
+
+			this.xhr.send( data );
+		}
+	}
+
+	function MyCustomUploadAdapterPlugin( editor ) {
+		editor.plugins.get( 'FileRepository' ).createUploadAdapter = ( loader ) => {
+			return new MyUploadAdapter( loader );
+		};
+	}
+
+	ClassicEditor
+		.create( document.querySelector( '#editor' ), {
+			extraPlugins: [ MyCustomUploadAdapterPlugin ],
+		} )
+		.catch( error => {
+			console.error( error );
+		} );
+</script>

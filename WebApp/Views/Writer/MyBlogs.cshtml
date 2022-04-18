@@ -57,7 +57,7 @@
 										</span>
 									</td>
 									<td>
-										<a class="btn btn-gradient-info btn-fw" href="#">Düzenle</a>
+										<a class="btn btn-gradient-info btn-fw" asp-controller="Writer" asp-action="UpdateBlog" asp-route-id="@item.BlogId">Düzenle</a>
 										<a class="btn btn-gradient-danger btn-fw" asp-controller="Writer" asp-action="DeleteBlog" asp-route-id="@item.BlogId">Sil</a>
 									</td>
 								</tr>
