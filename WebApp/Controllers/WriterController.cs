@@ -179,7 +179,7 @@ namespace WebApp.Controllers
             {
                 _blogService.Add(blog);
 
-                return RedirectToAction("MyBlogs", new { Id = HttpContext.User.Claims.SingleOrDefault(x => x.Type == "UserId").Value });
+                return RedirectToAction("MyBlogs", new { userId = HttpContext.User.Claims.SingleOrDefault(x => x.Type == "UserId").Value });
             }
 
             foreach (var item in validation.Errors)
@@ -243,7 +243,7 @@ namespace WebApp.Controllers
             {
                 _blogService.Update(blog);
 
-                return RedirectToAction("MyBlogs", new { Id = HttpContext.User.Claims.SingleOrDefault(x => x.Type == "UserId").Value });
+                return RedirectToAction("MyBlogs", new { userId = HttpContext.User.Claims.SingleOrDefault(x => x.Type == "UserId").Value });
             }
 
             foreach (var item in validation.Errors)
@@ -264,7 +264,7 @@ namespace WebApp.Controllers
 
             _blogService.Update(result);
 
-            return RedirectToAction("MyBlogs", new { Id = HttpContext.User.Claims.SingleOrDefault(x => x.Type == "UserId").Value });
+            return RedirectToAction("MyBlogs", new { userId = HttpContext.User.Claims.SingleOrDefault(x => x.Type == "UserId").Value });
         }
 
         [HttpPost]
