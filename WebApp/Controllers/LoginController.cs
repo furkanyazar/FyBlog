@@ -14,15 +14,13 @@ namespace WebApp.Controllers
 	[AllowAnonymous]
 	public class LoginController : Controller
 	{
-		private IUserService _userService;
 		private IWriterService _writerService;
 
-		private LoginValidator userValidator = new LoginValidator();
+		private LoginValidator loginValidator = new LoginValidator();
 		private ValidationResult validation;
 
-		public LoginController(IUserService userService, IWriterService writerService)
+		public LoginController(IWriterService writerService)
 		{
-			_userService = userService;
 			_writerService = writerService;
 		}
 
@@ -35,24 +33,22 @@ namespace WebApp.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Index(User user)
 		{
-			validation = userValidator.Validate(user);
+			validation = loginValidator.Validate(user);
 
 			if (validation.IsValid)
-            {
-				var result = _userService.GetByEmailAndPassword(user);
+			{
+				var result = _writerService.GetByUserEmailAndUserPassword(user);
 
 				if (result is not null)
 				{
-					var writer = _writerService.GetById(result.UserId);
-
 					var claims = new List<Claim>
-				{
-					new Claim("UserId", result.UserId.ToString()),
-					new Claim("UserEmail", result.UserEmail),
-					new Claim("UserFirstName", result.UserFirstName),
-					new Claim("UserLastName", result.UserLastName),
-					new Claim("WriterImageUrl", writer.WriterImageUrl)
-				};
+					{
+						new Claim("UserId", result.UserId.ToString()),
+						new Claim("UserEmail", result.User.UserEmail),
+						new Claim("UserFirstName", result.User.UserFirstName),
+						new Claim("UserLastName", result.User.UserLastName),
+						new Claim("WriterImageUrl", result.WriterImageUrl)
+					};
 
 					var claimIdentity = new ClaimsIdentity(claims, "A");
 					var claimsPrincipal = new ClaimsPrincipal(claimIdentity);

@@ -10,10 +10,5 @@ namespace Business.Concrete
         public UserManager(IUserDal tdal) : base(tdal)
         {
         }
-
-        public User GetByEmailAndPassword(User user)
-        {
-            return _tdal.GetByEmailAndPassword(user);
-        }
     }
 }

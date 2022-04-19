@@ -5,6 +5,5 @@ namespace Business.Abstract
 {
     public interface IUserService : IEntityService<User>
     {
-        User GetByEmailAndPassword(User user);
     }
 }
