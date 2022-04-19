@@ -4,9 +4,9 @@
 }
 
 <div class="row">
-	@await Component.InvokeAsync("WriterIndexCountOfMyBlogs", Convert.ToInt32(Context.User.Claims.SingleOrDefault(x => x.Type == "UserId").Value))
-	@await Component.InvokeAsync("WriterIndexCountOfMyComments", Convert.ToInt32(Context.User.Claims.SingleOrDefault(x => x.Type == "UserId").Value))
-	@await Component.InvokeAsync("WriterIndexCountOfMyCommentsForLastWeek", Convert.ToInt32(Context.User.Claims.SingleOrDefault(x => x.Type == "UserId").Value))
+	@await Component.InvokeAsync("WriterIndexCountOfMyBlogs", Convert.ToInt32(User.Claims.SingleOrDefault(x => x.Type == "UserId").Value))
+	@await Component.InvokeAsync("WriterIndexCountOfMyComments", Convert.ToInt32(User.Claims.SingleOrDefault(x => x.Type == "UserId").Value))
+	@await Component.InvokeAsync("WriterIndexCountOfMyCommentsForLastWeek", Convert.ToInt32(User.Claims.SingleOrDefault(x => x.Type == "UserId").Value))
 </div>
 @await Component.InvokeAsync("WriterIndexLatestBlogs")
-@await Component.InvokeAsync("WriterIndexMyLatestBlogs", Convert.ToInt32(Context.User.Claims.SingleOrDefault(x => x.Type == "UserId").Value))
+@await Component.InvokeAsync("WriterIndexMyLatestBlogs", Convert.ToInt32(User.Claims.SingleOrDefault(x => x.Type == "UserId").Value))

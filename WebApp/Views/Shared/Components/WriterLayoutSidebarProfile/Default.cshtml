@@ -1,0 +1,16 @@
+﻿@using Entities.Concrete
+@model Writer
+
+<li class="nav-item nav-profile">
+	<a class="nav-link" asp-controller="Writer" asp-action="Profile" asp-route-id="@User.Claims.SingleOrDefault(x => x.Type == "UserId").Value">
+		<div class="nav-profile-image">
+			<img src="@Model.WriterImageUrl" alt="profile">
+			<span class="login-status online"></span>
+			<!--change to offline or busy as needed-->
+		</div>
+		<div class="nav-profile-text d-flex flex-column">
+			<span class="font-weight-bold mb-2">@Model.User.UserFirstName @Model.User.UserLastName</span>
+		</div>
+		<i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+	</a>
+</li>

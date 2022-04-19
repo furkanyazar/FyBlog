@@ -56,11 +56,7 @@ namespace WebApp.Controllers
 
                 var claims = new List<Claim>
                 {
-                    new Claim("UserId", userToCheck.UserId.ToString()),
-                    new Claim("UserEmail", userToCheck.User.UserEmail),
-                    new Claim("UserFirstName", userToCheck.User.UserFirstName),
-                    new Claim("UserLastName", userToCheck.User.UserLastName),
-                    new Claim("WriterImageUrl", userToCheck.WriterImageUrl)
+                    new Claim("UserId", userToCheck.UserId.ToString())
                 };
 
                 var claimIdentity = new ClaimsIdentity(claims, "A");

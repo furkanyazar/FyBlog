@@ -35,10 +35,8 @@
 					@Html.ValidationMessageFor(x => x.BlogImageUrl, "", new { @class = "text-danger" })
 				</div>
 				<div id="mainImage" class="form-group">
-					
 				</div>
 				<div id="thumbnailImage" class="form-group">
-
 				</div>
 				<div class="form-group">
 					@Html.Label("Yan Resim")
@@ -57,7 +55,7 @@
 					@Html.ValidationMessageFor(x => x.BlogContent, "", new { @class = "text-danger" })
 				</div>
 				<button type="submit" class="btn btn-gradient-primary mr-2">Gönder</button>
-				<a class="btn btn-gradient-light" asp-controller="Writer" asp-action="MyBlogs" asp-route-id="@Context.User.Claims.SingleOrDefault(x => x.Type == "UserId").Value">İptal</a>
+				<a class="btn btn-gradient-light" asp-controller="Writer" asp-action="MyBlogs" asp-route-id="@User.Claims.SingleOrDefault(x => x.Type == "UserId").Value">İptal</a>
 			}
 		</div>
 	</div>
