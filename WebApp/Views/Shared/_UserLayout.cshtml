@@ -107,7 +107,7 @@
 									   }">
 							<a class="nav-link" asp-controller="About" asp-action="Index">Hakkımızda</a>
 						</li>
-						<li class="nav-item @if (Context.Request.Path.ToString().Contains("Blog"))
+						<li class="nav-item @if (Context.Request.Path.ToString().Contains("Blog") || Context.Request.Path == "/")
 									   {
 										   Write("active");
 									   }">
