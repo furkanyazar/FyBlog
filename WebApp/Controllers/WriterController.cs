@@ -17,19 +17,79 @@ namespace WebApp.Controllers
 	{
 		private IBlogService _blogService;
 		private ICategoryService _categoryService;
+		private IWriterService _writerService;
 
 		private BlogValidator blogValidator = new BlogValidator();
+		private WriterValidator writerValidator = new WriterValidator();
 		private ValidationResult validation;
 
-		public WriterController(IBlogService blogService, ICategoryService categoryService)
+		public WriterController(IBlogService blogService, ICategoryService categoryService, IWriterService writerService)
 		{
 			_blogService = blogService;
 			_categoryService = categoryService;
+			_writerService = writerService;
 		}
 
 		public IActionResult Index()
 		{
 			return View();
+		}
+
+		[HttpGet]
+		public IActionResult Profile(int id)
+		{
+			var result = _writerService.GetByIdWithUser(id);
+
+			return View(result);
+		}
+
+		[HttpPost]
+		public IActionResult Profile(Writer writer)
+		{
+			if (writer.User.UserPassword is null)
+				writer.User.UserPassword = Defaults.PASSWORD_KEY;
+
+			validation = writerValidator.Validate(writer);
+
+			if (validation.IsValid)
+			{
+				if (Request.Form.Files["WriterImage"] is not null)
+				{
+					string fileName = Guid.NewGuid().ToString() + Path.GetExtension(Request.Form.Files[0].FileName);
+					string path = Path.Combine(Directory.GetCurrentDirectory(), Defaults.DEFAULT_PROFILE_PHOTO_UPLOAD_PATH, fileName);
+
+					var stream = new FileStream(path, FileMode.Create);
+					Request.Form.Files["WriterImage"].CopyTo(stream);
+
+					writer.WriterImageUrl = Defaults.DEFAULT_PROFILE_PHOTO_URL_PATH + fileName;
+
+					stream.Close();
+				}
+
+				if (writer.User.UserPassword == Defaults.PASSWORD_KEY)
+						writer.User.UserPassword = _writerService.GetByIdWithUser(writer.UserId).User.UserPassword;
+
+				_writerService.Update(writer);
+
+				return RedirectToAction("Index");
+			}
+
+			foreach (var item in validation.Errors)
+			{
+				ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+			}
+
+			return View();
+		}
+
+		public IActionResult DeletePhoto(int id)
+		{
+			var result = _writerService.GetByIdWithUser(id);
+			result.WriterImageUrl = Defaults.DEFAULT_AVATAR_URL;
+
+			_writerService.Update(result);
+
+			return RedirectToAction("Profile", new { Id = id });
 		}
 
 		public IActionResult MyBlogs(int id)

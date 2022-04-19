@@ -34,5 +34,8 @@
         public static string BlogThumbnailImageUrlNotEmpty = "Yan resim seçilmedi";
         public static string CategoryIdNotEmpty = "Kategori seçilmedi";
         public static string CategoryIdGreaterThan = "Geçersiz kategori";
-    }
+
+        public static string WriterAboutMinimumLength = "Hakkımda en az 5 karakterden oluşmalı";
+        public static string WriterAboutMaximumLength = "Hakkımda en fazla 500 karakterden oluşabilir";
+	}
 }

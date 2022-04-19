@@ -55,11 +55,11 @@
                 </div>
               </a>
               <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
-                <a class="dropdown-item" href="#">
-                  <i class="mdi mdi-account mr-2 text-success"></i> Hesabım </a>
+                <a class="dropdown-item" asp-controller="Writer" asp-action="Profile" asp-route-id="@Context.User.Claims.SingleOrDefault(x => x.Type == "UserId").Value">
+                  <i class="mdi mdi-account mr-2 text-success"></i> Profilim</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" asp-controller="Login" asp-action="Logout">
-                  <i class="mdi mdi-logout mr-2 text-primary"></i> Çıkış Yap </a>
+                  <i class="mdi mdi-logout mr-2 text-primary"></i> Çıkış Yap</a>
               </div>
             </li>
             <li class="nav-item dropdown">
@@ -172,7 +172,7 @@
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
           <ul class="nav">
             <li class="nav-item nav-profile">
-              <a href="#" class="nav-link">
+              <a class="nav-link" asp-controller="Writer" asp-action="Profile" asp-route-id="@Context.User.Claims.SingleOrDefault(x => x.Type == "UserId").Value">
                 <div class="nav-profile-image">
                   <img src="@Context.User.Claims.SingleOrDefault(x => x.Type == "WriterImageUrl").Value" alt="profile">
                   <span class="login-status online"></span>
