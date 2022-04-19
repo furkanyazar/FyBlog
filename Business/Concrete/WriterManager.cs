@@ -16,9 +16,9 @@ namespace Business.Concrete
             return _tdal.GetByIdWithUser(id);
         }
 
-		public Writer GetByUserEmailAndUserPassword(User user)
+		public Writer GetByUserEmail(string email)
 		{
-			return _tdal.GetByUserEmailAndUserPassword(user.UserEmail, user.UserPassword);
+			return _tdal.GetByUserEmail(email);
 		}
 	}
 }

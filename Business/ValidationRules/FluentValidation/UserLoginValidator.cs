@@ -1,12 +1,12 @@
 ﻿using Business.Constants;
-using Entities.Concrete;
+using Entities.DTOs;
 using FluentValidation;
 
 namespace Business.ValidationRules.FluentValidation
 {
-    public class LoginValidator : AbstractValidator<User>
+    public class UserLoginValidator : AbstractValidator<UserLoginDto>
     {
-        public LoginValidator()
+        public UserLoginValidator()
         {
             RuleFor(x => x.UserEmail).NotEmpty().WithMessage(Messages.UserEmailNotEmpty);
             RuleFor(x => x.UserEmail).EmailAddress().WithMessage(Messages.UserEmailEmailAddress);

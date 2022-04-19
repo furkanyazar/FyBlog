@@ -7,6 +7,6 @@ namespace Business.Abstract
     {
         Writer GetByIdWithUser(int id);
 
-        Writer GetByUserEmailAndUserPassword(User user);
+        Writer GetByUserEmail(string email);
     }
 }

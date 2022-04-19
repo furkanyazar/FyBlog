@@ -7,6 +7,6 @@ namespace DataAccess.Abstract
     {
         Writer GetByIdWithUser(int id);
 
-        Writer GetByUserEmailAndUserPassword(string email, string password);
+        Writer GetByUserEmail(string email);
     }
 }

@@ -16,11 +16,11 @@ namespace DataAccess.Concrete.EntityFramework
 			}
 		}
 
-		public Writer GetByUserEmailAndUserPassword(string email, string password)
+		public Writer GetByUserEmail(string email)
 		{
 			using (var context = new MvcCoreDbContext())
 			{
-				return context.Writers.Include(x => x.User).SingleOrDefault(x => x.User.UserEmail == email && x.User.UserPassword == password);
+				return context.Writers.Include(x => x.User).SingleOrDefault(x => x.User.UserEmail == email);
 			}
 		}
 	}

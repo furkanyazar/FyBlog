@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.ValidationRules.FluentValidation;
-using Entities.Concrete;
+using Core.Utilities.Security.Hashing;
+using Entities.DTOs;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -11,67 +12,78 @@ using System.Threading.Tasks;
 
 namespace WebApp.Controllers
 {
-	[AllowAnonymous]
-	public class LoginController : Controller
-	{
-		private IWriterService _writerService;
+    [AllowAnonymous]
+    public class LoginController : Controller
+    {
+        private IWriterService _writerService;
 
-		private LoginValidator loginValidator = new LoginValidator();
-		private ValidationResult validation;
+        private UserLoginValidator userLoginValidator = new UserLoginValidator();
+        private ValidationResult validation;
 
-		public LoginController(IWriterService writerService)
-		{
-			_writerService = writerService;
-		}
+        public LoginController(IWriterService writerService)
+        {
+            _writerService = writerService;
+        }
 
-		[HttpGet]
-		public IActionResult Index()
-		{
-			return View();
-		}
+        [HttpGet]
+        public IActionResult Index()
+        {
+            return View();
+        }
 
-		[HttpPost]
-		public async Task<IActionResult> Index(User user)
-		{
-			validation = loginValidator.Validate(user);
+        [HttpPost]
+        public async Task<IActionResult> Index(UserLoginDto userLoginDto)
+        {
+            validation = userLoginValidator.Validate(userLoginDto);
 
-			if (validation.IsValid)
-			{
-				var result = _writerService.GetByUserEmailAndUserPassword(user);
+            if (validation.IsValid)
+            {
+                var userToCheck = _writerService.GetByUserEmail(userLoginDto.UserEmail);
 
-				if (result is not null)
-				{
-					var claims = new List<Claim>
-					{
-						new Claim("UserId", result.UserId.ToString()),
-						new Claim("UserEmail", result.User.UserEmail),
-						new Claim("UserFirstName", result.User.UserFirstName),
-						new Claim("UserLastName", result.User.UserLastName),
-						new Claim("WriterImageUrl", result.WriterImageUrl)
-					};
+                if (userToCheck is null)
+                {
+                    ModelState.AddModelError("UserEmail", "E-posta hatalı");
 
-					var claimIdentity = new ClaimsIdentity(claims, "A");
-					var claimsPrincipal = new ClaimsPrincipal(claimIdentity);
+                    return View();
+                }
 
-					await HttpContext.SignInAsync(claimsPrincipal);
+                if (!HashingHelper.VerifyPasswordHash(userLoginDto.UserPassword, userToCheck.User.UserPasswordHash, userToCheck.User.UserPasswordSalt))
+                {
+                    ModelState.AddModelError("UserPassword", "Şifre hatalı");
 
-					return RedirectToAction("Index", "Writer");
-				}
-			}
+                    return View();
+                }
 
-			foreach (var item in validation.Errors)
-			{
-				ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
-			}
+                var claims = new List<Claim>
+                {
+                    new Claim("UserId", userToCheck.UserId.ToString()),
+                    new Claim("UserEmail", userToCheck.User.UserEmail),
+                    new Claim("UserFirstName", userToCheck.User.UserFirstName),
+                    new Claim("UserLastName", userToCheck.User.UserLastName),
+                    new Claim("WriterImageUrl", userToCheck.WriterImageUrl)
+                };
 
-			return View();
-		}
+                var claimIdentity = new ClaimsIdentity(claims, "A");
+                var claimsPrincipal = new ClaimsPrincipal(claimIdentity);
 
-		public async Task<IActionResult> Logout()
-		{
-			await HttpContext.SignOutAsync();
+                await HttpContext.SignInAsync(claimsPrincipal);
 
-			return RedirectToAction("Index", "Login");
-		}
-	}
+                return RedirectToAction("Index", "Writer");
+            }
+
+            foreach (var item in validation.Errors)
+            {
+                ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+            }
+
+            return View();
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+
+            return RedirectToAction("Index", "Login");
+        }
+    }
 }

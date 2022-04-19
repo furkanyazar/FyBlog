@@ -1,7 +1,10 @@
-﻿using Business.Abstract;
+﻿using AutoMapper;
+using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Utilities.Security.Hashing;
 using Entities.Concrete;
+using Entities.DTOs;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,261 +16,284 @@ using System.Linq;
 
 namespace WebApp.Controllers
 {
-	public class WriterController : Controller
-	{
-		private IBlogService _blogService;
-		private ICategoryService _categoryService;
-		private IWriterService _writerService;
+    public class WriterController : Controller
+    {
+        private IBlogService _blogService;
+        private ICategoryService _categoryService;
+        private IUserService _userService;
+        private IWriterService _writerService;
+        private IMapper _mapper;
+
+        private BlogValidator blogValidator = new BlogValidator();
+        private WriterValidator writerValidator = new WriterValidator();
+        private ValidationResult validation;
+
+        public WriterController(IBlogService blogService, ICategoryService categoryService, IUserService userService, IWriterService writerService, IMapper mapper)
+        {
+            _blogService = blogService;
+            _categoryService = categoryService;
+            _userService = userService;
+            _writerService = writerService;
+            _mapper = mapper;
+        }
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Profile(int id)
+        {
+            var writer = _writerService.GetByIdWithUser(id);
+
+            var result = _mapper.Map<WriterDto>(writer);
+
+            return View(result);
+        }
+
+        [HttpPost]
+        public IActionResult Profile(WriterDto writerDto)
+        {
+            var oldWriter = _writerService.GetByIdWithUser(writerDto.UserId);
+
+            if (writerDto.UserPassword is null)
+                writerDto.UserPassword = Defaults.PASSWORD_KEY;
+
+            validation = writerValidator.Validate(writerDto);
+
+            if (validation.IsValid)
+            {
+                if (Request.Form.Files["WriterImage"] is not null)
+                {
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(Request.Form.Files[0].FileName);
+                    string path = Path.Combine(Directory.GetCurrentDirectory(), Defaults.DEFAULT_PROFILE_PHOTO_UPLOAD_PATH, fileName);
 
-		private BlogValidator blogValidator = new BlogValidator();
-		private WriterValidator writerValidator = new WriterValidator();
-		private ValidationResult validation;
+                    var stream = new FileStream(path, FileMode.Create);
+                    Request.Form.Files["WriterImage"].CopyTo(stream);
 
-		public WriterController(IBlogService blogService, ICategoryService categoryService, IWriterService writerService)
-		{
-			_blogService = blogService;
-			_categoryService = categoryService;
-			_writerService = writerService;
-		}
+                    writerDto.WriterImageUrl = Defaults.DEFAULT_PROFILE_PHOTO_URL_PATH + fileName;
 
-		public IActionResult Index()
-		{
-			return View();
-		}
+                    stream.Close();
+                }
 
-		[HttpGet]
-		public IActionResult Profile(int id)
-		{
-			var result = _writerService.GetByIdWithUser(id);
+                var writer = _mapper.Map<Writer>(writerDto);
+                writer.WriterId = _writerService.GetByIdWithUser(writerDto.UserId).WriterId;
 
-			return View(result);
-		}
+                if (writerDto.UserPassword == Defaults.PASSWORD_KEY)
+                {
+                    writer.User.UserPasswordHash = oldWriter.User.UserPasswordHash;
+                    writer.User.UserPasswordSalt = oldWriter.User.UserPasswordSalt;
+                }
+                else
+                {
+                    byte[] passwordHash, passwordSalt;
+                    HashingHelper.CreatePasswordHash(writerDto.UserPassword, out passwordHash, out passwordSalt);
 
-		[HttpPost]
-		public IActionResult Profile(Writer writer)
-		{
-			if (writer.User.UserPassword is null)
-				writer.User.UserPassword = Defaults.PASSWORD_KEY;
+                    writer.User.UserPasswordHash = passwordHash;
+                    writer.User.UserPasswordSalt = passwordSalt;
+                }
 
-			validation = writerValidator.Validate(writer);
+                _userService.Update(writer.User);
+                _writerService.Update(writer);
 
-			if (validation.IsValid)
-			{
-				if (Request.Form.Files["WriterImage"] is not null)
-				{
-					string fileName = Guid.NewGuid().ToString() + Path.GetExtension(Request.Form.Files[0].FileName);
-					string path = Path.Combine(Directory.GetCurrentDirectory(), Defaults.DEFAULT_PROFILE_PHOTO_UPLOAD_PATH, fileName);
+                return RedirectToAction("Index");
+            }
 
-					var stream = new FileStream(path, FileMode.Create);
-					Request.Form.Files["WriterImage"].CopyTo(stream);
+            foreach (var item in validation.Errors)
+            {
+                ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+            }
 
-					writer.WriterImageUrl = Defaults.DEFAULT_PROFILE_PHOTO_URL_PATH + fileName;
+            return View();
+        }
 
-					stream.Close();
-				}
+        public IActionResult DeletePhoto(int id)
+        {
+            var result = _writerService.GetByIdWithUser(id);
+            result.WriterImageUrl = Defaults.DEFAULT_AVATAR_URL;
 
-				if (writer.User.UserPassword == Defaults.PASSWORD_KEY)
-						writer.User.UserPassword = _writerService.GetByIdWithUser(writer.UserId).User.UserPassword;
+            _writerService.Update(result);
 
-				_writerService.Update(writer);
+            return RedirectToAction("Profile", new { Id = id });
+        }
 
-				return RedirectToAction("Index");
-			}
+        public IActionResult MyBlogs(int id)
+        {
+            var result = _blogService.GetAllByWriterId(id);
 
-			foreach (var item in validation.Errors)
-			{
-				ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
-			}
+            return View(result);
+        }
 
-			return View();
-		}
+        public IActionResult MyBlogsByCategory(int writerId, int categoryId)
+        {
+            var result = _blogService.GetAllByCategoryIdAndWriterId(writerId, categoryId);
 
-		public IActionResult DeletePhoto(int id)
-		{
-			var result = _writerService.GetByIdWithUser(id);
-			result.WriterImageUrl = Defaults.DEFAULT_AVATAR_URL;
+            return View(result);
+        }
 
-			_writerService.Update(result);
+        public IActionResult MyBlogsByDate(int writerId, string dateOf)
+        {
+            var result = _blogService.GetAllByDateOfAndWriterId(writerId, DateTime.Parse(dateOf));
 
-			return RedirectToAction("Profile", new { Id = id });
-		}
+            return View(result);
+        }
 
-		public IActionResult MyBlogs(int id)
-		{
-			var result = _blogService.GetAllByWriterId(id);
+        [HttpGet]
+        public IActionResult AddBlog()
+        {
+            ViewBag.Categories = GetCategoriesSeletListItems();
 
-			return View(result);
-		}
+            return View();
+        }
 
-		public IActionResult MyBlogsByCategory(int writerId, int categoryId)
-		{
-			var result = _blogService.GetAllByCategoryIdAndWriterId(writerId, categoryId);
+        [HttpPost]
+        public IActionResult AddBlog(Blog blog)
+        {
+            blog.WriterId = Convert.ToInt32(HttpContext.User.Claims.SingleOrDefault(x => x.Type == "UserId").Value);
 
-			return View(result);
-		}
+            if (Request.Form.Files["BlogImage"] is not null && Request.Form.Files["BlogThumbnailImage"] is not null)
+            {
+                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(Request.Form.Files[0].FileName);
+                string path = Path.Combine(Directory.GetCurrentDirectory(), Defaults.DEFAULT_IMAGE_UPLOAD_PATH, fileName);
 
-		public IActionResult MyBlogsByDate(int writerId, string dateOf)
-		{
-			var result = _blogService.GetAllByDateOfAndWriterId(writerId, DateTime.Parse(dateOf));
+                var stream = new FileStream(path, FileMode.Create);
+                Request.Form.Files["BlogImage"].CopyTo(stream);
 
-			return View(result);
-		}
+                blog.BlogImageUrl = Defaults.DEFAULT_IMAGE_URL_PATH + fileName;
 
-		[HttpGet]
-		public IActionResult AddBlog()
-		{
-			ViewBag.Categories = GetCategoriesSeletListItems();
+                fileName = Guid.NewGuid().ToString() + Path.GetExtension(Request.Form.Files[1].FileName);
+                path = Path.Combine(Directory.GetCurrentDirectory(), Defaults.DEFAULT_IMAGE_UPLOAD_PATH, fileName);
 
-			return View();
-		}
+                stream = new FileStream(path, FileMode.Create);
+                Request.Form.Files["BlogThumbnailImage"].CopyTo(stream);
 
-		[HttpPost]
-		public IActionResult AddBlog(Blog blog)
-		{
-			blog.WriterId = Convert.ToInt32(HttpContext.User.Claims.SingleOrDefault(x => x.Type == "UserId").Value);
+                blog.BlogThumbnailImageUrl = Defaults.DEFAULT_IMAGE_URL_PATH + fileName;
 
-			if (Request.Form.Files["BlogImage"] is not null && Request.Form.Files["BlogThumbnailImage"] is not null)
-			{
-				string fileName = Guid.NewGuid().ToString() + Path.GetExtension(Request.Form.Files[0].FileName);
-				string path = Path.Combine(Directory.GetCurrentDirectory(), Defaults.DEFAULT_IMAGE_UPLOAD_PATH, fileName);
+                stream.Close();
+            }
 
-				var stream = new FileStream(path, FileMode.Create);
-				Request.Form.Files["BlogImage"].CopyTo(stream);
+            validation = blogValidator.Validate(blog);
 
-				blog.BlogImageUrl = Defaults.DEFAULT_IMAGE_URL_PATH + fileName;
+            if (validation.IsValid)
+            {
+                _blogService.Add(blog);
 
-				fileName = Guid.NewGuid().ToString() + Path.GetExtension(Request.Form.Files[1].FileName);
-				path = Path.Combine(Directory.GetCurrentDirectory(), Defaults.DEFAULT_IMAGE_UPLOAD_PATH, fileName);
+                return RedirectToAction("MyBlogs", new { Id = HttpContext.User.Claims.SingleOrDefault(x => x.Type == "UserId").Value });
+            }
 
-				stream = new FileStream(path, FileMode.Create);
-				Request.Form.Files["BlogThumbnailImage"].CopyTo(stream);
+            foreach (var item in validation.Errors)
+            {
+                ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+            }
 
-				blog.BlogThumbnailImageUrl = Defaults.DEFAULT_IMAGE_URL_PATH + fileName;
+            ViewBag.Categories = GetCategoriesSeletListItems();
 
-				stream.Close();
-			}
+            return View();
+        }
 
-			validation = blogValidator.Validate(blog);
+        [HttpGet]
+        public IActionResult UpdateBlog(int id)
+        {
+            var result = _blogService.GetById(id);
 
-			if (validation.IsValid)
-			{
-				_blogService.Add(blog);
+            ViewBag.Categories = GetCategoriesSeletListItems();
 
-				return RedirectToAction("MyBlogs", new { Id = HttpContext.User.Claims.SingleOrDefault(x => x.Type == "UserId").Value });
-			}
+            return View(result);
+        }
 
-			foreach (var item in validation.Errors)
-			{
-				ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
-			}
+        [HttpPost]
+        public IActionResult UpdateBlog(Blog blog)
+        {
+            var result = _blogService.GetById(blog.BlogId);
 
-			ViewBag.Categories = GetCategoriesSeletListItems();
+            blog.WriterId = result.WriterId;
+            blog.BlogDateOf = result.BlogDateOf;
 
-			return View();
-		}
+            if (Request.Form.Files["BlogImage"] is null)
+                blog.BlogImageUrl = result.BlogImageUrl;
 
-		[HttpGet]
-		public IActionResult UpdateBlog(int id)
-		{
-			var result = _blogService.GetById(id);
+            if (Request.Form.Files["BlogThumbnailImage"] is null)
+                blog.BlogThumbnailImageUrl = result.BlogThumbnailImageUrl;
 
-			ViewBag.Categories = GetCategoriesSeletListItems();
+            if (Request.Form.Files["BlogImage"] is not null && Request.Form.Files["BlogThumbnailImage"] is not null)
+            {
+                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(Request.Form.Files[0].FileName);
+                string path = Path.Combine(Directory.GetCurrentDirectory(), Defaults.DEFAULT_IMAGE_UPLOAD_PATH, fileName);
 
-			return View(result);
-		}
+                var stream = new FileStream(path, FileMode.Create);
+                Request.Form.Files["BlogImage"].CopyTo(stream);
 
-		[HttpPost]
-		public IActionResult UpdateBlog(Blog blog)
-		{
-			var result = _blogService.GetById(blog.BlogId);
+                blog.BlogImageUrl = Defaults.DEFAULT_IMAGE_URL_PATH + fileName;
 
-			blog.WriterId = result.WriterId;
-			blog.BlogDateOf = result.BlogDateOf;
+                fileName = Guid.NewGuid().ToString() + Path.GetExtension(Request.Form.Files[1].FileName);
+                path = Path.Combine(Directory.GetCurrentDirectory(), Defaults.DEFAULT_IMAGE_UPLOAD_PATH, fileName);
 
-			if (Request.Form.Files["BlogImage"] is null)
-				blog.BlogImageUrl = result.BlogImageUrl;
+                stream = new FileStream(path, FileMode.Create);
+                Request.Form.Files["BlogThumbnailImage"].CopyTo(stream);
 
-			if (Request.Form.Files["BlogThumbnailImage"] is null)
-				blog.BlogThumbnailImageUrl = result.BlogThumbnailImageUrl;
+                blog.BlogThumbnailImageUrl = Defaults.DEFAULT_IMAGE_URL_PATH + fileName;
 
-			if (Request.Form.Files["BlogImage"] is not null && Request.Form.Files["BlogThumbnailImage"] is not null)
-			{
-				string fileName = Guid.NewGuid().ToString() + Path.GetExtension(Request.Form.Files[0].FileName);
-				string path = Path.Combine(Directory.GetCurrentDirectory(), Defaults.DEFAULT_IMAGE_UPLOAD_PATH, fileName);
+                stream.Close();
+            }
 
-				var stream = new FileStream(path, FileMode.Create);
-				Request.Form.Files["BlogImage"].CopyTo(stream);
+            validation = blogValidator.Validate(blog);
 
-				blog.BlogImageUrl = Defaults.DEFAULT_IMAGE_URL_PATH + fileName;
+            if (validation.IsValid)
+            {
+                _blogService.Update(blog);
 
-				fileName = Guid.NewGuid().ToString() + Path.GetExtension(Request.Form.Files[1].FileName);
-				path = Path.Combine(Directory.GetCurrentDirectory(), Defaults.DEFAULT_IMAGE_UPLOAD_PATH, fileName);
+                return RedirectToAction("MyBlogs", new { Id = HttpContext.User.Claims.SingleOrDefault(x => x.Type == "UserId").Value });
+            }
 
-				stream = new FileStream(path, FileMode.Create);
-				Request.Form.Files["BlogThumbnailImage"].CopyTo(stream);
+            foreach (var item in validation.Errors)
+            {
+                ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+            }
 
-				blog.BlogThumbnailImageUrl = Defaults.DEFAULT_IMAGE_URL_PATH + fileName;
+            ViewBag.Categories = GetCategoriesSeletListItems();
 
-				stream.Close();
-			}
+            return View();
+        }
 
-			validation = blogValidator.Validate(blog);
+        public IActionResult DeleteBlog(int id)
+        {
+            var result = _blogService.GetById(id);
 
-			if (validation.IsValid)
-			{
-				_blogService.Update(blog);
+            result.BlogStatus = result.BlogStatus ? false : true;
 
-				return RedirectToAction("MyBlogs", new { Id = HttpContext.User.Claims.SingleOrDefault(x => x.Type == "UserId").Value });
-			}
+            _blogService.Update(result);
 
-			foreach (var item in validation.Errors)
-			{
-				ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
-			}
+            return RedirectToAction("MyBlogs", new { Id = HttpContext.User.Claims.SingleOrDefault(x => x.Type == "UserId").Value });
+        }
 
-			ViewBag.Categories = GetCategoriesSeletListItems();
+        [HttpPost]
+        public IActionResult UploadFile(List<IFormFile> files)
+        {
+            var result = "";
 
-			return View();
-		}
+            foreach (var item in Request.Form.Files)
+            {
+                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(item.FileName);
+                string path = Path.Combine(Directory.GetCurrentDirectory(), Defaults.DEFAULT_IMAGE_UPLOAD_PATH, fileName);
 
-		public IActionResult DeleteBlog(int id)
-		{
-			var result = _blogService.GetById(id);
+                using var stream = new FileStream(path, FileMode.Create);
+                item.CopyTo(stream);
 
-			result.BlogStatus = result.BlogStatus ? false : true;
+                result = Defaults.DEFAULT_IMAGE_URL_PATH + fileName;
+            }
 
-			_blogService.Update(result);
+            return Json(new { url = result });
+        }
 
-			return RedirectToAction("MyBlogs", new { Id = HttpContext.User.Claims.SingleOrDefault(x => x.Type == "UserId").Value });
-		}
-
-		[HttpPost]
-		public IActionResult UploadFile(List<IFormFile> files)
-		{
-			var result = "";
-
-			foreach (var item in Request.Form.Files)
-			{
-				string fileName = Guid.NewGuid().ToString() + Path.GetExtension(item.FileName);
-				string path = Path.Combine(Directory.GetCurrentDirectory(), Defaults.DEFAULT_IMAGE_UPLOAD_PATH, fileName);
-
-				using var stream = new FileStream(path, FileMode.Create);
-				item.CopyTo(stream);
-
-				result = Defaults.DEFAULT_IMAGE_URL_PATH + fileName;
-			}
-
-			return Json(new { url = result });
-		}
-
-		public ICollection<SelectListItem> GetCategoriesSeletListItems()
-		{
-			return (from x in _categoryService.GetAllByStatus(true)
-					select new SelectListItem
-					{
-						Text = x.CategoryName,
-						Value = x.CategoryId.ToString()
-					}).ToList();
-		}
-	}
+        public ICollection<SelectListItem> GetCategoriesSeletListItems()
+        {
+            return (from x in _categoryService.GetAllByStatus(true)
+                    select new SelectListItem
+                    {
+                        Text = x.CategoryName,
+                        Value = x.CategoryId.ToString()
+                    }).ToList();
+        }
+    }
 }

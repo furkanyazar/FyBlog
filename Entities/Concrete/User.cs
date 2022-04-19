@@ -12,7 +12,8 @@ namespace Entities.Concrete
         public string UserFirstName { get; set; }
         public string UserLastName { get; set; }
         public string UserEmail { get; set; }
-        public string UserPassword { get; set; }
+        public byte[] UserPasswordSalt { get; set; }
+        public byte[] UserPasswordHash { get; set; }
         public bool UserStatus { get; set; } = true;
 
         public List<Writer> Writers { get; set; }

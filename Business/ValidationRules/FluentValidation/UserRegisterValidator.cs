@@ -1,12 +1,12 @@
 ﻿using Business.Constants;
-using Entities.Concrete;
+using Entities.DTOs;
 using FluentValidation;
 
 namespace Business.ValidationRules.FluentValidation
 {
-    public class UserValidator : AbstractValidator<User>
+    public class UserRegisterValidator : AbstractValidator<UserRegisterDto>
     {
-        public UserValidator()
+        public UserRegisterValidator()
         {
             RuleFor(x => x.UserFirstName).NotEmpty().WithMessage(Messages.UserFirstNameNotEmpty);
             RuleFor(x => x.UserFirstName).MinimumLength(2).WithMessage(Messages.UserFirstNameMinimumLength);
