@@ -43,9 +43,9 @@ namespace WebApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult Profile(int id)
+        public IActionResult Profile(int userId)
         {
-            var writer = _writerService.GetByIdWithUser(id);
+            var writer = _writerService.GetByUserIdWithUser(userId);
 
             var result = _mapper.Map<WriterDto>(writer);
 
@@ -55,7 +55,7 @@ namespace WebApp.Controllers
         [HttpPost]
         public IActionResult Profile(WriterDto writerDto)
         {
-            var oldWriter = _writerService.GetByIdWithUser(writerDto.UserId);
+            var oldWriter = _writerService.GetByUserIdWithUser(writerDto.UserId);
 
             if (writerDto.UserPassword is null)
                 writerDto.UserPassword = Defaults.PASSWORD_KEY;
@@ -78,7 +78,7 @@ namespace WebApp.Controllers
                 }
 
                 var writer = _mapper.Map<Writer>(writerDto);
-                writer.WriterId = _writerService.GetByIdWithUser(writerDto.UserId).WriterId;
+                writer.WriterId = _writerService.GetByUserIdWithUser(writerDto.UserId).WriterId;
 
                 if (writerDto.UserPassword == Defaults.PASSWORD_KEY)
                 {
@@ -108,19 +108,19 @@ namespace WebApp.Controllers
             return View();
         }
 
-        public IActionResult DeletePhoto(int id)
+        public IActionResult DeletePhoto(int userId)
         {
-            var result = _writerService.GetByIdWithUser(id);
+            var result = _writerService.GetByUserIdWithUser(userId);
             result.WriterImageUrl = Defaults.DEFAULT_AVATAR_URL;
 
             _writerService.Update(result);
 
-            return RedirectToAction("Profile", new { Id = id });
+            return RedirectToAction("Profile", new { userId = userId });
         }
 
-        public IActionResult MyBlogs(int id)
+        public IActionResult MyBlogs(int writerId)
         {
-            var result = _blogService.GetAllByWriterId(id);
+            var result = _blogService.GetAllByWriterId(writerId);
 
             return View(result);
         }
@@ -193,9 +193,9 @@ namespace WebApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult UpdateBlog(int id)
+        public IActionResult UpdateBlog(int blogId)
         {
-            var result = _blogService.GetById(id);
+            var result = _blogService.GetByBlogId(blogId);
 
             ViewBag.Categories = GetCategoriesSeletListItems();
 
@@ -205,7 +205,7 @@ namespace WebApp.Controllers
         [HttpPost]
         public IActionResult UpdateBlog(Blog blog)
         {
-            var result = _blogService.GetById(blog.BlogId);
+            var result = _blogService.GetByBlogId(blog.BlogId);
 
             blog.WriterId = result.WriterId;
             blog.BlogDateOf = result.BlogDateOf;
@@ -256,9 +256,9 @@ namespace WebApp.Controllers
             return View();
         }
 
-        public IActionResult DeleteBlog(int id)
+        public IActionResult DeleteBlog(int blogId)
         {
-            var result = _blogService.GetById(id);
+            var result = _blogService.GetByBlogId(blogId);
 
             result.BlogStatus = result.BlogStatus ? false : true;
 

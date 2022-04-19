@@ -7,26 +7,26 @@ namespace Business.Abstract
 {
     public interface IBlogService : IEntityService<Blog>
     {
-        List<Blog> GetAllWithCategoryAndWriter();
-
-        List<Blog> GetAllBySearchKey(string searchKey);
-
-        List<Blog> GetAllByCategoryId(int id);
+        List<Blog> GetAllByCategoryId(int categoryId);
 
         List<Blog> GetAllByCategoryIdAndWriterId(int writerId, int categoryId);
-
-        List<Blog> GetAllByWriterId(int id);
 
         List<Blog> GetAllByDateOf(DateTime dateOf);
 
         List<Blog> GetAllByDateOfAndWriterId(int writerId, DateTime dateOf);
 
-        List<Blog> GetSomeByCategoryIdWithoutId(int blogId, int categoryId);
+        List<Blog> GetAllBySearchKey(string searchKey);
 
-        List<Blog> GetLatestsWithCount(int count);
+        List<Blog> GetAllByWriterId(int writerId);
+
+        List<Blog> GetAllWithCategoryAndWriter();
+
+        Blog GetByBlogId(int blogId);
 
         List<Blog> GetLatestsByWriterIdWithCount(int writerId, int count);
 
-        Blog GetById(int id);
+        List<Blog> GetLatestsWithCount(int count);
+
+        List<Blog> GetSomeByCategoryIdWithoutId(int blogId, int categoryId);
     }
 }

@@ -169,7 +169,7 @@
                                {
                                    Write("active");
                                }">
-						<a class="nav-link" asp-controller="Writer" asp-action="MyBlogs" asp-route-id="@User.Claims.SingleOrDefault(x => x.Type == "UserId").Value">
+						<a class="nav-link" asp-controller="Writer" asp-action="MyBlogs" asp-route-userId="@User.Claims.SingleOrDefault(x => x.Type == "UserId").Value">
 							<span class="menu-title">Bloglarım</span>
 							<i class="mdi mdi-checkbox-multiple-blank menu-icon"></i>
 						</a>

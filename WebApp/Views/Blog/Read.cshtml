@@ -34,12 +34,12 @@
 									</a>
 								</li>
 								<li class="mx-3">
-									<a asp-controller="Blog" asp-action="Writer" asp-route-id="@Model.WriterId">
+									<a asp-controller="Blog" asp-action="Writer" asp-route-writerId="@Model.WriterId">
 										<i class="fas fa-user"></i> @Model.Writer.User.UserFirstName @Model.Writer.User.UserLastName
 									</a>
 								</li>
 								<li>
-									<a asp-controller="Blog" asp-action="Category" asp-route-id="@Model.CategoryId">
+									<a asp-controller="Blog" asp-action="Category" asp-route-categoryId="@Model.CategoryId">
 										<i class="fas fa-list"></i> @Model.Category.CategoryName
 									</a>
 								</li>

@@ -8,11 +8,11 @@ namespace DataAccess.Concrete.EntityFramework
 {
 	public class EfWriterDal : EfEntityRepository<Writer, MvcCoreDbContext>, IWriterDal
 	{
-		public Writer GetByIdWithUser(int id)
+		public Writer GetByUserIdWithUser(int userId)
 		{
 			using (var context = new MvcCoreDbContext())
 			{
-				return context.Writers.Include(x => x.User).SingleOrDefault(x => x.UserId == id);
+				return context.Writers.Include(x => x.User).SingleOrDefault(x => x.UserId == userId);
 			}
 		}
 

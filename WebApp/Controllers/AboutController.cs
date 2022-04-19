@@ -17,7 +17,7 @@ namespace WebApp.Controllers
 
         public IActionResult Index()
         {
-            var result = _aboutService.GetAll().LastOrDefault();
+            var result = _aboutService.GetAllByStatus(true).LastOrDefault();
 
             return View(result);
         }

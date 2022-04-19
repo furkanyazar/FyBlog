@@ -5,13 +5,13 @@
 	<h4>En Yeni</h4>
 	<div class="blog-grids">
 		<div class="blog-grid-left">
-			<a asp-controller="Blog" asp-action="Read" asp-route-id="@Model.BlogId">
+			<a asp-controller="Blog" asp-action="Read" asp-route-blogId="@Model.BlogId">
 				<img src="@Model.BlogThumbnailImageUrl" class="img-fluid" alt="">
 			</a>
 		</div>
 		<div class="blog-grid-right">
 			<h5>
-				<a asp-controller="Blog" asp-action="Read" asp-route-id="@Model.BlogId">@Model.BlogTitle</a>
+				<a asp-controller="Blog" asp-action="Read" asp-route-blogId="@Model.BlogId">@Model.BlogTitle</a>
 			</h5>
 		</div>
 		<div class="clearfix"> </div>

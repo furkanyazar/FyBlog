@@ -26,11 +26,11 @@
 							@foreach (var item in Model)
 							{
 								<tr>
-									<td><a class="text-black" asp-controller="Blog" asp-action="Read" asp-route-id="@item.BlogId">@item.BlogTitle</a></td>
+									<td><a class="text-black" asp-controller="Blog" asp-action="Read" asp-route-blogId="@item.BlogId">@item.BlogTitle</a></td>
 									<td><a class="text-black" asp-controller="Writer" asp-action="MyBlogsByDate" asp-route-writerId="@item.WriterId" asp-route-dateOf="@item.BlogDateOf.ToShortDateString()">@item.BlogDateOf.ToShortDateString()</a></td>
 									<td><a asp-controller="Writer" asp-action="MyBlogsByCategory" asp-route-writerId="@item.WriterId" asp-route-categoryId="@item.CategoryId"><span class="badge badge-gradient-dark">@item.Category.CategoryName</span></a></td>
 									<td>
-										<a asp-controller="Writer" asp-action="DeleteBlog" asp-route-id="@item.BlogId">
+										<a asp-controller="Writer" asp-action="DeleteBlog" asp-route-blogId="@item.BlogId">
 											<span class="badge @{
 									    switch (item.BlogStatus)
 										{
@@ -57,7 +57,7 @@
 										</a>
 									</td>
 									<td>
-										<a class="btn btn-gradient-info btn-fw" asp-controller="Writer" asp-action="UpdateBlog" asp-route-id="@item.BlogId">Düzenle</a>
+										<a class="btn btn-gradient-info btn-fw" asp-controller="Writer" asp-action="UpdateBlog" asp-route-blogId="@item.BlogId">Düzenle</a>
 									</td>
 								</tr>
 							}

@@ -13,9 +13,9 @@ namespace Business.Concrete
         {
         }
 
-        public List<Blog> GetAllByCategoryId(int id)
+        public List<Blog> GetAllByCategoryId(int categoryId)
         {
-            return _tdal.GetAllByCategoryId(id);
+            return _tdal.GetAllByCategoryId(categoryId);
         }
 
         public List<Blog> GetAllByCategoryIdAndWriterId(int writerId, int categoryId)
@@ -38,9 +38,9 @@ namespace Business.Concrete
             return _tdal.GetAllBySearchKey(searchKey);
         }
 
-        public List<Blog> GetAllByWriterId(int id)
+        public List<Blog> GetAllByWriterId(int writerId)
         {
-            return _tdal.GetAllByWriterId(id);
+            return _tdal.GetAllByWriterId(writerId);
         }
 
         public List<Blog> GetAllWithCategoryAndWriter()
@@ -48,9 +48,9 @@ namespace Business.Concrete
             return _tdal.GetAllWithCategoryAndWriter();
         }
 
-        public Blog GetById(int id)
+        public Blog GetByBlogId(int blogId)
         {
-            return _tdal.GetById(id);
+            return _tdal.GetByBlogId(blogId);
         }
 
         public List<Blog> GetLatestsByWriterIdWithCount(int writerId, int count)

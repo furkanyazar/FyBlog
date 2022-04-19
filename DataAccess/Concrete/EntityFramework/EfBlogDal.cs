@@ -10,11 +10,11 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfBlogDal : EfEntityRepository<Blog, MvcCoreDbContext>, IBlogDal
     {
-        public List<Blog> GetAllByCategoryId(int id)
+        public List<Blog> GetAllByCategoryId(int categoryId)
         {
             using (var context = new MvcCoreDbContext())
             {
-                return context.Blogs.Where(x => x.CategoryId == id).OrderByDescending(x => x.BlogDateOf).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).ToList();
+                return context.Blogs.Where(x => x.CategoryId == categoryId).OrderByDescending(x => x.BlogDateOf).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).ToList();
             }
         }
 
@@ -50,11 +50,11 @@ namespace DataAccess.Concrete.EntityFramework
             }
         }
 
-        public List<Blog> GetAllByWriterId(int id)
+        public List<Blog> GetAllByWriterId(int writerId)
         {
             using (var context = new MvcCoreDbContext())
             {
-                return context.Blogs.Where(x => x.WriterId == id).OrderByDescending(x => x.BlogDateOf).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).ToList();
+                return context.Blogs.Where(x => x.WriterId == writerId).OrderByDescending(x => x.BlogDateOf).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).ToList();
             }
         }
 
@@ -66,11 +66,11 @@ namespace DataAccess.Concrete.EntityFramework
             }
         }
 
-        public Blog GetById(int id)
+        public Blog GetByBlogId(int blogId)
         {
             using (var context = new MvcCoreDbContext())
             {
-                return context.Blogs.Where(x => x.BlogId == id).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).SingleOrDefault();
+                return context.Blogs.Where(x => x.BlogId == blogId).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).SingleOrDefault();
             }
         }
 

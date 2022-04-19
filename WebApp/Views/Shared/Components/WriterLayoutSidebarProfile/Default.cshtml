@@ -2,7 +2,7 @@
 @model Writer
 
 <li class="nav-item nav-profile">
-	<a class="nav-link" asp-controller="Writer" asp-action="Profile" asp-route-id="@User.Claims.SingleOrDefault(x => x.Type == "UserId").Value">
+	<a class="nav-link" asp-controller="Writer" asp-action="Profile" asp-route-userId="@User.Claims.SingleOrDefault(x => x.Type == "UserId").Value">
 		<div class="nav-profile-image">
 			<img src="@Model.WriterImageUrl" alt="profile">
 			<span class="login-status online"></span>

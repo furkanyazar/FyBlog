@@ -14,11 +14,11 @@ namespace WebApp.ViewComponents
             _commentService = commentService;
         }
 
-        public IViewComponentResult Invoke(int id)
+        public IViewComponentResult Invoke(int writerId)
         {
             int count = 0;
 
-            var blogs = _blogService.GetAllByWriterId(id);
+            var blogs = _blogService.GetAllByWriterId(writerId);
 
             foreach (var blog in blogs)
                 count += _commentService.GetAllByLastWeekAndBlogId(blog.BlogId).Count;

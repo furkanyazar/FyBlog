@@ -23,23 +23,23 @@ namespace WebApp.Controllers
             return View(result);
         }
 
-        public IActionResult Read(int id)
+        public IActionResult Read(int blogId)
         {
-            var result = _blogService.GetById(id);
+            var result = _blogService.GetByBlogId(blogId);
 
             return View(result);
         }
 
-        public IActionResult Category(int id)
+        public IActionResult Category(int categoryId)
         {
-            var result = _blogService.GetAllByCategoryId(id);
+            var result = _blogService.GetAllByCategoryId(categoryId);
 
             return View(result);
         }
 
-        public IActionResult Writer(int id)
+        public IActionResult Writer(int writerId)
         {
-            var result = _blogService.GetAllByWriterId(id);
+            var result = _blogService.GetAllByWriterId(writerId);
 
             return View(result);
         }

@@ -12,9 +12,9 @@ namespace WebApp.ViewComponents
             _writerService = writerService;
         }
 
-        public IViewComponentResult Invoke(int id)
+        public IViewComponentResult Invoke(int userId)
         {
-            var result = _writerService.GetByIdWithUser(id);
+            var result = _writerService.GetByUserIdWithUser(userId);
 
             return View(result);
         }

@@ -5,7 +5,7 @@ namespace Business.Abstract
 {
     public interface IWriterService : IEntityService<Writer>
     {
-        Writer GetByIdWithUser(int id);
+        Writer GetByUserIdWithUser(int userId);
 
         Writer GetByUserEmail(string email);
     }

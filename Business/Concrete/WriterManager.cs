@@ -11,9 +11,9 @@ namespace Business.Concrete
         {
         }
 
-        public Writer GetByIdWithUser(int id)
+        public Writer GetByUserIdWithUser(int userId)
         {
-            return _tdal.GetByIdWithUser(id);
+            return _tdal.GetByUserIdWithUser(userId);
         }
 
 		public Writer GetByUserEmail(string email)
