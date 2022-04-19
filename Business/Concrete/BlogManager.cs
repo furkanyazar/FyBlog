@@ -38,9 +38,9 @@ namespace Business.Concrete
             return _tdal.GetAllBySearchKey(searchKey);
         }
 
-        public List<Blog> GetAllByWriterId(int writerId)
+        public List<Blog> GetAllByUserId(int userId)
         {
-            return _tdal.GetAllByWriterId(writerId);
+            return _tdal.GetAllByUserId(userId);
         }
 
         public List<Blog> GetAllWithCategoryAndWriter()

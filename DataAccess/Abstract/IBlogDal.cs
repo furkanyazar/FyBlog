@@ -17,7 +17,7 @@ namespace DataAccess.Abstract
 
         List<Blog> GetAllBySearchKey(string searchKey);
 
-        List<Blog> GetAllByWriterId(int writerId);
+        List<Blog> GetAllByUserId(int userId);
 
         List<Blog> GetAllWithCategoryAndWriter();
 

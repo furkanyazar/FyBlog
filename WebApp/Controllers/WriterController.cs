@@ -118,9 +118,9 @@ namespace WebApp.Controllers
             return RedirectToAction("Profile", new { userId = userId });
         }
 
-        public IActionResult MyBlogs(int writerId)
+        public IActionResult MyBlogs(int userId)
         {
-            var result = _blogService.GetAllByWriterId(writerId);
+            var result = _blogService.GetAllByUserId(userId);
 
             return View(result);
         }

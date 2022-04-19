@@ -39,7 +39,7 @@ namespace WebApp.Controllers
 
         public IActionResult Writer(int writerId)
         {
-            var result = _blogService.GetAllByWriterId(writerId);
+            var result = _blogService.GetAllByUserId(writerId);
 
             return View(result);
         }

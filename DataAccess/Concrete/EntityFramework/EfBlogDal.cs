@@ -50,11 +50,11 @@ namespace DataAccess.Concrete.EntityFramework
             }
         }
 
-        public List<Blog> GetAllByWriterId(int writerId)
+        public List<Blog> GetAllByUserId(int userId)
         {
             using (var context = new MvcCoreDbContext())
             {
-                return context.Blogs.Where(x => x.WriterId == writerId).OrderByDescending(x => x.BlogDateOf).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).ToList();
+                return context.Blogs.Where(x => x.Writer.User.UserId == userId).OrderByDescending(x => x.BlogDateOf).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).ToList();
             }
         }
 

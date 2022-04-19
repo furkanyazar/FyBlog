@@ -14,7 +14,7 @@ namespace WebApp.ViewComponents
 
         public IViewComponentResult Invoke(int writerId)
         {
-            var result = _blogService.GetAllByWriterId(writerId).Count;
+            var result = _blogService.GetAllByUserId(writerId).Count;
 
             return View(result);
         }
