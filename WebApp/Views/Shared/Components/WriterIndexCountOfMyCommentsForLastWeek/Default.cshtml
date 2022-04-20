@@ -2,12 +2,14 @@
 
 <div class="col-md-4 stretch-card grid-margin">
 	<div class="card bg-gradient-success card-img-holder text-white">
-		<div class="card-body">
-			<img src="/writer/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-			<h4 class="font-weight-normal mb-3">
-				Bu Hafta Aldığım Yorumlar <i class="mdi mdi-diamond mdi-24px float-right"></i>
-			</h4>
-			<h2 class="mb-5">@Model</h2>
-		</div>
+		<a class="text-white" asp-controller="Writer" asp-action="MyBlogs" asp-route-userId="@User.Claims.SingleOrDefault(x => x.Type == "UserId").Value">
+			<div class="card-body">
+				<img src="/writer/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+				<h4 class="font-weight-normal mb-3">
+					Bu Hafta Aldığım Yorumlar <i class="mdi mdi-diamond mdi-24px float-right"></i>
+				</h4>
+				<h2 class="mb-5">@Model</h2>
+			</div>
+		</a>
 	</div>
 </div>
