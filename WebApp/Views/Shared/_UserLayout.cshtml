@@ -29,16 +29,29 @@
 		<div class="top-bar_sub_w3layouts container-fluid">
 			<div class="row">
 				<div class="col-md-4 logo text-left">
-					<a class="navbar-brand" href="#">
+					<a class="navbar-brand" asp-controller="Blog" asp-action="Index">
 						<img src="~/web/images/logo.png" />
 					</a>
 				</div>
 				<div class="col-md-4 top-forms text-center mt-lg-3 mt-md-1 mt-0">
-					@if (Context.User.Claims.Count() > 0)
+					@if (Context.User.Identity.AuthenticationType == "W")
 					{
 						<span class="mx-lg-4 mx-md-2  mx-1">
 							<a asp-controller="Writer" asp-action="Index">
 								<i class="fas fa-columns"></i> Yazar Paneli
+							</a>
+						</span>
+						<span class="mx-lg-4 mx-md-2  mx-1">
+							<a asp-controller="Login" asp-action="Logout">
+								<i class="fas fa-lock"></i> Çıkış Yap
+							</a>
+						</span>
+					}
+					@if (Context.User.Identity.AuthenticationType == "U")
+					{
+						<span class="mx-lg-4 mx-md-2  mx-1">
+							<a asp-controller="User" asp-action="Index" asp-route-userId="@Convert.ToInt32(Context.User.Claims.SingleOrDefault(x => x.Type == "UserId").Value)">
+								<i class="fas fa-columns"></i> Profilim
 							</a>
 						</span>
 						<span class="mx-lg-4 mx-md-2  mx-1">
@@ -96,22 +109,17 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav mr-auto">
-						<li class="nav-item">
-							<a class="nav-link" href="#">
-								Ana Sayfa
-							</a>
+						<li class="nav-item @if (Context.Request.Path.ToString().Contains("Blog") || Context.Request.Path == "/")
+									   {
+										   Write("active");
+									   }">
+							<a class="nav-link" asp-controller="Blog" asp-action="Index">Ana Sayfa</a>
 						</li>
 						<li class="nav-item @if (Context.Request.Path.ToString().Contains("About"))
 									   {
 										   Write("active");
 									   }">
 							<a class="nav-link" asp-controller="About" asp-action="Index">Hakkımızda</a>
-						</li>
-						<li class="nav-item @if (Context.Request.Path.ToString().Contains("Blog") || Context.Request.Path == "/")
-									   {
-										   Write("active");
-									   }">
-							<a class="nav-link" asp-controller="Blog" asp-action="Index">Bloglar</a>
 						</li>
 						<li class="nav-item @if (Context.Request.Path.ToString().Contains("Contact"))
 									   {

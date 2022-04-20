@@ -1,20 +1,22 @@
 ﻿@using Entities.DTOs
-@model UserRegisterDto
+@model UserDto
 
 @{
-	ViewData["Title"] = "Kayıt Ol";
-	Layout = "~/Views/Shared/_UserLayout.cshtml";
+    ViewData["Title"] = "Profilim";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
+
 
 <section class="main-content-w3layouts-agileits">
 	<div class="container">
-		<h3 class="tittle">Kayıt Ol</h3>
+		<h3 class="tittle">Profilim</h3>
 		<div class="inner-sec">
 			<div class="login p-5 bg-light mx-auto mw-100">
-				@using (Html.BeginForm("Index", "Register", FormMethod.Post))
+				@using (Html.BeginForm("Index", "User", FormMethod.Post))
 				{
 					<div class="form-row">
 						<div class="col-md-6 mb-3">
+							@Html.HiddenFor(x => x.UserId)
 							@Html.Label("Ad")
 							@Html.TextBoxFor(x => x.UserFirstName, new { @class = "form-control", @placeholder = "Ad" } )
 							@Html.ValidationMessageFor(x => x.UserFirstName, "", new { @class = "text-danger" })
@@ -33,19 +35,13 @@
 						</div>
 						<div class="form-group col-md-6">
 							@Html.Label("Şifre")
-							@Html.PasswordFor(x => x.UserPassword, new { @class = "form-control", @placeholder = "Şifre" } )
+							@Html.PasswordFor(x => x.UserPassword, new { @class = "form-control", @placeholder = "Değiştirmek için doldurunuz" } )
 							@Html.ValidationMessageFor(x => x.UserPassword, "", new { @class = "text-danger" })
 						</div>
 					</div>
-					<button type="submit" class="btn btn-primary submit mb-4">Kayıt Ol</button>
-					<p><a href="#" id="terms">Kayıt olarak, şartlarımızı kabul etmiş olursunuz</a></p>
+					<button type="submit" class="btn btn-primary submit mb-4">Kaydet</button>
 				}
 			</div>
 		</div>
 	</div>
 </section>
-<script>
-	$( "#terms" ).click(function() {
-		swal("Kayıt Şartları", "Kayıt olduğunuz e-posta adresi üzerinden spam ölçüsüne varmadan bilgi ve haber e-postaları gönderilecektir. Eğer e-posta bülteninden çıkmak isterseniz e-posta ileti dizisini durdurabilirsiniz. Şifreniz, şifrelenmiş formatta herhangi bir kullanıcının göremeyeceği şekilde saklanmaktadır.");
-	});
-</script>

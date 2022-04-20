@@ -53,13 +53,13 @@ namespace WebApp.Controllers
 
                 _userService.Add(user);
 
-                var writer = new Writer
-                {
-                    UserId = _userService.GetAll().LastOrDefault().UserId,
-                    WriterImageUrl = Defaults.DEFAULT_AVATAR_URL
-                };
+                //var writer = new Writer
+                //{
+                //    UserId = _userService.GetAll().LastOrDefault().UserId,
+                //    WriterImageUrl = Defaults.DEFAULT_AVATAR_URL
+                //};
 
-                _writerService.Add(writer);
+                //_writerService.Add(writer);
 
                 return RedirectToAction("Index", "Login");
             }

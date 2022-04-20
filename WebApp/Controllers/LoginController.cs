@@ -16,13 +16,15 @@ namespace WebApp.Controllers
     public class LoginController : Controller
     {
         private IWriterService _writerService;
+        private IUserService _userService;
 
         private UserLoginValidator userLoginValidator = new UserLoginValidator();
         private ValidationResult validation;
 
-        public LoginController(IWriterService writerService)
+        public LoginController(IWriterService writerService, IUserService userService)
         {
             _writerService = writerService;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -33,6 +35,65 @@ namespace WebApp.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Index(UserLoginDto userLoginDto)
+        {
+            validation = userLoginValidator.Validate(userLoginDto);
+
+            if (validation.IsValid)
+            {
+                var writerToCheck = _writerService.GetByUserEmail(userLoginDto.UserEmail);
+
+                if (writerToCheck is not null)
+                {
+                    ModelState.AddModelError("UserEmail", "E-posta hatalı");
+
+                    return View();
+                }
+
+                var userToCheck = _userService.GetByUserEmail(userLoginDto.UserEmail);
+
+                if (userToCheck is null)
+                {
+                    ModelState.AddModelError("UserEmail", "E-posta hatalı");
+
+                    return View();
+                }
+
+                if (!HashingHelper.VerifyPasswordHash(userLoginDto.UserPassword, userToCheck.UserPasswordHash, userToCheck.UserPasswordSalt))
+                {
+                    ModelState.AddModelError("UserPassword", "Şifre hatalı");
+
+                    return View();
+                }
+
+                var claims = new List<Claim>
+                {
+                    new Claim("UserId", userToCheck.UserId.ToString())
+                };
+
+                var claimIdentity = new ClaimsIdentity(claims, "U");
+                var claimsPrincipal = new ClaimsPrincipal(claimIdentity);
+
+                await HttpContext.SignInAsync(claimsPrincipal);
+
+                return RedirectToAction("Index", "Blog");
+            }
+
+            foreach (var item in validation.Errors)
+            {
+                ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+            }
+
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Writer()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Writer(UserLoginDto userLoginDto)
         {
             validation = userLoginValidator.Validate(userLoginDto);
 
@@ -59,7 +120,7 @@ namespace WebApp.Controllers
                     new Claim("UserId", userToCheck.UserId.ToString())
                 };
 
-                var claimIdentity = new ClaimsIdentity(claims, "A");
+                var claimIdentity = new ClaimsIdentity(claims, "W");
                 var claimsPrincipal = new ClaimsPrincipal(claimIdentity);
 
                 await HttpContext.SignInAsync(claimsPrincipal);
@@ -79,7 +140,7 @@ namespace WebApp.Controllers
         {
             await HttpContext.SignOutAsync();
 
-            return RedirectToAction("Index", "Login");
+            return RedirectToAction("Index", "Blog");
         }
     }
 }

@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
-	<title>Sayfa Bulunamadı - MVC Core</title>
+	<title>Sayfa Bulunamadı - FY Blog</title>
 	<!-- Meta tag Keywords -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="UTF-8" />
@@ -35,8 +35,8 @@
 					<div class="errors-16-info">
 						<h3>404 </h3>
 						<p>Hata! Sayfa Bulunamadı</p>
-						<form action="#" method="dialog" class="d-flex error-page-form">
-							<input type="search" placeholder="Arama yap" required="">
+						<form action="/Blog/Search" method="post" class="d-flex error-page-form">
+							<input type="search" placeholder="Arama yap..." name="searchKey" required="">
 							<button type="submit"><span class="fa fa-search" aria-hidden="true"></span></button>
 						</form>
 						<div class="social-coming-icons">

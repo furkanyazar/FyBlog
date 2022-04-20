@@ -25,6 +25,10 @@ namespace WebApp.Common
                 .ForMember(dest => dest.UserFirstName, opt => opt.MapFrom(src => src.User.UserFirstName))
                 .ForMember(dest => dest.UserLastName, opt => opt.MapFrom(src => src.User.UserLastName))
                 .ForMember(dest => dest.UserEmail, opt => opt.MapFrom(src => src.User.UserEmail));
+
+            // User
+            CreateMap<User, UserDto>();
+            CreateMap<UserDto, User>();
         }
     }
 }

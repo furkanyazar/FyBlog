@@ -78,7 +78,7 @@ namespace WebApp.Controllers
                 }
 
                 var writer = _mapper.Map<Writer>(writerDto);
-                writer.WriterId = _writerService.GetByUserIdWithUser(writerDto.UserId).WriterId;
+                writer.WriterId = oldWriter.WriterId;
 
                 if (writerDto.UserPassword == Defaults.PASSWORD_KEY)
                 {
