@@ -1,18 +1,22 @@
-﻿@using Entities.DTOs
+﻿@using Business.Constants
+@using Entities.DTOs
 @model UserDto
 
 @{
-    ViewData["Title"] = "Profilim";
-    Layout = "~/Views/Shared/_UserLayout.cshtml";
+	ViewData["Title"] = "Profilim";
+	Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
-
 
 <section class="main-content-w3layouts-agileits">
 	<div class="container">
 		<h3 class="tittle">Profilim</h3>
+		<br />
+		<span id="image">
+			<img class="rounded mx-auto d-block" src="@Model.UserImageUrl" style="max-width: 100%; max-height: 150px;" />
+		</span>
 		<div class="inner-sec">
 			<div class="login p-5 bg-light mx-auto mw-100">
-				@using (Html.BeginForm("Index", "User", FormMethod.Post))
+				@using (Html.BeginForm("Index", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
 				{
 					<div class="form-row">
 						<div class="col-md-6 mb-3">
@@ -28,16 +32,31 @@
 						</div>
 					</div>
 					<div class="form-row">
-						<div class="form-group col-md-6">
+						<div class="col-md-6 mb-3">
 							@Html.Label("E-posta")
 							@Html.TextBoxFor(x => x.UserEmail, new { @class = "form-control", @placeholder = "E-posta", @type = "email" } )
 							@Html.ValidationMessageFor(x => x.UserEmail, "", new { @class = "text-danger" })
 						</div>
-						<div class="form-group col-md-6">
+						<div class="col-md-6 mb-3">
 							@Html.Label("Şifre")
 							@Html.PasswordFor(x => x.UserPassword, new { @class = "form-control", @placeholder = "Değiştirmek için doldurunuz" } )
 							@Html.ValidationMessageFor(x => x.UserPassword, "", new { @class = "text-danger" })
 						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-md-6 mb-3">
+							@Html.Label("Fotoğraf")
+							<input id="inpImage" type="file" accept="image/png, image/jpeg" name="UserImage" class="form-control">
+							@Html.ValidationMessageFor(x => x.UserImageUrl, "", new { @class = "text-danger" })
+						</div>
+						@if (@Model.UserImageUrl != Defaults.DEFAULT_AVATAR_URL)
+						{
+							<div class="col-md-6 mb-3">
+								@Html.Label("Fotoğraf")
+								<br />
+								<a class="btn btn-danger" asp-controller="User" asp-action="DeletePhoto" asp-route-userId="@User.Claims.SingleOrDefault(x => x.Type == "UserId").Value">Kaldır</a>
+							</div>
+						}
 					</div>
 					<button type="submit" class="btn btn-primary submit mb-4">Kaydet</button>
 				}
@@ -45,3 +64,15 @@
 		</div>
 	</div>
 </section>
+<script>
+	$("#inpImage").change(function(event) {
+		$("#image").html("");
+
+		var img = document.createElement("img");
+		img.src = URL.createObjectURL(event.target.files[0]);
+		img.style = "max-width: 100%; max-height: 150px;";
+		img.className = "rounded mx-auto d-block";
+
+		$("#image").append(img);
+	});
+</script>

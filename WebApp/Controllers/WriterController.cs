@@ -64,15 +64,15 @@ namespace WebApp.Controllers
 
             if (validation.IsValid)
             {
-                if (Request.Form.Files["WriterImage"] is not null)
+                if (Request.Form.Files["UserImage"] is not null)
                 {
                     string fileName = Guid.NewGuid().ToString() + Path.GetExtension(Request.Form.Files[0].FileName);
                     string path = Path.Combine(Directory.GetCurrentDirectory(), Defaults.DEFAULT_PROFILE_PHOTO_UPLOAD_PATH, fileName);
 
                     var stream = new FileStream(path, FileMode.Create);
-                    Request.Form.Files["WriterImage"].CopyTo(stream);
+                    Request.Form.Files["UserImage"].CopyTo(stream);
 
-                    writerDto.WriterImageUrl = Defaults.DEFAULT_PROFILE_PHOTO_URL_PATH + fileName;
+                    writerDto.UserImageUrl = Defaults.DEFAULT_PROFILE_PHOTO_URL_PATH + fileName;
 
                     stream.Close();
                 }

@@ -7,6 +7,8 @@ using Entities.Concrete;
 using Entities.DTOs;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.IO;
 
 namespace WebApp.Controllers
 {
@@ -46,6 +48,19 @@ namespace WebApp.Controllers
 
             if (validation.IsValid)
             {
+                if (Request.Form.Files["UserImage"] is not null)
+                {
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(Request.Form.Files[0].FileName);
+                    string path = Path.Combine(Directory.GetCurrentDirectory(), Defaults.DEFAULT_PROFILE_PHOTO_UPLOAD_PATH, fileName);
+
+                    var stream = new FileStream(path, FileMode.Create);
+                    Request.Form.Files["UserImage"].CopyTo(stream);
+
+                    userDto.UserImageUrl = Defaults.DEFAULT_PROFILE_PHOTO_URL_PATH + fileName;
+
+                    stream.Close();
+                }
+
                 var user = _mapper.Map<User>(userDto);
 
                 if (userDto.UserPassword == Defaults.PASSWORD_KEY)
@@ -73,6 +88,16 @@ namespace WebApp.Controllers
             }
 
             return View();
+        }
+
+        public IActionResult DeletePhoto(int userId)
+        {
+            var result = _userService.GetByUserId(userId);
+            result.UserImageUrl = Defaults.DEFAULT_AVATAR_URL;
+
+            _userService.Update(result);
+
+            return RedirectToAction("Index", new { userId = userId });
         }
     }
 }

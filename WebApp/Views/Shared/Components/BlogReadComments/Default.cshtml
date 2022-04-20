@@ -10,7 +10,7 @@
 	@foreach (var item in Model)
 	{
 		<div class="media">
-			<img src="@item.User.UserImageUrl" alt="" class="img-fluid" style="max-width:100px" />
+			<img src="@item.User.UserImageUrl" alt="" class="rounded img-fluid" style="max-width:100px" />
 			<div class="media-body">
 				<h5 class="mt-0">@item.User.UserFirstName @item.User.UserLastName <i class="font-weight-light">- @item.CommentDateOf.ToString("g")</i></h5>
 				<p>

@@ -9,5 +9,6 @@ namespace Entities.DTOs
         public string UserLastName { get; set; }
         public string UserEmail { get; set; }
         public string UserPassword { get; set; }
+        public string UserImageUrl { get; set; }
     }
 }
