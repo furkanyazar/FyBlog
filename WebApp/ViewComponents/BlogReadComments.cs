@@ -14,7 +14,7 @@ namespace WebApp.ViewComponents
 
         public IViewComponentResult Invoke(int blogId)
         {
-            var result = _commentService.GetAllByBlogId(blogId);
+            var result = _commentService.GetAllByBlogIdWithUser(blogId);
 
             return View(result);
         }

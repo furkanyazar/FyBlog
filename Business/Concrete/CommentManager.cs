@@ -12,9 +12,9 @@ namespace Business.Concrete
         {
         }
 
-        public List<Comment> GetAllByBlogId(int blogId)
+        public List<Comment> GetAllByBlogIdWithUser(int blogId)
         {
-            return _tdal.GetAll(x => x.BlogId == blogId);
+            return _tdal.GetAllByBlogIdWithUser(blogId);
         }
 
         public List<Comment> GetAllByLastWeekAndBlogId(int blogId)

@@ -2,20 +2,27 @@
 
 <div class="comment-top">
 	<h4>Yorum Yap</h4>
-	<div class="comment-bottom">
-		<form method="dialog">
-			<input type="hidden" id="txtBlogId" value="@Model" />
-			<input class="form-control" type="text" id="txtCommentUserFullName" placeholder="Ad">
-			<textarea class="form-control" id="txtCommentContent" placeholder="Yorum" rows="5"></textarea>
-			<button id="btnComment" type="submit" class="btn btn-primary submit">Gönder</button>
-		</form>
-	</div>
+	@if (User.Claims.Count() > 0)
+	{
+		<div class="comment-bottom">
+			<form method="dialog">
+				<input type="hidden" id="txtBlogId" value="@Model" />
+				<input type="hidden" id="txtUserId" value="@User.Claims.SingleOrDefault(x => x.Type == "UserId").Value" />
+				<textarea class="form-control" id="txtCommentContent" placeholder="Yorum" rows="5"></textarea>
+				<button id="btnComment" type="submit" class="btn btn-primary submit">Gönder</button>
+			</form>
+		</div>
+	}
+	else
+	{
+		<p>Yorum yapmak için giriş yapmalısınız</p>
+	}
 </div>
 <script>
 	$("#btnComment").click(function() {
 		var comment = {
 			BlogId: txtBlogId.value,
-			CommentUserFullName: txtCommentUserFullName.value,
+			UserId: txtUserId.value,
 			CommentContent: txtCommentContent.value
 		};
 

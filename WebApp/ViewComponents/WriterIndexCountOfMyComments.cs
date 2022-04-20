@@ -21,7 +21,7 @@ namespace WebApp.ViewComponents
             var blogs = _blogService.GetAllByUserId(writerId);
 
             foreach (var blog in blogs)
-                count += _commentService.GetAllByBlogId(blog.BlogId).Count;
+                count += _commentService.GetAllByBlogIdWithUser(blog.BlogId).Count;
 
             return View(count);
         }

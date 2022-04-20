@@ -18,5 +18,6 @@ namespace Entities.Concrete
         public bool UserStatus { get; set; } = true;
 
         public List<Writer> Writers { get; set; }
+        public List<Comment> Comments { get; set; }
     }
 }
