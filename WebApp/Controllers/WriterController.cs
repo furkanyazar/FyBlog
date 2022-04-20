@@ -110,10 +110,10 @@ namespace WebApp.Controllers
 
         public IActionResult DeletePhoto(int userId)
         {
-            var result = _writerService.GetByUserIdWithUser(userId);
-            result.WriterImageUrl = Defaults.DEFAULT_AVATAR_URL;
+            var result = _userService.GetByUserId(userId);
+            result.UserImageUrl = Defaults.DEFAULT_AVATAR_URL;
 
-            _writerService.Update(result);
+            _userService.Update(result);
 
             return RedirectToAction("Profile", new { userId = userId });
         }

@@ -197,6 +197,9 @@ namespace DataAccess.Migrations
                     b.Property<string>("UserFirstName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("UserLastName")
                         .HasColumnType("nvarchar(max)");
 
@@ -225,9 +228,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("WriterAbout")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("WriterImageUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("WriterId");

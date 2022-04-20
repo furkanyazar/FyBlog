@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(MvcCoreDbContext))]
-    [Migration("20220419153115_mig_add_hash_password")]
-    partial class mig_add_hash_password
+    [Migration("20220420101519_mig_move_image_url_from_writer_to_user")]
+    partial class mig_move_image_url_from_writer_to_user
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -199,6 +199,9 @@ namespace DataAccess.Migrations
                     b.Property<string>("UserFirstName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("UserLastName")
                         .HasColumnType("nvarchar(max)");
 
@@ -227,9 +230,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("WriterAbout")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("WriterImageUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("WriterId");

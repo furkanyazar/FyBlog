@@ -10,7 +10,6 @@ namespace Entities.Concrete
         public int WriterId { get; set; }
 
         public string WriterAbout { get; set; }
-        public string WriterImageUrl { get; set; }
 
         public int UserId { get; set; }
         public User User { get; set; }

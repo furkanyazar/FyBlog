@@ -18,13 +18,15 @@ namespace WebApp.Common
                         UserEmail = src.UserEmail,
                         UserFirstName = src.UserFirstName,
                         UserLastName = src.UserLastName,
+                        UserImageUrl = src.WriterImageUrl
                     };
                 });
-
+            
             CreateMap<Writer, WriterDto>()
                 .ForMember(dest => dest.UserFirstName, opt => opt.MapFrom(src => src.User.UserFirstName))
                 .ForMember(dest => dest.UserLastName, opt => opt.MapFrom(src => src.User.UserLastName))
-                .ForMember(dest => dest.UserEmail, opt => opt.MapFrom(src => src.User.UserEmail));
+                .ForMember(dest => dest.UserEmail, opt => opt.MapFrom(src => src.User.UserEmail))
+                .ForMember(dest => dest.WriterImageUrl, opt => opt.MapFrom(src => src.User.UserImageUrl));
 
             // User
             CreateMap<User, UserDto>();

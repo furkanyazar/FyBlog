@@ -47,6 +47,7 @@ namespace WebApp.Controllers
                     UserEmail = userRegisterDto.UserEmail,
                     UserFirstName = userRegisterDto.UserFirstName,
                     UserLastName = userRegisterDto.UserLastName,
+                    UserImageUrl = Defaults.DEFAULT_AVATAR_URL,
                     UserPasswordHash = passwordHash,
                     UserPasswordSalt = passwordSalt
                 };

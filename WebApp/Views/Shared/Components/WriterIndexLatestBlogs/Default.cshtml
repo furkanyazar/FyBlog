@@ -22,7 +22,7 @@
 								<tr>
 									<td>
 										<a class="text-black" asp-controller="Blog" asp-action="Writer" asp-route-writerId="@item.WriterId">
-											<img src="@item.Writer.WriterImageUrl" class="mr-2" alt="image"> @item.Writer.User.UserFirstName @item.Writer.User.UserLastName
+											<img src="@item.Writer.User.UserImageUrl" class="mr-2" alt="image"> @item.Writer.User.UserFirstName @item.Writer.User.UserLastName
 										</a>
 									</td>
 									<td><a class="text-black" asp-controller="Blog" asp-action="Read" asp-route-blogId="@item.BlogId">@item.BlogTitle</a></td>
