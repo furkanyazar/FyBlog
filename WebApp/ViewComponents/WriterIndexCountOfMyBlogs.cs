@@ -12,9 +12,9 @@ namespace WebApp.ViewComponents
             _blogService = blogService;
         }
 
-        public IViewComponentResult Invoke(int writerId)
+        public IViewComponentResult Invoke(int userId)
         {
-            var result = _blogService.GetAllByUserId(writerId).Count;
+            var result = _blogService.GetAllByUserId(userId).Count;
 
             return View(result);
         }

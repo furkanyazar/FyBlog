@@ -6,8 +6,10 @@ namespace Business.Abstract
 {
     public interface ICommentService : IEntityService<Comment>
     {
-        List<Comment> GetAllByBlogIdWithUser(int blogId);
+        List<Comment> GetAllByBlogId(int blogId);
 
         List<Comment> GetAllByLastWeekAndBlogId(int blogId);
+
+        Comment GetByCommentId(int commentId);
     }
 }

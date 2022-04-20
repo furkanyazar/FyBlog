@@ -10,11 +10,11 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfBlogDal : EfEntityRepository<Blog, MvcCoreDbContext>, IBlogDal
     {
-        public List<Blog> GetAllByCategoryId(int categoryId)
+        public List<Blog> GetAllByCategoryIdAndCategoryStatusAndBlogStatus(int categoryId, bool categoryStatus, bool blogStatus)
         {
             using (var context = new MvcCoreDbContext())
             {
-                return context.Blogs.Where(x => x.CategoryId == categoryId).OrderByDescending(x => x.BlogDateOf).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).ToList();
+                return context.Blogs.Where(x => x.CategoryId == categoryId && x.Category.CategoryStatus == categoryStatus && x.BlogStatus == blogStatus).OrderByDescending(x => x.BlogDateOf).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).ToList();
             }
         }
 
@@ -26,11 +26,11 @@ namespace DataAccess.Concrete.EntityFramework
             }
         }
 
-        public List<Blog> GetAllByDateOf(DateTime dateOf)
+        public List<Blog> GetAllByDateOfAndCategoryStatusAndBlogStatus(DateTime dateOf, bool categoryStatus, bool blogStatus)
         {
             using (var context = new MvcCoreDbContext())
             {
-                return context.Blogs.Where(x => x.BlogDateOf.Date == dateOf.Date).OrderByDescending(x => x.BlogDateOf).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).ToList();
+                return context.Blogs.Where(x => x.BlogDateOf.Date == dateOf.Date && x.Category.CategoryStatus == categoryStatus && x.BlogStatus == blogStatus).OrderByDescending(x => x.BlogDateOf).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).ToList();
             }
         }
 
@@ -42,27 +42,27 @@ namespace DataAccess.Concrete.EntityFramework
             }
         }
 
-        public List<Blog> GetAllBySearchKey(string searchKey)
+        public List<Blog> GetAllBySearchKeyAndCategoryStatusAndBlogStatus(string searchKey, bool categoryStatus, bool blogStatus)
         {
             using (var context = new MvcCoreDbContext())
             {
-                return context.Blogs.Where(x => x.BlogTitle.ToLower().Contains(searchKey.ToLower().Trim()) || x.BlogContent.ToLower().Contains(searchKey.ToLower().Trim())).OrderByDescending(x => x.BlogDateOf).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).ToList();
+                return context.Blogs.Where(x => x.BlogTitle.ToLower().Contains(searchKey.ToLower().Trim()) || x.BlogContent.ToLower().Contains(searchKey.ToLower().Trim()) && x.Category.CategoryStatus == categoryStatus && x.BlogStatus == blogStatus).OrderByDescending(x => x.BlogDateOf).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).ToList();
             }
         }
 
-        public List<Blog> GetAllByUserId(int userId)
+        public List<Blog> GetAllByWriterIdAndCategoryStatusAndBlogStatus(int writerId, bool categoryStatus, bool blogStatus)
         {
             using (var context = new MvcCoreDbContext())
             {
-                return context.Blogs.Where(x => x.Writer.User.UserId == userId).OrderByDescending(x => x.BlogDateOf).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).ToList();
+                return context.Blogs.Where(x => x.Writer.WriterId == writerId && x.Category.CategoryStatus == categoryStatus && x.BlogStatus == blogStatus).OrderByDescending(x => x.BlogDateOf).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).ToList();
             }
         }
 
-        public List<Blog> GetAllWithCategoryAndWriter()
+        public List<Blog> GetAllByCategoryStatusAndBlogStatus(bool categoryStatus, bool blogStatus)
         {
             using (var context = new MvcCoreDbContext())
             {
-                return context.Blogs.OrderByDescending(x => x.BlogDateOf).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).ToList();
+                return context.Blogs.Where(x => x.BlogStatus == blogStatus && x.Category.CategoryStatus == categoryStatus).OrderByDescending(x => x.BlogDateOf).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).ToList();
             }
         }
 
@@ -82,19 +82,35 @@ namespace DataAccess.Concrete.EntityFramework
             }
         }
 
-        public List<Blog> GetLatestsWithCount(int count)
+        public List<Blog> GetLatestsByCategoryStatusAndBlogStatusWithCount(int count, bool categoryStatus, bool blogStatus)
         {
             using (var context = new MvcCoreDbContext())
             {
-                return context.Blogs.OrderByDescending(x => x.BlogDateOf).Take(count).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).ToList();
+                return context.Blogs.Where(x => x.Category.CategoryStatus == categoryStatus && x.BlogStatus == blogStatus).OrderByDescending(x => x.BlogDateOf).Take(count).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).ToList();
             }
         }
 
-        public List<Blog> GetSomeByCategoryIdWithoutId(int blogId, int categoryId)
+        public List<Blog> GetAllByCategoryIdAndCategoryStatusAndBlogStatusWithCountWithoutBlogId(int count, int blogId, int categoryId, bool categoryStatus, bool blogStatus)
         {
             using (var context = new MvcCoreDbContext())
             {
-                return context.Blogs.OrderByDescending(x => x.BlogDateOf).Where(x => x.BlogId != blogId && x.CategoryId == categoryId).Take(3).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).ToList();
+                return context.Blogs.OrderByDescending(x => x.BlogDateOf).Where(x => x.BlogId != blogId && x.CategoryId == categoryId && x.Category.CategoryStatus == categoryStatus && x.BlogStatus == blogStatus).Take(count).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).ToList();
+            }
+        }
+
+        public List<Blog> GetAllByUserId(int userId)
+        {
+            using (var context = new MvcCoreDbContext())
+            {
+                return context.Blogs.Where(x => x.Writer.UserId == userId).OrderByDescending(x => x.BlogDateOf).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).ToList();
+            }
+        }
+
+        public Blog GetLatestByCategoryStatusAndBlogStatus(bool categoryStatus, bool blogStatus)
+        {
+            using (var context = new MvcCoreDbContext())
+            {
+                return context.Blogs.Where(x => x.Category.CategoryStatus == categoryStatus && x.BlogStatus == blogStatus).OrderByDescending(x => x.BlogDateOf).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).Take(1).SingleOrDefault();
             }
         }
     }

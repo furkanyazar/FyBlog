@@ -5,7 +5,7 @@ namespace DataAccess.Abstract
 {
     public interface IWriterDal : IEntityRepository<Writer>
     {
-        Writer GetByUserIdWithUser(int userId);
+        Writer GetByUserId(int userId);
 
         Writer GetByUserEmail(string email);
     }

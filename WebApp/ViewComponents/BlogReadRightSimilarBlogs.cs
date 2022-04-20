@@ -14,7 +14,7 @@ namespace WebApp.ViewComponents
 
 		public IViewComponentResult Invoke(int blogId, int categoryId)
 		{
-			var result = _blogService.GetSomeByCategoryIdWithoutId(blogId, categoryId);
+			var result = _blogService.GetAllByCategoryIdAndCategoryStatusAndBlogStatusWithCountWithoutBlogId(3, blogId, categoryId, true, true);
 
 			return View(result);
 		}

@@ -70,5 +70,15 @@ namespace WebApp.Controllers
 
             return Json(new { success = false, message = validation.Errors[0].ErrorMessage });
         }
+
+        public IActionResult DeleteComment(int commentId, int blogId)
+        {
+            var result = _commentService.GetByCommentId(commentId);
+            result.CommentStatus = false;
+
+            _commentService.Update(result);
+
+            return RedirectToAction("Read", "Blog", new { blogId = blogId }, "comments");
+        }
     }
 }

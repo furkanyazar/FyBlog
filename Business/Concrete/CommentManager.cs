@@ -12,14 +12,19 @@ namespace Business.Concrete
         {
         }
 
-        public List<Comment> GetAllByBlogIdWithUser(int blogId)
+        public List<Comment> GetAllByBlogId(int blogId)
         {
-            return _tdal.GetAllByBlogIdWithUser(blogId);
+            return _tdal.GetAllByBlogId(blogId);
         }
 
         public List<Comment> GetAllByLastWeekAndBlogId(int blogId)
         {
             return _tdal.GetAllByLastWeekAndBlogId(blogId);
+        }
+
+        public Comment GetByCommentId(int commentId)
+        {
+            return _tdal.Get(x => x.CommentId == commentId);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace WebApp.ViewComponents
 
 		public IViewComponentResult Invoke()
 		{
-			var result = _blogService.GetLatestsWithCount(2);
+			var result = _blogService.GetLatestsByCategoryStatusAndBlogStatusWithCount(3, true, true);
 
 			return View(result);
 		}

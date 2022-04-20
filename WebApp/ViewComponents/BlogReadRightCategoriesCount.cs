@@ -14,7 +14,7 @@ namespace WebApp.ViewComponents
 
         public IViewComponentResult Invoke(int categoryId)
         {
-            int result = _blogService.GetAllByCategoryId(categoryId).Count;
+            int result = _blogService.GetAllByCategoryIdAndCategoryStatusAndBlogStatus(categoryId, true, true).Count;
 
             return View(result);
         }

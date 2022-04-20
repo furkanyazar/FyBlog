@@ -13,9 +13,9 @@ namespace Business.Concrete
         {
         }
 
-        public List<Blog> GetAllByCategoryId(int categoryId)
+        public List<Blog> GetAllByCategoryIdAndCategoryStatusAndBlogStatus(int categoryId, bool categoryStatus, bool blogStatus)
         {
-            return _tdal.GetAllByCategoryId(categoryId);
+            return _tdal.GetAllByCategoryIdAndCategoryStatusAndBlogStatus(categoryId, categoryStatus, blogStatus);
         }
 
         public List<Blog> GetAllByCategoryIdAndWriterId(int writerId, int categoryId)
@@ -23,9 +23,9 @@ namespace Business.Concrete
             return _tdal.GetAllByCategoryIdAndWriterId(writerId, categoryId);
         }
 
-        public List<Blog> GetAllByDateOf(DateTime dateOf)
+        public List<Blog> GetAllByDateOfAndCategoryStatusAndBlogStatus(DateTime dateOf, bool categoryStatus, bool blogStatus)
         {
-            return _tdal.GetAllByDateOf(dateOf);
+            return _tdal.GetAllByDateOfAndCategoryStatusAndBlogStatus(dateOf, categoryStatus, blogStatus);
         }
 
         public List<Blog> GetAllByDateOfAndWriterId(int writerId, DateTime dateOf)
@@ -33,19 +33,19 @@ namespace Business.Concrete
             return _tdal.GetAllByDateOfAndWriterId(writerId, dateOf);
         }
 
-        public List<Blog> GetAllBySearchKey(string searchKey)
+        public List<Blog> GetAllBySearchKeyAndCategoryStatusAndBlogStatus(string searchKey, bool categoryStatus, bool blogStatus)
         {
-            return _tdal.GetAllBySearchKey(searchKey);
+            return _tdal.GetAllBySearchKeyAndCategoryStatusAndBlogStatus(searchKey, categoryStatus, blogStatus);
         }
 
-        public List<Blog> GetAllByUserId(int userId)
+        public List<Blog> GetAllByWriterIdAndCategoryStatusAndBlogStatus(int writerId, bool categoryStatus, bool blogStatus)
         {
-            return _tdal.GetAllByUserId(userId);
+            return _tdal.GetAllByWriterIdAndCategoryStatusAndBlogStatus(writerId, categoryStatus, blogStatus);
         }
 
-        public List<Blog> GetAllWithCategoryAndWriter()
+        public List<Blog> GetAllByCategoryStatusAndBlogStatus(bool categoryStatus, bool blogStatus)
         {
-            return _tdal.GetAllWithCategoryAndWriter();
+            return _tdal.GetAllByCategoryStatusAndBlogStatus(categoryStatus, blogStatus);
         }
 
         public Blog GetByBlogId(int blogId)
@@ -58,14 +58,24 @@ namespace Business.Concrete
             return _tdal.GetLatestsByWriterIdWithCount(writerId, count);
         }
 
-        public List<Blog> GetLatestsWithCount(int count)
+        public List<Blog> GetLatestsByCategoryStatusAndBlogStatusWithCount(int count, bool categoryStatus, bool blogStatus)
         {
-            return _tdal.GetLatestsWithCount(count);
+            return _tdal.GetLatestsByCategoryStatusAndBlogStatusWithCount(count, categoryStatus, blogStatus);
         }
 
-        public List<Blog> GetSomeByCategoryIdWithoutId(int blogId, int categoryId)
+        public List<Blog> GetAllByCategoryIdAndCategoryStatusAndBlogStatusWithCountWithoutBlogId(int count, int blogId, int categoryId, bool categoryStatus, bool blogStatus)
         {
-            return _tdal.GetSomeByCategoryIdWithoutId(blogId, categoryId);
+            return _tdal.GetAllByCategoryIdAndCategoryStatusAndBlogStatusWithCountWithoutBlogId(count, blogId, categoryId, categoryStatus, blogStatus);
+        }
+
+        public List<Blog> GetAllByUserId(int userId)
+        {
+            return _tdal.GetAllByUserId(userId);
+        }
+
+        public Blog GetLatestByCategoryStatusAndBlogStatus(bool categoryStatus, bool blogStatus)
+        {
+            return _tdal.GetLatestByCategoryStatusAndBlogStatus(categoryStatus, blogStatus);
         }
     }
 }

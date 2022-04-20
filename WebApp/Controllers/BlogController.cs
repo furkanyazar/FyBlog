@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Linq;
 
 namespace WebApp.Controllers
 {
@@ -18,7 +17,7 @@ namespace WebApp.Controllers
 
         public IActionResult Index()
         {
-            var result = _blogService.GetAllWithCategoryAndWriter().ToList();
+            var result = _blogService.GetAllByCategoryStatusAndBlogStatus(true, true);
 
             return View(result);
         }
@@ -32,28 +31,28 @@ namespace WebApp.Controllers
 
         public IActionResult Category(int categoryId)
         {
-            var result = _blogService.GetAllByCategoryId(categoryId);
+            var result = _blogService.GetAllByCategoryIdAndCategoryStatusAndBlogStatus(categoryId, true, true);
 
             return View(result);
         }
 
         public IActionResult Writer(int writerId)
         {
-            var result = _blogService.GetAllByUserId(writerId);
+            var result = _blogService.GetAllByWriterIdAndCategoryStatusAndBlogStatus(writerId, true, true);
 
             return View(result);
         }
 
         public IActionResult Date(string dateOf)
         {
-            var result = _blogService.GetAllByDateOf(DateTime.Parse(dateOf));
+            var result = _blogService.GetAllByDateOfAndCategoryStatusAndBlogStatus(DateTime.Parse(dateOf), true, true);
 
             return View(result);
         }
 
         public IActionResult Search(string searchKey)
         {
-            var result = _blogService.GetAllBySearchKey(searchKey);
+            var result = _blogService.GetAllBySearchKeyAndCategoryStatusAndBlogStatus(searchKey, true, true);
 
             return View(result);
         }

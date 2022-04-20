@@ -1,6 +1,5 @@
 ﻿@model int
 
-
 <div class="col-md-4 stretch-card grid-margin">
 	<div class="card bg-gradient-danger card-img-holder text-white">
 		<a class="text-white" asp-controller="Writer" asp-action="MyBlogs" asp-route-userId="@User.Claims.SingleOrDefault(x => x.Type == "UserId").Value">

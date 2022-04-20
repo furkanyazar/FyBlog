@@ -7,26 +7,30 @@ namespace Business.Abstract
 {
     public interface IBlogService : IEntityService<Blog>
     {
-        List<Blog> GetAllByCategoryId(int categoryId);
+        List<Blog> GetAllByCategoryIdAndCategoryStatusAndBlogStatus(int categoryId, bool categoryStatus, bool blogStatus);
 
         List<Blog> GetAllByCategoryIdAndWriterId(int writerId, int categoryId);
 
-        List<Blog> GetAllByDateOf(DateTime dateOf);
+        List<Blog> GetAllByDateOfAndCategoryStatusAndBlogStatus(DateTime dateOf, bool categoryStatus, bool blogStatus);
 
         List<Blog> GetAllByDateOfAndWriterId(int writerId, DateTime dateOf);
 
-        List<Blog> GetAllBySearchKey(string searchKey);
+        List<Blog> GetAllBySearchKeyAndCategoryStatusAndBlogStatus(string searchKey, bool categoryStatus, bool blogStatus);
 
-        List<Blog> GetAllByUserId(int userId);
+        List<Blog> GetAllByWriterIdAndCategoryStatusAndBlogStatus(int writerId, bool categoryStatus, bool blogStatus);
 
-        List<Blog> GetAllWithCategoryAndWriter();
+        List<Blog> GetAllByCategoryStatusAndBlogStatus(bool categoryStatus, bool blogStatus);
 
         Blog GetByBlogId(int blogId);
 
         List<Blog> GetLatestsByWriterIdWithCount(int writerId, int count);
 
-        List<Blog> GetLatestsWithCount(int count);
+        List<Blog> GetLatestsByCategoryStatusAndBlogStatusWithCount(int count, bool categoryStatus, bool blogStatus);
 
-        List<Blog> GetSomeByCategoryIdWithoutId(int blogId, int categoryId);
+        List<Blog> GetAllByCategoryIdAndCategoryStatusAndBlogStatusWithCountWithoutBlogId(int count, int blogId, int categoryId, bool categoryStatus, bool blogStatus);
+
+        List<Blog> GetAllByUserId(int userId);
+
+        Blog GetLatestByCategoryStatusAndBlogStatus(bool categoryStatus, bool blogStatus);
     }
 }

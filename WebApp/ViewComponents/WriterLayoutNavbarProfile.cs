@@ -14,7 +14,7 @@ namespace WebApp.ViewComponents
 
         public IViewComponentResult Invoke(int userId)
         {
-            var result = _writerService.GetByUserIdWithUser(userId);
+            var result = _writerService.GetByUserId(userId);
 
             return View(result);
         }

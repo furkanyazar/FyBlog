@@ -1,22 +1,29 @@
 ﻿@using Entities.Concrete
+
 @model List<Comment>
 
 <div id="comments" class="comment-top">
 	<h4>Yorumlar</h4>
 	@if (Model.Count < 1)
-   {
-	   <p>Henüz yorum yapılmamış</p>
-   }
+	{
+		<p>Henüz yorum yapılmamış</p>
+	}
 	@foreach (var item in Model)
 	{
 		<div class="media">
 			<img src="@item.User.UserImageUrl" alt="" class="rounded img-fluid" style="max-width:100px" />
 			<div class="media-body">
-				<h5 class="mt-0">@item.User.UserFirstName @item.User.UserLastName <i class="font-weight-light">- @item.CommentDateOf.ToString("g")</i></h5>
+				<h5 class="mt-0">
+					@item.User.UserFirstName @item.User.UserLastName <i class="font-weight-light">- @item.CommentDateOf.ToString("g")&nbsp;</i>@if (item.UserId == Convert.ToInt32(User.Claims.SingleOrDefault(x => x.Type == "UserId").Value))
+					{
+						<a class="btn btn-danger btn-sm" asp-controller="Default" asp-action="DeleteComment" asp-route-commentId="@item.CommentId" asp-route-blogId="@item.BlogId">Sil</a>
+					}
+				</h5>
 				<p>
 					@item.CommentContent
 				</p>
 			</div>
+
 		</div>
 	}
 </div>

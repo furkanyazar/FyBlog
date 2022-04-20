@@ -6,7 +6,7 @@ namespace DataAccess.Abstract
 {
     public interface ICommentDal : IEntityRepository<Comment>
     {
-        List<Comment> GetAllByBlogIdWithUser(int blogId);
+        List<Comment> GetAllByBlogId(int blogId);
 
         List<Comment> GetAllByLastWeekAndBlogId(int blogId);
     }

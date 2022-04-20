@@ -45,7 +45,7 @@ namespace WebApp.Controllers
         [HttpGet]
         public IActionResult Profile(int userId)
         {
-            var writer = _writerService.GetByUserIdWithUser(userId);
+            var writer = _writerService.GetByUserId(userId);
 
             var result = _mapper.Map<WriterDto>(writer);
 
@@ -55,7 +55,7 @@ namespace WebApp.Controllers
         [HttpPost]
         public IActionResult Profile(WriterDto writerDto)
         {
-            var oldWriter = _writerService.GetByUserIdWithUser(writerDto.UserId);
+            var oldWriter = _writerService.GetByUserId(writerDto.UserId);
 
             if (writerDto.UserPassword is null)
                 writerDto.UserPassword = Defaults.PASSWORD_KEY;

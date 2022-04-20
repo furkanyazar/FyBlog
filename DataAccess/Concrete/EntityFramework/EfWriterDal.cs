@@ -8,7 +8,7 @@ namespace DataAccess.Concrete.EntityFramework
 {
 	public class EfWriterDal : EfEntityRepository<Writer, MvcCoreDbContext>, IWriterDal
 	{
-		public Writer GetByUserIdWithUser(int userId)
+		public Writer GetByUserId(int userId)
 		{
 			using (var context = new MvcCoreDbContext())
 			{
