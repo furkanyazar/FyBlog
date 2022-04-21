@@ -6,6 +6,6 @@ namespace DataAccess.Abstract
 {
     public interface INotificationDal : IEntityRepository<Notification>
     {
-        List<Notification> GetAllWithIncludes();
+        List<Notification> GetAllByUserId(int userId);
     }
 }

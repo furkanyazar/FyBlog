@@ -12,9 +12,9 @@ namespace Business.Concrete
         {
         }
 
-        public List<Notification> GetAllWithIncludes()
+        public List<Notification> GetAllByUserId(int userId)
         {
-            return _tdal.GetAllWithIncludes();
+            return _tdal.GetAllByUserId(userId);
         }
     }
 }

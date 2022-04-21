@@ -6,6 +6,6 @@ namespace Business.Abstract
 {
     public interface INotificationService : IEntityService<Notification>
     {
-        List<Notification> GetAllWithIncludes();
+        List<Notification> GetAllByUserId(int userId);
     }
 }
