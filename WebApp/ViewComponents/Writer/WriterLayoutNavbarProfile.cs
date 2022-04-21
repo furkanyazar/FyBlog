@@ -1,7 +1,7 @@
 ﻿using Business.Abstract;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebApp.ViewComponents
+namespace WebApp.ViewComponents.Writer
 {
     public class WriterLayoutNavbarProfile : ViewComponent
     {

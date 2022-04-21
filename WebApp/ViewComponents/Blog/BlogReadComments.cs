@@ -1,7 +1,7 @@
 ﻿using Business.Abstract;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebApp.ViewComponents
+namespace WebApp.ViewComponents.Blog
 {
     public class BlogReadComments : ViewComponent
     {

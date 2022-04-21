@@ -141,8 +141,8 @@
 	<footer>
 		<div class="container">
 			<div class="row">
-				@await Component.InvokeAsync("FooterAboutUs")
-				@await Component.InvokeAsync("FooterLatestBlogs")
+				@await Component.InvokeAsync("BlogFooterAboutUs")
+				@await Component.InvokeAsync("BlogFooterLatestBlogs")
 				<!-- subscribe -->
 				@await Html.PartialAsync("~/Views/Default/FooterSignupNewsletterPartial.cshtml")
 				<!-- //subscribe -->

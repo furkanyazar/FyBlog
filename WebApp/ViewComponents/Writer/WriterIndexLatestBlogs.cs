@@ -1,20 +1,20 @@
 ﻿using Business.Abstract;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebApp.ViewComponents
+namespace WebApp.ViewComponents.Writer
 {
-    public class BlogReadRightLatest : ViewComponent
+    public class WriterIndexLatestBlogs : ViewComponent
     {
         private IBlogService _blogService;
 
-        public BlogReadRightLatest(IBlogService blogService)
+        public WriterIndexLatestBlogs(IBlogService blogService)
         {
             _blogService = blogService;
         }
 
         public IViewComponentResult Invoke()
         {
-            var result = _blogService.GetLatestByCategoryStatusAndBlogStatus(true, true);
+            var result = _blogService.GetLatestsByCategoryStatusAndBlogStatusWithCount(5, true, true);
 
             return View(result);
         }

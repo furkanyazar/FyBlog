@@ -1,13 +1,13 @@
 ﻿using Business.Abstract;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebApp.ViewComponents
+namespace WebApp.ViewComponents.Blog
 {
-	public class FooterLatestBlogs : ViewComponent
+	public class BlogFooterLatestBlogs : ViewComponent
 	{
 		private IBlogService _blogService;
 
-		public FooterLatestBlogs(IBlogService blogService)
+		public BlogFooterLatestBlogs(IBlogService blogService)
 		{
 			_blogService = blogService;
 		}

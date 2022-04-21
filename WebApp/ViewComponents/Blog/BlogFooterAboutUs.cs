@@ -2,13 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 
-namespace WebApp.ViewComponents
+namespace WebApp.ViewComponents.Blog
 {
-	public class FooterAboutUs : ViewComponent
+	public class BlogFooterAboutUs : ViewComponent
 	{
 		private IAboutService _aboutService;
 
-		public FooterAboutUs(IAboutService aboutService)
+		public BlogFooterAboutUs(IAboutService aboutService)
 		{
 			_aboutService = aboutService;
 		}
