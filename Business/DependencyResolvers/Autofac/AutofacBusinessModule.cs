@@ -33,6 +33,12 @@ namespace Business.DependencyResolvers.Autofac
 
 			builder.RegisterType<ContactManager>().As<IContactService>().SingleInstance();
 			builder.RegisterType<EfContactDal>().As<IContactDal>().SingleInstance();
+
+			builder.RegisterType<NotificationManager>().As<INotificationService>().SingleInstance();
+			builder.RegisterType<EfNotificationDal>().As<INotificationDal>().SingleInstance();
+
+			builder.RegisterType<NotificationTypeManager>().As<INotificationTypeService>().SingleInstance();
+			builder.RegisterType<EfNotificationTypeDal>().As<INotificationTypeDal>().SingleInstance();
 		}
 	}
 }
