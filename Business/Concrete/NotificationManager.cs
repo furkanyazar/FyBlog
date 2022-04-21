@@ -12,9 +12,9 @@ namespace Business.Concrete
         {
         }
 
-        public List<Notification> GetLatestsByCount(int count = 0)
+        public List<Notification> GetLatestsByCount()
         {
-            return _tdal.GetLatestsByCount(count);
+            return _tdal.GetLatestsByCount();
         }
     }
 }

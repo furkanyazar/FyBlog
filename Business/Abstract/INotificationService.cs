@@ -6,6 +6,6 @@ namespace Business.Abstract
 {
     public interface INotificationService : IEntityService<Notification>
     {
-        List<Notification> GetLatestsByCount(int count = 0);
+        List<Notification> GetLatestsByCount();
     }
 }

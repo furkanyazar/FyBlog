@@ -6,6 +6,6 @@ namespace DataAccess.Abstract
 {
     public interface INotificationDal : IEntityRepository<Notification>
     {
-        List<Notification> GetLatestsByCount(int count);
+        List<Notification> GetLatestsByCount();
     }
 }

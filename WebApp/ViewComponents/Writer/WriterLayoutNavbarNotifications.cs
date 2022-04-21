@@ -14,7 +14,7 @@ namespace WebApp.ViewComponents.Writer
 
         public IViewComponentResult Invoke()
         {
-            var result = _notificationService.GetLatestsByCount(5);
+            var result = _notificationService.GetLatestsByCount();
 
             return View(result);
         }
