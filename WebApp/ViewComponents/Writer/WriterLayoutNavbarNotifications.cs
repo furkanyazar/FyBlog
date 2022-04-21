@@ -12,9 +12,9 @@ namespace WebApp.ViewComponents.Writer
             _notificationService = notificationService;
         }
 
-        public IViewComponentResult Invoke(int userId)
+        public IViewComponentResult Invoke()
         {
-            var result = _notificationService.GetAllByUserId(userId);
+            var result = _notificationService.GetLatestsByCount(5);
 
             return View(result);
         }

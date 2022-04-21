@@ -16,12 +16,12 @@
 				{
 					<div class="form-group">
 						@Html.Label("E-posta")
-						@Html.TextBoxFor(x => x.UserEmail, new { @class = "form-control", @placeholder = "E-posta", @type = "email" } )
+						@Html.TextBoxFor(x => x.UserEmail, new { @class = "form-control", @placeholder = "user@mail.com", @type = "email" } )
 						@Html.ValidationMessageFor(x => x.UserEmail, "", new { @class = "text-danger" })
 					</div>
 					<div class="form-group">
 						@Html.Label("Şifre")
-						@Html.PasswordFor(x => x.UserPassword, new { @class = "form-control", @placeholder = "Şifre" } )
+						@Html.PasswordFor(x => x.UserPassword, new { @class = "form-control", @placeholder = "12341234" } )
 						@Html.ValidationMessageFor(x => x.UserPassword, "", new { @class = "text-danger" })
 					</div>
 					<div class="form-check mb-2">

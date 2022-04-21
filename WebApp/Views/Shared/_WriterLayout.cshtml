@@ -87,7 +87,7 @@
 							<h6 class="p-3 mb-0 text-center">4 new messages</h6>
 						</div>
 					</li>
-					@await Component.InvokeAsync("WriterLayoutNavbarNotifications", Convert.ToInt32(User.Claims.SingleOrDefault(x => x.Type == "UserId").Value))
+					@await Component.InvokeAsync("WriterLayoutNavbarNotifications")
 					<li class="nav-item nav-logout d-none d-lg-block">
 						<a class="nav-link" asp-controller="Login" asp-action="Logout">
 							<i class="mdi mdi-power"></i>
@@ -135,15 +135,6 @@
 						<a class="nav-link" href="#">
 							<span class="menu-title">Mesajlar</span>
 							<i class="mdi mdi-android-messages menu-icon"></i>
-						</a>
-					</li>
-					<li class="nav-item @if (false)
-                               {
-                                   Write("active");
-                               }">
-						<a class="nav-link" href="#">
-							<span class="menu-title">Ayarlar</span>
-							<i class="mdi mdi-tune menu-icon"></i>
 						</a>
 					</li>
 					<li class="nav-item sidebar-actions">
