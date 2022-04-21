@@ -2,6 +2,7 @@
 using Core.Business;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using System.Collections.Generic;
 
 namespace Business.Concrete
 {
@@ -9,6 +10,11 @@ namespace Business.Concrete
     {
         public NotificationManager(INotificationDal tdal) : base(tdal)
         {
+        }
+
+        public List<Notification> GetAllWithIncludes()
+        {
+            return _tdal.GetAllWithIncludes();
         }
     }
 }
