@@ -10,6 +10,7 @@ namespace Entities.Concrete
         public int NotificationTypeId { get; set; }
         public string NotificationTypeName { get; set; }
         public string NotificationTypeSymbol { get; set; }
+        public string NotificationTypeColor { get; set; }
 
         public List<Notification> Notifications { get; set; }
     }
