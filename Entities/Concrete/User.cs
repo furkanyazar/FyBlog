@@ -19,5 +19,6 @@ namespace Entities.Concrete
 
         public List<Writer> Writers { get; set; }
         public List<Comment> Comments { get; set; }
+        public List<Notification> Notifications { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (var context = new MvcCoreDbContext())
             {
-                return context.Notifications.Include(x => x.NotificationType).ToList();
+                return context.Notifications.OrderByDescending(x => x.NotificationDateOf).Include(x => x.NotificationType).ToList();
             }
         }
     }

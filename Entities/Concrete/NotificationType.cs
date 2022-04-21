@@ -9,7 +9,7 @@ namespace Entities.Concrete
         [Key]
         public int NotificationTypeId { get; set; }
         public string NotificationTypeName { get; set; }
-        public string NotificationTypeSymbolUrl { get; set; }
+        public string NotificationTypeSymbol { get; set; }
 
         public List<Notification> Notifications { get; set; }
     }
