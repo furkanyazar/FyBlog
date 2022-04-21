@@ -20,5 +20,7 @@ namespace DataAccess.Concrete
         public DbSet<User> Users { get; set; }
         public DbSet<Writer> Writers { get; set; }
         public DbSet<Newsletter> Newsletters { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<NotificationType> NotificationTypes { get; set; }
     }
 }
