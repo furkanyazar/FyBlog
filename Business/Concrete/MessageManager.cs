@@ -16,5 +16,10 @@ namespace Business.Concrete
         {
             return _tdal.GetAllByReceiverId(receiverId);
         }
+
+        public List<Message> GetAllBySenderId(int senderId)
+        {
+            return _tdal.GetAllBySenderId(senderId);
+        }
     }
 }

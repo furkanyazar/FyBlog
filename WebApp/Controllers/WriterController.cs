@@ -21,20 +21,22 @@ namespace WebApp.Controllers
         private IBlogService _blogService;
         private ICategoryService _categoryService;
         private IUserService _userService;
-        private IWriterService _writerService;
         private IMapper _mapper;
+        private IWriterService _writerService;
+        private INotificationService _notificationService;
 
         private BlogValidator blogValidator = new BlogValidator();
         private WriterValidator writerValidator = new WriterValidator();
         private ValidationResult validation;
 
-        public WriterController(IBlogService blogService, ICategoryService categoryService, IUserService userService, IWriterService writerService, IMapper mapper)
+        public WriterController(IBlogService blogService, ICategoryService categoryService, IUserService userService, IMapper mapper, IWriterService writerService, INotificationService notificationService)
         {
             _blogService = blogService;
             _categoryService = categoryService;
             _userService = userService;
-            _writerService = writerService;
             _mapper = mapper;
+            _writerService = writerService;
+            _notificationService = notificationService;
         }
 
         public IActionResult Index()

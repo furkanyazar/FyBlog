@@ -16,5 +16,13 @@ namespace DataAccess.Concrete.EntityFramework
                 return context.Messages.Where(x => x.ReceiverUserId == receiverId).OrderByDescending(x => x.MessageDateOf).Include(x => x.ReceiverUser).Include(x => x.SenderUser).ToList();
             }
         }
+
+        public List<Message> GetAllBySenderId(int senderId)
+        {
+            using (var context = new MvcCoreDbContext())
+            {
+                return context.Messages.Where(x => x.SenderUserId == senderId).OrderByDescending(x => x.MessageDateOf).Include(x => x.ReceiverUser).Include(x => x.SenderUser).ToList();
+            }
+        }
     }
 }
