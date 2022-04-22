@@ -10,9 +10,9 @@ namespace Entities.Concrete
         public int MessageId { get; set; }
 
         public string MessageSubject { get; set; }
-        public string MEssageContent { get; set; }
-        public DateTime MessageDateOf { get; set; }
-        public bool MessageStatus { get; set; }
+        public string MessageContent { get; set; }
+        public DateTime MessageDateOf { get; set; } = DateTime.Now;
+        public bool MessageStatus { get; set; } = false;
 
         public int? SenderUserId { get; set; }
         public User SenderUser { get; set; }

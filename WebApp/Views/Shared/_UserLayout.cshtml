@@ -128,7 +128,7 @@
 							<a class="nav-link" asp-controller="Contact" asp-action="Index">İletişim</a>
 						</li>
 					</ul>
-					@await Html.PartialAsync("~/Views/Default/HeaderSearchPartial.cshtml")
+					@await Html.PartialAsync("~/Views/Default/BlogHeaderSearchPartial.cshtml")
 				</div>
 			</nav>
 		</div>
@@ -144,7 +144,7 @@
 				@await Component.InvokeAsync("BlogFooterAboutUs")
 				@await Component.InvokeAsync("BlogFooterLatestBlogs")
 				<!-- subscribe -->
-				@await Html.PartialAsync("~/Views/Default/FooterSignupNewsletterPartial.cshtml")
+				@await Html.PartialAsync("~/Views/Default/BlogFooterSignupNewsletterPartial.cshtml")
 				<!-- //subscribe -->
 			</div>
 			<!-- footer -->

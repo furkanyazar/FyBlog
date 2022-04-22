@@ -23,12 +23,12 @@ namespace WebApp.Controllers
             _commentService = commentService;
         }
 
-        public PartialViewResult HeaderSearchPartial()
+        public PartialViewResult BlogHeaderSearchPartial()
         {
             return PartialView();
         }
 
-        public PartialViewResult FooterSignupNewsletterPartial()
+        public PartialViewResult BlogFooterSignupNewsletterPartial()
         {
             return PartialView();
         }
