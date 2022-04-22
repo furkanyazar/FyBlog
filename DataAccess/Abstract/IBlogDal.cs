@@ -23,7 +23,7 @@ namespace DataAccess.Abstract
 
         Blog GetByBlogId(int blogId);
 
-        List<Blog> GetLatestsByWriterIdWithCount(int writerId, int count);
+        List<Blog> GetLatestsByUserIdWithCount(int userId, int count);
 
         List<Blog> GetLatestsByCategoryStatusAndBlogStatusWithCount(int count, bool categoryStatus, bool blogStatus);
 

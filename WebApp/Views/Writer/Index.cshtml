@@ -9,4 +9,4 @@
 	@await Component.InvokeAsync("WriterIndexCountOfMyCommentsForLastWeek", Convert.ToInt32(User.Claims.SingleOrDefault(x => x.Type == "UserId").Value))
 </div>
 @await Component.InvokeAsync("WriterIndexLatestBlogs")
-@await Component.InvokeAsync("WriterIndexMyLatestBlogs", Convert.ToInt32(User.Claims.SingleOrDefault(x => x.Type == "UserId").Value))
+@await Component.InvokeAsync("WriterIndexNotifications", Convert.ToInt32(User.Claims.SingleOrDefault(x => x.Type == "UserId").Value))

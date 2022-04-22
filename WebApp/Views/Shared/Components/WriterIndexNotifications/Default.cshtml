@@ -1,0 +1,46 @@
+﻿@using Entities.Concrete
+
+@model List<Notification>
+
+<div class="row">
+	<div class="col-@if (Model.Count > 0)
+				  {
+					  Write("7");
+				  }
+				  else
+				  {
+					  Write("12");
+				  } grid-margin stretch-card">
+		<div class="card">
+			<div class="card-body">
+				@await Component.InvokeAsync("WriterIndexMyLatestBlogs", Convert.ToInt32(User.Claims.SingleOrDefault(x => x.Type == "UserId").Value))
+			</div>
+		</div>
+	</div>
+	@if (Model.Count > 0)
+	{
+		<div class="col-md-5 grid-margin stretch-card" id="notifications">
+			<div class="card">
+				<div class="card-body">
+					<h4 class="card-title text-black">Bildirimler</h4>
+					<div class="preview-list">
+						@foreach (var item in Model)
+						{
+							<a class="dropdown-item preview-item" style="cursor: context-menu">
+								<div class="preview-thumbnail">
+									<div class="preview-icon @item.NotificationType.NotificationTypeColor">
+										<i class="@item.NotificationType.NotificationTypeSymbol"></i>
+									</div>
+								</div>
+								<div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+									<h6 class="preview-subject font-weight-normal mb-1">@item.NotificationType.NotificationTypeName</h6>
+									<p class="text-gray ellipsis mb-0">@item.NotificationDetail</p>
+								</div>
+							</a>
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+</div>

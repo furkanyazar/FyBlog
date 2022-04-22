@@ -2,35 +2,31 @@
 
 @model List<Blog>
 
-<div class="row">
-	<div class="col-12 grid-margin stretch-card">
-		<div class="card">
-			<div class="card-body">
-				<h4 class="card-title"><a class="text-black" asp-controller="Writer" asp-action="MyBlogs" asp-route-userId="@User.Claims.SingleOrDefault(x => x.Type == "UserId").Value">Son Bloglarım</a></h4>
-				<div class="table-responsive">
-					<table class="table table-hover">
-						<thead>
-							<tr>
-								<th>Başlık</th>
-								<th>Tarih</th>
-								<th>Kategori</th>
-								<th>Durum</th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach (var item in Model)
-							{
-								<tr>
-									<td><a class="text-black" asp-controller="Blog" asp-action="Read" asp-route-blogId="@item.BlogId">@item.BlogTitle</a></td>
-									<td>
-										<a class="text-black" asp-controller="Writer" asp-action="MyBlogsByDate" asp-route-writerId="@item.WriterId" asp-route-dateOf="@item.BlogDateOf.ToShortDateString()">@item.BlogDateOf.ToShortDateString()</a>
-									</td>
-									<td>
-										<a asp-controller="Writer" asp-action="MyBlogsByCategory" asp-route-writerId="@item.WriterId" asp-route-categoryId="@item.CategoryId"><span class="badge badge-gradient-dark">@item.Category.CategoryName</span></a>
-									</td>
-									<td>
-										<a asp-controller="Writer" asp-action="DeleteBlog" asp-route-blogId="@item.BlogId">
-											<span class="badge @{
+<h4 class="card-title"><a class="text-black" asp-controller="Writer" asp-action="MyBlogs" asp-route-userId="@User.Claims.SingleOrDefault(x => x.Type == "UserId").Value">Son Bloglarım</a></h4>
+<div class="table-responsive">
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>Başlık</th>
+				<th>Tarih</th>
+				<th>Kategori</th>
+				<th>Durum</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td><a class="text-black" asp-controller="Blog" asp-action="Read" asp-route-blogId="@item.BlogId">@item.BlogTitle</a></td>
+					<td>
+						<a class="text-black" asp-controller="Writer" asp-action="MyBlogsByDate" asp-route-writerId="@item.WriterId" asp-route-dateOf="@item.BlogDateOf.ToShortDateString()">@item.BlogDateOf.ToShortDateString()</a>
+					</td>
+					<td>
+						<a asp-controller="Writer" asp-action="MyBlogsByCategory" asp-route-writerId="@item.WriterId" asp-route-categoryId="@item.CategoryId"><span class="badge badge-gradient-dark">@item.Category.CategoryName</span></a>
+					</td>
+					<td>
+						<a asp-controller="Writer" asp-action="DeleteBlog" asp-route-blogId="@item.BlogId">
+							<span class="badge @{
 									    switch (item.BlogStatus)
 										{
 											case true:
@@ -41,26 +37,22 @@
 												break;
 									}
 }">
-												@{
-													switch (item.BlogStatus)
-													{
-														case true:
-															Write("Aktif");
-															break;
-														default:
-															Write("Pasif");
-															break;
-													}
-												}
-											</span>
-										</a>
-									</td>
-								</tr>
-							}
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
+								@{
+									switch (item.BlogStatus)
+									{
+										case true:
+											Write("Aktif");
+											break;
+										default:
+											Write("Pasif");
+											break;
+									}
+								}
+							</span>
+						</a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
 </div>

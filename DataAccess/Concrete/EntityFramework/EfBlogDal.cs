@@ -74,11 +74,11 @@ namespace DataAccess.Concrete.EntityFramework
             }
         }
 
-        public List<Blog> GetLatestsByWriterIdWithCount(int writerId, int count)
+        public List<Blog> GetLatestsByUserIdWithCount(int userId, int count)
         {
             using (var context = new MvcCoreDbContext())
             {
-                return context.Blogs.Where(x => x.WriterId == writerId).OrderByDescending(x => x.BlogDateOf).Take(count).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).ToList();
+                return context.Blogs.Where(x => x.Writer.UserId == userId).OrderByDescending(x => x.BlogDateOf).Take(count).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).ToList();
             }
         }
 

@@ -53,9 +53,9 @@ namespace Business.Concrete
             return _tdal.GetByBlogId(blogId);
         }
 
-        public List<Blog> GetLatestsByWriterIdWithCount(int writerId, int count)
+        public List<Blog> GetLatestsByUserIdWithCount(int userId, int count)
         {
-            return _tdal.GetLatestsByWriterIdWithCount(writerId, count);
+            return _tdal.GetLatestsByUserIdWithCount(userId, count);
         }
 
         public List<Blog> GetLatestsByCategoryStatusAndBlogStatusWithCount(int count, bool categoryStatus, bool blogStatus)
