@@ -29,6 +29,9 @@ namespace WebApp.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            if (User.Claims.Count() > 0)
+                return RedirectToAction("Index", "Blog");
+
             return View();
         }
 

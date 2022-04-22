@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -30,6 +31,9 @@ namespace WebApp.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            if (User.Claims.Count() > 0)
+                return RedirectToAction("Index", "Blog");
+
             return View();
         }
 
@@ -89,6 +93,9 @@ namespace WebApp.Controllers
         [HttpGet]
         public IActionResult Writer()
         {
+            if (User.Claims.Count() > 0)
+                return RedirectToAction("Index", "Blog");
+
             return View();
         }
 
