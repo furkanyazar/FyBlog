@@ -21,5 +21,10 @@ namespace Business.Concrete
         {
             return _tdal.GetAllBySenderId(senderId);
         }
+
+        public Message GetByMessageId(int messageId)
+        {
+            return _tdal.GetByMessageId(messageId);
+        }
     }
 }

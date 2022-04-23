@@ -9,5 +9,7 @@ namespace DataAccess.Abstract
         List<Message> GetAllByReceiverId(int receiverId);
 
         List<Message> GetAllBySenderId(int senderId);
+
+        Message GetByMessageId(int messageId);
     }
 }

@@ -37,5 +37,12 @@
 
         public static string WriterAboutMinimumLength = "Hakkımda en az 5 karakterden oluşmalı";
         public static string WriterAboutMaximumLength = "Hakkımda en fazla 500 karakterden oluşabilir";
-	}
+
+        public static string MessageSubjectNotEmpty = "Konu boş bırakılamaz";
+        public static string MessageSubjectMinimumLength = "Konu en az 2 karakterden oluşmalı";
+        public static string MessageSubjectMaximumLength = "Konu en fazla 50 karakterden oluşabilir";
+        public static string MessageContentNotEmpty = "Mesaj boş bırakılamaz";
+        public static string MessageContentMinimumLength = "Mesaj en az 5 karakterden oluşmalı";
+        public static string MessageContentMaximumLength = "Mesaj en fazla 1000 karakterden oluşabilir";
+    }
 }

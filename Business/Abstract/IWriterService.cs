@@ -1,5 +1,6 @@
 ﻿using Core.Business;
 using Entities.Concrete;
+using System.Collections.Generic;
 
 namespace Business.Abstract
 {
@@ -8,5 +9,7 @@ namespace Business.Abstract
         Writer GetByUserId(int userId);
 
         Writer GetByUserEmail(string email);
+
+        List<Writer> GetAllWithoutUserId(int userId);
     }
 }

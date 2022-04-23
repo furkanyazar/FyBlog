@@ -2,6 +2,7 @@
 using Core.Business;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using System.Collections.Generic;
 
 namespace Business.Concrete
 {
@@ -20,5 +21,10 @@ namespace Business.Concrete
 		{
 			return _tdal.GetByUserEmail(email);
 		}
-	}
+
+        public List<Writer> GetAllWithoutUserId(int userId)
+        {
+            return _tdal.GetAllWithoutUserId(userId);
+        }
+    }
 }

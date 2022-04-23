@@ -1,0 +1,36 @@
+﻿@using Entities.Concrete
+
+@model Message
+
+@{
+    ViewData["Title"] = "Yeni Mesaj";
+    Layout = "~/Views/Shared/_WriterLayout.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+	<div class="card">
+		<div class="card-body">
+			<h4 class="card-title">Yeni Mesaj</h4>
+			@using (Html.BeginForm("NewMessage", "Message", FormMethod.Post))
+			{
+				<div class="form-group">
+					@Html.Label("Kime")
+					@Html.DropDownListFor(x => x.ReceiverUserId, (List<SelectListItem>)ViewBag.Writers, new { @class = "form-control" })
+					@Html.ValidationMessageFor(x => x.ReceiverUserId, "", new { @class = "text-danger" })
+				</div>
+				<div class="form-group">
+					@Html.Label("Konu")
+					@Html.TextBoxFor(x => x.MessageSubject, new { @class = "form-control", @placeholder = "Konu" })
+					@Html.ValidationMessageFor(x => x.MessageSubject, "", new { @class = "text-danger" })
+				</div>
+				<div class="form-group">
+					@Html.Label("Mesaj")
+					@Html.TextAreaFor(x => x.MessageContent, new { @class = "form-control", @placeholder = "Mesaj", @rows = "5" })
+					@Html.ValidationMessageFor(x => x.MessageContent, "", new { @class = "text-danger" })
+				</div>
+				<button type="submit" class="btn btn-gradient-primary btn-icon-text mr-2"><i class="mdi mdi-send btn-icon-prepend"></i>Gönder</button>
+				<a class="btn btn-gradient-light" asp-controller="Message" asp-action="Inbox" asp-route-userId="@User.Claims.SingleOrDefault(x => x.Type == "UserId").Value">İptal</a>
+			}
+		</div>
+	</div>
+</div>

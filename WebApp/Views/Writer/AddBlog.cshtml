@@ -3,7 +3,7 @@
 @model Blog
 
 @{
-	ViewData["Title"] = "Yeni Blog Ekle";
+	ViewData["Title"] = "Yeni Blog";
 	Layout = "~/Views/Shared/_WriterLayout.cshtml";
 }
 
@@ -11,7 +11,7 @@
 <div class="col-12 grid-margin stretch-card">
 	<div class="card">
 		<div class="card-body">
-			<h4 class="card-title">Yeni Blog Ekle</h4>
+			<h4 class="card-title">Yeni Blog</h4>
 			@using (Html.BeginForm("AddBlog", "Writer", FormMethod.Post, new { enctype="multipart/form-data"}))
 			{
 				<div class="form-group">
@@ -30,7 +30,7 @@
 					<div class="input-group col-xs-12">
 						<input type="text" class="form-control file-upload-info" disabled placeholder="Ana Resim">
 						<span class="input-group-append">
-							<button class="file-upload-browse btn btn-gradient-primary" type="button">Yükle</button>
+							<button class="file-upload-browse btn btn-gradient-danger btn-icon-text" type="button"><i class="mdi mdi-upload btn-icon-prepend"></i>Yükle</button>
 						</span>
 					</div>
 					@Html.ValidationMessageFor(x => x.BlogImageUrl, "", new { @class = "text-danger" })
@@ -45,7 +45,7 @@
 					<div class="input-group col-xs-12">
 						<input type="text" class="form-control file-upload-info" disabled placeholder="Yan Resim">
 						<span class="input-group-append">
-							<button class="file-upload-browse btn btn-gradient-primary" type="button">Yükle</button>
+							<button class="file-upload-browse btn btn-gradient-danger btn-icon-text" type="button"><i class="mdi mdi-upload btn-icon-prepend"></i>Yükle</button>
 						</span>
 					</div>
 					@Html.ValidationMessageFor(x => x.BlogThumbnailImageUrl, "", new { @class = "text-danger" })
@@ -55,7 +55,7 @@
 					<textarea id="editor" class="form-control" name="BlogContent" placeholder="İçerik"></textarea>
 					@Html.ValidationMessageFor(x => x.BlogContent, "", new { @class = "text-danger" })
 				</div>
-				<button type="submit" class="btn btn-gradient-primary mr-2">Gönder</button>
+				<button type="submit" class="btn btn-gradient-primary btn-icon-text mr-2"><i class="mdi mdi-file-send btn-icon-prepend"></i>Gönder</button>
 				<a class="btn btn-gradient-light" asp-controller="Writer" asp-action="MyBlogs" asp-route-userId="@User.Claims.SingleOrDefault(x => x.Type == "UserId").Value">İptal</a>
 			}
 		</div>

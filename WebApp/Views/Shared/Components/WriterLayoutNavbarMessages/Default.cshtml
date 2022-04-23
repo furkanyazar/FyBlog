@@ -19,7 +19,7 @@
 			@foreach (var item in Model)
 			{
 				<div class="dropdown-divider"></div>
-				<a class="dropdown-item preview-item">
+				<a class="dropdown-item preview-item" asp-controller="Message" asp-action="Read" asp-route-messageId="@item.MessageId">
 					<div class="preview-thumbnail">
 						<img src="@item.SenderUser.UserImageUrl" alt="image" class="profile-pic">
 					</div>
