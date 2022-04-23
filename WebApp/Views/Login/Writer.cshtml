@@ -25,6 +25,8 @@
 	<link rel="stylesheet" href="/writer/css/style.css">
 	<!-- End layout styles -->
 	<link rel="shortcut icon" href="/writer/images/favicon.ico" />
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="~/web/js/jquery-2.2.3.min.js"></script>
 </head>
 <body>
 	<div class="container-scroller">
@@ -43,11 +45,11 @@
 							@using (Html.BeginForm("Writer", "Login", FormMethod.Post, new { @class = "pt-3" }))
 							{
 								<div class="form-group">
-									@Html.TextBoxFor(x => x.UserEmail, new { @type="email", @class = "form-control form-control-lg", @placeholder = "ada@mail.com" })
+									@Html.TextBoxFor(x => x.UserEmail, new { @type="email", @class = "form-control form-control-lg", @placeholder = "E-posta" })
 									@Html.ValidationMessageFor(x => x.UserEmail, "", new { @class = "text-danger" })
 								</div>
 								<div class="form-group">
-									@Html.PasswordFor(x => x.UserPassword, new { @class = "form-control form-control-lg", @placeholder = "12341234" })
+									@Html.PasswordFor(x => x.UserPassword, new { @class = "form-control form-control-lg", @placeholder = "Şifre" })
 									@Html.ValidationMessageFor(x => x.UserPassword, "", new { @class = "text-danger" })
 								</div>
 								<div class="mt-3">
@@ -63,6 +65,8 @@
 								</div>
 								<div class="text-center mt-4 font-weight-light">
 									Yazar değil misin? <a class="text-primary" asp-controller="Login" asp-action="Index">Geri Dön</a>
+									<br />
+									<a href="#" id="demoUsers">Demo Yazar Listesi</a>
 								</div>
 							}
 						</div>
@@ -86,3 +90,8 @@
 	<!-- endinject -->
 </body>
 </html>
+<script>
+	$( "#demoUsers" ).click(function() {
+		swal("Demo Yazar Listesi", "ada@mail.com | 12341234\n" + "mert@mail.com | 12341234\n" + "elif@mail.com | 12341234\n" + "sedat@mail.com | 12341234");
+	});
+</script>

@@ -16,12 +16,12 @@
 				{
 					<div class="form-group">
 						@Html.Label("E-posta")
-						@Html.TextBoxFor(x => x.UserEmail, new { @class = "form-control", @placeholder = "halil@mail.com", @type = "email" } )
+						@Html.TextBoxFor(x => x.UserEmail, new { @class = "form-control", @placeholder = "E-posta", @type = "email" } )
 						@Html.ValidationMessageFor(x => x.UserEmail, "", new { @class = "text-danger" })
 					</div>
 					<div class="form-group">
 						@Html.Label("Şifre")
-						@Html.PasswordFor(x => x.UserPassword, new { @class = "form-control", @placeholder = "12341234" } )
+						@Html.PasswordFor(x => x.UserPassword, new { @class = "form-control", @placeholder = "Şifre" } )
 						@Html.ValidationMessageFor(x => x.UserPassword, "", new { @class = "text-danger" })
 					</div>
 					<div class="form-check mb-2">
@@ -31,8 +31,14 @@
 					<button type="submit" class="btn btn-primary submit mb-4">Giriş Yap</button>
 					<p><a asp-controller="Register" asp-action="Index">Hesabınız yok mu?</a></p>
 					<p><a asp-controller="Login" asp-action="Writer">Yazar Girişi</a></p>
+					<p><a href="#" id="demoUsers">Demo Kullanıcı Listesi</a></p>
 				}
 			</div>
 		</div>
 	</div>
 </section>
+<script>
+	$( "#demoUsers" ).click(function() {
+		swal("Demo Kullanıcı Listesi", "halil@mail.com | 12341234\n" + "berre@mail.com | 12341234\n" + "baran@mail.com | 12341234\n" + "hasret@mail.com | 12341234\n" + "mine@mail.com | 12341234\n" + "mustafa@mail.com | 12341234");
+	});
+</script>
