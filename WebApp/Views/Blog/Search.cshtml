@@ -33,7 +33,7 @@
 									</li>
 									<li class="ml-3">
 										<a asp-controller="Blog" asp-action="Writer" asp-route-writerId="@item.WriterId">
-											<i class="fas fa-user"></i> @item.Writer.User.UserFirstName @item.Writer.User.UserLastName[0].
+											<i class="fas fa-user"></i> @item.Writer.User.UserFirstName @item.Writer.User.UserLastName
 										</a>
 									</li>
 									<li>
@@ -43,16 +43,7 @@
 									</li>
 								</ul>
 								<h5 class="card-title">
-									<a asp-controller="Blog" asp-action="Read" asp-route-blogId="@item.BlogId">
-										@if (item.BlogTitle.Length > 25)
-										{
-											Write(item.BlogTitle.Substring(0, 25) + "...");
-										}
-										else
-										{
-											Write(item.BlogTitle);
-										}
-									</a>
+									<a asp-controller="Blog" asp-action="Read" asp-route-blogId="@item.BlogId">@item.BlogTitle</a>
 								</h5>
 								<p class="card-text mb-3">
 									@if (item.BlogContent.Length > 100)
