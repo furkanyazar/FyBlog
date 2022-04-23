@@ -39,7 +39,9 @@
 		else
 		{
 			<div class="dropdown-divider"></div>
-			<h6 class="p-3 mb-0 text-center">Yeni bildirim yok</h6>
+			<a class="text-black" asp-controller="Writer" asp-action="Index" asp-fragment="notifications">
+				<h6 class="p-3 mb-0 text-center">Yeni bildirim yok</h6>
+			</a>
 		}
 	</div>
 </li>

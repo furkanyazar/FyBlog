@@ -43,11 +43,11 @@
 							@using (Html.BeginForm("Writer", "Login", FormMethod.Post, new { @class = "pt-3" }))
 							{
 								<div class="form-group">
-									@Html.TextBoxFor(x => x.UserEmail, new { @type="email", @class = "form-control form-control-lg", @placeholder = "furkan@mail.com, gizem@mail.com" })
+									@Html.TextBoxFor(x => x.UserEmail, new { @type="email", @class = "form-control form-control-lg", @placeholder = "ada@mail.com" })
 									@Html.ValidationMessageFor(x => x.UserEmail, "", new { @class = "text-danger" })
 								</div>
 								<div class="form-group">
-									@Html.PasswordFor(x => x.UserPassword, new { @class = "form-control form-control-lg", @placeholder = "13121312" })
+									@Html.PasswordFor(x => x.UserPassword, new { @class = "form-control form-control-lg", @placeholder = "12341234" })
 									@Html.ValidationMessageFor(x => x.UserPassword, "", new { @class = "text-danger" })
 								</div>
 								<div class="mt-3">

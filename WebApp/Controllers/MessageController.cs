@@ -42,6 +42,16 @@ namespace WebApp.Controllers
         {
             var result = _messageService.GetByMessageId(messageId);
 
+            if (result.ReceiverUserId == Convert.ToInt32(User.Claims.SingleOrDefault(x => x.Type == "UserId").Value))
+            {
+                result.MessageStatus = true;
+
+                _messageService.Update(result);
+            }
+
+            if (result.ReceiverUserId != Convert.ToInt32(User.Claims.SingleOrDefault(x => x.Type == "UserId").Value) && result.SenderUserId != Convert.ToInt32(User.Claims.SingleOrDefault(x => x.Type == "UserId").Value))
+                return RedirectToAction("Inbox", new { userId = HttpContext.User.Claims.SingleOrDefault(x => x.Type == "UserId").Value });
+
             return View(result);
         }
 

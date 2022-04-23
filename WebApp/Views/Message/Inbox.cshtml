@@ -3,6 +3,87 @@
 @model List<Message>
 
 @{
-    ViewData["Title"] = "Gelen Kutusu";
-    Layout = "~/Views/Shared/_WriterLayout.cshtml";
+	ViewData["Title"] = "Gelen Kutusu";
+	Layout = "~/Views/Shared/_WriterLayout.cshtml";
 }
+
+<div class="row">
+	<div class="col-12 grid-margin">
+		<div class="card">
+			<div class="card-body">
+				<h4 class="card-title">Gelen Kutusu</h4>
+				<div class="table-responsive">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>Kimden</th>
+								<th>Konu</th>
+								<th>Tarih</th>
+								<th>Mesaj</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var item in Model)
+							{
+								<tr>
+									<td>
+										<a class="text-black" asp-controller="Message" asp-action="Read" asp-route-messageId="@item.MessageId"><img src="@item.SenderUser.UserImageUrl" class="mr-2" alt="image"> @item.SenderUser.UserFirstName @item.SenderUser.UserLastName</a>
+									</td>
+									<td><a class="text-black" asp-controller="Message" asp-action="Read" asp-route-messageId="@item.MessageId">@item.MessageSubject</a></td>
+									<td>
+										<a class="text-black" asp-controller="Message" asp-action="Read" asp-route-messageId="@item.MessageId">
+											@{
+												TimeSpan diff = DateTime.Now - item.MessageDateOf;
+
+												if (diff.TotalDays >= 365)
+												{
+													Write((int)(diff.TotalDays / 365) + " yıl önce");
+												}
+												else if (diff.TotalDays >= 30)
+												{
+													Write((int)(diff.TotalDays / 30) + " ay önce");
+												}
+												else if (diff.TotalDays >= 7)
+												{
+													Write((int)(diff.TotalDays / 7) + " hafta önce");
+												}
+												else if (diff.TotalDays >= 1)
+												{
+													Write((int)diff.TotalDays + " gün önce");
+												}
+												else if (diff.TotalHours >= 1)
+												{
+													Write((int)diff.TotalHours + " saat önce");
+												}
+												else if (diff.TotalMinutes >= 1)
+												{
+													Write((int)diff.TotalMinutes + " dakika önce");
+												}
+												else
+												{
+													Write("Az önce");
+												}
+											}
+										</a>
+									</td>
+									<td>
+										<a class="text-black" asp-controller="Message" asp-action="Read" asp-route-messageId="@item.MessageId">
+											@if (item.MessageContent.Length > 100)
+											{
+												Write(item.MessageContent.Substring(0, item.MessageContent.Substring(0, 100).LastIndexOf(" ")) + "...");
+											}
+											else
+											{
+												Write(item.MessageContent);
+											}
+										</a>
+									</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

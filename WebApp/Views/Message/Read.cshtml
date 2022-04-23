@@ -12,9 +12,22 @@
 		<div class="card">
 			<div class="card-body">
 				<h4 class="card-title">@Model.MessageSubject</h4>
-				<p class="card-description">From: @Model.SenderUser.UserFirstName @Model.SenderUser.UserLastName <i>- @Model.MessageDateOf.ToShortDateString() @Model.MessageDateOf.ToShortTimeString()</i></p>
+				<p class="card-description">
+					@if (Model.SenderUserId == Convert.ToInt32(User.Claims.SingleOrDefault(x => x.Type == "UserId").Value))
+					{
+						Write("Kime: " + Model.ReceiverUser.UserFirstName + " " + Model.ReceiverUser.UserLastName);
+					}
+					else
+					{
+						Write("Kimden: " + Model.SenderUser.UserFirstName + " " + Model.SenderUser.UserLastName);
+					}
+					<i> - @Model.MessageDateOf.ToShortDateString() @Model.MessageDateOf.ToShortTimeString()</i>
+				</p>
 				<p>@Model.MessageContent</p>
-				<a class="btn btn-gradient-success btn-icon-text" asp-controller="Message" asp-action="NewMessage" asp-route-receiverId="@Model.SenderUserId" asp-route-subject="@Model.MessageSubject"><i class="mdi mdi-keyboard-return btn-icon-prepend"></i>Yanıtla</a>
+				@if (Model.SenderUserId != Convert.ToInt32(User.Claims.SingleOrDefault(x => x.Type == "UserId").Value))
+				{
+					<a class="btn btn-gradient-success btn-icon-text" asp-controller="Message" asp-action="NewMessage" asp-route-receiverId="@Model.SenderUserId" asp-route-subject="@Model.MessageSubject"><i class="mdi mdi-keyboard-return btn-icon-prepend"></i>Yanıtla</a>
+				}
 			</div>
 		</div>
 	</div>

@@ -1,7 +1,9 @@
 ﻿@using System.Text.RegularExpressions
 @using Entities.Concrete
+@using X.PagedList
+@using X.PagedList.Mvc.Core
 
-@model List<Blog>
+@model IPagedList<Blog>
 
 @{
 	ViewData["Title"] = "Ana Sayfa";
@@ -18,7 +20,6 @@
 					@foreach (var item in Model)
 					{
 						item.BlogContent = Regex.Replace(item.BlogContent, @"</?\w+((\s+\w+(\s*=\s*(?:"".*?""|'.*?'|[^'"">\s]+))?)+\s*|\s*)/?>", string.Empty);
-
 						<div class="col-lg-4 card mb-5">
 							<a asp-controller="Blog" asp-action="Read" asp-route-blogId="@item.BlogId">
 								<img src="@item.BlogThumbnailImageUrl" class="card-img-top img-fluid" alt="">
@@ -32,7 +33,7 @@
 									</li>
 									<li class="ml-3">
 										<a asp-controller="Blog" asp-action="Writer" asp-route-writerId="@item.WriterId">
-											<i class="fas fa-user"></i> @item.Writer.User.UserFirstName[0]. @item.Writer.User.UserLastName
+											<i class="fas fa-user"></i> @item.Writer.User.UserFirstName @item.Writer.User.UserLastName[0].
 										</a>
 									</li>
 									<li>
@@ -71,5 +72,14 @@
 				<!--//left-->
 			</div>
 		</div>
+		@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }), new X.PagedList.Web.Common.PagedListRenderOptions{
+		UlElementClasses = new string[] { "pagination", "justify-content-center", "mt-4" },
+		LiElementClasses = new string[] { "page-item" },
+		PageClasses = new string[] { "page-link" },
+		LinkToPreviousPageFormat = "Önceki",
+		LinkToNextPageFormat = "Sonraki",
+		LinkToFirstPageFormat = "İlk",
+		LinkToLastPageFormat = "Son"
+		})
 	</div>
 </section>

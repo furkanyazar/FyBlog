@@ -152,7 +152,9 @@ namespace WebApp.Controllers
         [HttpPost]
         public IActionResult AddBlog(Blog blog)
         {
-            blog.WriterId = Convert.ToInt32(HttpContext.User.Claims.SingleOrDefault(x => x.Type == "UserId").Value);
+            var writer = _writerService.GetByUserId(Convert.ToInt32(HttpContext.User.Claims.SingleOrDefault(x => x.Type == "UserId").Value));
+
+            blog.WriterId = writer.WriterId;
 
             if (Request.Form.Files["BlogImage"] is not null && Request.Form.Files["BlogThumbnailImage"] is not null)
             {
