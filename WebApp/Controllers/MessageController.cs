@@ -76,7 +76,7 @@ namespace WebApp.Controllers
             {
                 _messageService.Add(message);
 
-                return RedirectToAction("Sendbox");
+                return RedirectToAction("Sendbox", new { userId = User.Claims.SingleOrDefault(x => x.Type == "UserId").Value });
             }
 
             foreach (var item in validation.Errors)
