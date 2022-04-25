@@ -18,14 +18,16 @@ namespace WebApp.Controllers
     {
         private IWriterService _writerService;
         private IUserService _userService;
+        private IAdminService _adminService;
 
         private UserLoginValidator userLoginValidator = new UserLoginValidator();
         private ValidationResult validation;
 
-        public LoginController(IWriterService writerService, IUserService userService)
+        public LoginController(IWriterService writerService, IUserService userService, IAdminService adminService)
         {
             _writerService = writerService;
             _userService = userService;
+            _adminService = adminService;
         }
 
         [HttpGet]
@@ -47,6 +49,15 @@ namespace WebApp.Controllers
                 var writerToCheck = _writerService.GetByUserEmail(userLoginDto.UserEmail);
 
                 if (writerToCheck is not null)
+                {
+                    ModelState.AddModelError("UserEmail", "E-posta hatalı");
+
+                    return View();
+                }
+
+                var adminToCheck = _adminService.GetByUserEmail(userLoginDto.UserEmail);
+
+                if (adminToCheck is not null)
                 {
                     ModelState.AddModelError("UserEmail", "E-posta hatalı");
 
@@ -133,6 +144,59 @@ namespace WebApp.Controllers
                 await HttpContext.SignInAsync(claimsPrincipal);
 
                 return RedirectToAction("Index", "Writer");
+            }
+
+            foreach (var item in validation.Errors)
+            {
+                ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+            }
+
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Admin()
+        {
+            if (User.Claims.Count() > 0)
+                return RedirectToAction("Index", "Blog");
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Admin(UserLoginDto userLoginDto)
+        {
+            validation = userLoginValidator.Validate(userLoginDto);
+
+            if (validation.IsValid)
+            {
+                var userToCheck = _adminService.GetByUserEmail(userLoginDto.UserEmail);
+
+                if (userToCheck is null)
+                {
+                    ModelState.AddModelError("UserEmail", "E-posta hatalı");
+
+                    return View();
+                }
+
+                if (!HashingHelper.VerifyPasswordHash(userLoginDto.UserPassword, userToCheck.User.UserPasswordHash, userToCheck.User.UserPasswordSalt))
+                {
+                    ModelState.AddModelError("UserPassword", "Şifre hatalı");
+
+                    return View();
+                }
+
+                var claims = new List<Claim>
+                {
+                    new Claim("UserId", userToCheck.UserId.ToString())
+                };
+
+                var claimIdentity = new ClaimsIdentity(claims, "A");
+                var claimsPrincipal = new ClaimsPrincipal(claimIdentity);
+
+                await HttpContext.SignInAsync(claimsPrincipal);
+
+                return RedirectToAction("Index", "Admin");
             }
 
             foreach (var item in validation.Errors)

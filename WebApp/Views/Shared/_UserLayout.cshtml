@@ -55,6 +55,19 @@
 							</a>
 						</span>
 					}
+					else if (Context.User.Identity.AuthenticationType == "A")
+					{
+						<span class="mx-lg-4 mx-md-2  mx-1">
+							<a asp-controller="Admin" asp-action="Index">
+								<i class="fas fa-columns"></i> Admin Paneli
+							</a>
+						</span>
+						<span class="mx-lg-4 mx-md-2  mx-1">
+							<a asp-controller="Login" asp-action="Logout">
+								<i class="fas fa-lock"></i> Çıkış Yap
+							</a>
+						</span>
+					}
 					else
 					{
 						<span class="mx-lg-4 mx-md-2  mx-1">

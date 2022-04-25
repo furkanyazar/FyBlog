@@ -1,0 +1,64 @@
+﻿@using Entities.DTOs
+
+@model UserLoginDto
+
+@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Admin Girişi - FY Blog</title>
+	<link href="/admin/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/admin/font-awesome/css/font-awesome.css" rel="stylesheet">
+	<link href="/admin/css/animate.css" rel="stylesheet">
+	<link href="/admin/css/style.css" rel="stylesheet">
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="~/web/js/jquery-2.2.3.min.js"></script>
+</head>
+<body class="gray-bg">
+	<div class="middle-box text-center loginscreen animated fadeInDown">
+		<div>
+			<div>
+				<h1 class="logo-name">
+					<img src="/writer/images/logo.png">
+				</h1>
+			</div>
+			<h3>Merhaba! Hadi başlayalım</h3>
+			<p>Devam etmek için giriş yap</p>
+			@using (Html.BeginForm("Admin", "Login", FormMethod.Post, new { @class = "m-t", @role = "form" }))
+			{
+				<div class="form-group">
+					@Html.TextBoxFor(x => x.UserEmail, new { @type = "email", @class = "form-control", @placeholder = "E-posta" })
+				</div>
+				<div class="form-group">
+					@Html.PasswordFor(x => x.UserPassword, new { @class = "form-control", @placeholder = "Şifre" })
+				</div>
+				<button type="submit" class="btn btn-primary block full-width m-b">Giriş Yap</button>
+			}
+			<a href="#">Şifremi Unuttum</a>
+			<p class="m-t">
+				© @DateTime.Now.Year FY Blog. All Rights Reserved
+				<br />
+				Developed by <a href="https://www.linkedin.com/in/furkanyazar/" target="_blank">Furkan Yazar</a>
+			</p>
+			<br />
+			<h3>Demo</h3>
+			<label>Sadece demoda gözükür</label>
+			<p><a href="#" id="demoUsers">Demo Admin Listesi</a></p>
+		</div>
+	</div>
+	<!-- Mainly scripts -->
+	<script src="/admin/js/jquery-3.1.1.min.js"></script>
+	<script src="/admin/js/popper.min.js"></script>
+	<script src="/admin/js/bootstrap.js"></script>
+</body>
+</html>
+<script>
+	$( "#demoUsers" ).click(function() {
+		swal("Demo Admin Listesi", "ada@mail.com | 12341234\n" + "mert@mail.com | 12341234\n");
+	});
+</script>

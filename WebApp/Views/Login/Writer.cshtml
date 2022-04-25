@@ -41,7 +41,7 @@
 								</a>
 							</div>
 							<h4>Merhaba! Hadi başlayalım</h4>
-							<h6 class="font-weight-light">Devam etmek için giriş yap.</h6>
+							<h6 class="font-weight-light">Devam etmek için giriş yap</h6>
 							@using (Html.BeginForm("Writer", "Login", FormMethod.Post, new { @class = "pt-3" }))
 							{
 								<div class="form-group">
@@ -66,7 +66,14 @@
 								<div class="text-center mt-4 font-weight-light">
 									Yazar değil misin? <a class="text-primary" asp-controller="Login" asp-action="Index">Geri Dön</a>
 									<br />
-									<a href="#" id="demoUsers">Demo Yazar Listesi</a>
+									<br />
+									<h4>Demo</h4>
+									<h6 class="font-weight-light">Sadece demoda gözükür</h6>
+									<p>
+										<a href="#" id="demoUsers">Demo Yazar Listesi</a>
+										<br />
+										<a asp-controller="Login" asp-action="Admin">Admin Girişi</a>
+									</p>
 								</div>
 							}
 						</div>
