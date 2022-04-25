@@ -16,5 +16,10 @@ namespace Business.Concrete
         {
             return _tdal.GetAll(x => x.CategoryStatus == status);
         }
-    }
+
+		public Category GetById(int id)
+		{
+			return _tdal.Get(x => x.CategoryId == id);
+		}
+	}
 }

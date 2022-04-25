@@ -44,5 +44,11 @@
         public static string MessageContentNotEmpty = "Mesaj boş bırakılamaz";
         public static string MessageContentMinimumLength = "Mesaj en az 5 karakterden oluşmalı";
         public static string MessageContentMaximumLength = "Mesaj en fazla 1000 karakterden oluşabilir";
-    }
+
+		public static string CategoryNameNotEmpty = "Kategori adı boş bırakılamaz";
+		public static string CategoryNameMinimumLength = "Kategori adı en az 2 karakterden oluşmalı";
+		public static string CategoryNameMaximumLength = "Kategori adı en fazla 20 karakterden oluşabilir";
+		public static string CategoryDescriptionMinimumLength = "Kategori adı en az 5 karakterden oluşmalı";
+		public static string CategoryDescriptionMaximumLength = "Kategori açıklaması en fazla 50 karakterden oluşabilir";
+	}
 }
