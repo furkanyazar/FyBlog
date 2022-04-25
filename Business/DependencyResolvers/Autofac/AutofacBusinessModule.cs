@@ -42,6 +42,9 @@ namespace Business.DependencyResolvers.Autofac
 
             builder.RegisterType<MessageManager>().As<IMessageService>().SingleInstance();
             builder.RegisterType<EfMessageDal>().As<IMessageDal>().SingleInstance();
+
+            builder.RegisterType<AdminManager>().As<IAdminService>().SingleInstance();
+            builder.RegisterType<EfAdminDal>().As<IAdminDal>().SingleInstance();
         }
     }
 }
