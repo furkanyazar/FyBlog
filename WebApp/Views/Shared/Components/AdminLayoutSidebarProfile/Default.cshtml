@@ -1,0 +1,17 @@
+﻿@using Entities.Concrete
+
+@model Admin
+
+<div class="dropdown profile-element">
+	<img alt="image" class="rounded-circle" src="@Model.User.UserImageUrl" style="max-width: 48px; max-height: 48px;" />
+	<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+		<span class="block m-t-xs font-bold">@Model.User.UserFirstName @Model.User.UserLastName</span>
+		<span class="text-muted text-xs block">@Model.AdminTitle <b class="caret"></b></span>
+	</a>
+	<ul class="dropdown-menu animated fadeInRight m-t-xs">
+		<li><a class="dropdown-item" href="#">Profil</a></li>
+		<li><a class="dropdown-item" href="#">Mesajlar</a></li>
+		<li class="dropdown-divider"></li>
+		<li><a class="dropdown-item" asp-controller="Login" asp-action="Logout">Çıkış Yap</a></li>
+	</ul>
+</div>

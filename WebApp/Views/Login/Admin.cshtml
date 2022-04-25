@@ -33,9 +33,11 @@
 			{
 				<div class="form-group">
 					@Html.TextBoxFor(x => x.UserEmail, new { @type = "email", @class = "form-control", @placeholder = "E-posta" })
+					@Html.ValidationMessageFor(x => x.UserEmail, "", new { @class = "text-danger" })
 				</div>
 				<div class="form-group">
 					@Html.PasswordFor(x => x.UserPassword, new { @class = "form-control", @placeholder = "Şifre" })
+					@Html.ValidationMessageFor(x => x.UserPassword, "", new { @class = "text-danger" })
 				</div>
 				<button type="submit" class="btn btn-primary block full-width m-b">Giriş Yap</button>
 			}
@@ -59,6 +61,6 @@
 </html>
 <script>
 	$( "#demoUsers" ).click(function() {
-		swal("Demo Admin Listesi", "ada@mail.com | 12341234\n" + "mert@mail.com | 12341234\n");
+		swal("Demo Admin Listesi", "emir@mail.com | 12341234\n" + "merve@mail.com | 12341234\n");
 	});
 </script>

@@ -8,6 +8,7 @@ namespace Entities.Concrete
         [Key]
         public int AdminId { get; set; }
 
+        public string AdminTitle { get; set; }
         public string AdminAbout { get; set; }
 
         public int UserId { get; set; }

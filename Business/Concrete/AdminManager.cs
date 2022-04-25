@@ -15,5 +15,10 @@ namespace Business.Concrete
         {
             return _tdal.GetByUserEmail(email);
         }
+
+        public Admin GetByUserId(int userId)
+        {
+            return _tdal.GetByUserId(userId);
+        }
     }
 }

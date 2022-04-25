@@ -15,5 +15,13 @@ namespace DataAccess.Concrete.EntityFramework
                 return context.Admins.Include(x => x.User).SingleOrDefault(x => x.User.UserEmail == email);
             }
         }
+
+        public Admin GetByUserId(int userId)
+        {
+            using (var context = new MvcCoreDbContext())
+            {
+                return context.Admins.Include(x => x.User).SingleOrDefault(x => x.UserId == userId);
+            }
+        }
     }
 }
