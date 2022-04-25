@@ -1,7 +1,7 @@
 ﻿using Business.Abstract;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebApp.ViewComponents.Admin
+namespace WebApp.Areas.Admin.ViewComponents
 {
     public class AdminLayoutSidebarProfile : ViewComponent
     {
