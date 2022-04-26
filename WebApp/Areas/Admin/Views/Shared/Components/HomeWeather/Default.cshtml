@@ -14,9 +14,52 @@
 				<i class="fa fa-cloud fa-5x"></i>
 			</div>
 			<div class="col-8 text-right">
-				<span>Hava Durumu: @textInfo.ToTitleCase(Model.Weather.FirstOrDefault().Description)</span>
-				<h2 class="font-bold">@Model.Main.Temp'C</h2>
+				<span id="weatherText">İstanbul, İstanbul, TR: @textInfo.ToTitleCase(Model.Weather.FirstOrDefault().Description)</span>
+				<h2 id="weatherTemp" class="font-bold">@Model.Main.Temp'C</h2>
 			</div>
 		</div>
 	</div>
 </div>
+<script>
+	if (navigator.geolocation)
+		navigator.geolocation.getCurrentPosition(getLocation)
+
+	function getLocation(pos) {
+		var lat = pos.coords.latitude
+		var long = pos.coords.longitude
+
+		$.ajax({
+			type: "get",
+			url: "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + long + "&sensor=true&key=AIzaSyDsPte7Qimw_IVzPJCW-b_XRHoxSIDK404",
+			success: function (result) {
+				var address = result.results[0].address_components
+
+				var city = address[address.length - 4].short_name
+				var region = address[address.length - 3].short_name
+				var country = address[address.length - 2].short_name
+				var zip = address[address.length - 1].short_name
+
+				$.ajax({
+					type: "get",
+					url: "https://api.openweathermap.org/data/2.5/weather?zip=" + zip + "," + country + "&lang=tr&units=metric&appid=93634a166d54ccd1949c33364f2239f2",
+					success: function (res) {
+						var temp = res.main.temp
+						var description = res.weather[0].description
+
+						$("#weatherText").html(city + ", " + region + ", " + country + ": " + titleCase(description))
+						$("#weatherTemp").html(temp + "'C")
+					}
+				})
+			}
+		})
+	}
+
+	function titleCase(str) {
+	  str = str.toLowerCase().split(' ');
+
+	  for (var i = 0; i < str.length; i++)
+		str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1); 
+	  
+	  return str.join(' ');
+	}
+</script>
