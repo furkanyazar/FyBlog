@@ -17,21 +17,21 @@
 				<table class="table table-hover">
 					<thead>
 						<tr>
-							<th>#</th>
-							<th>Kategori</th>
-							<th>Açıklama</th>
-							<th>Durum</th>
-							<th><a href="/Admin/Category/Add" class="btn btn-success">Yeni Ekle</a></th>
+							<th class="align-middle">#</th>
+							<th class="align-middle">Kategori</th>
+							<th class="align-middle">Açıklama</th>
+							<th class="align-middle">Durum</th>
+							<th class="align-middle"><a href="/Admin/Category/Add" class="btn btn-success">Yeni Ekle</a></th>
 						</tr>
 					</thead>
 					<tbody>
 						@foreach (var item in Model)
 						{
 							<tr>
-								<td>@item.CategoryId</td>
-								<td>@item.CategoryName</td>
-								<td>@item.CategoryDescription</td>
-								<td>
+								<td class="align-middle">@item.CategoryId</td>
+								<td class="align-middle">@item.CategoryName</td>
+								<td class="align-middle">@item.CategoryDescription</td>
+								<td class="align-middle">
 									<a href="/Admin/Category/Delete/@item.CategoryId">
 										<span class="badge @{
 												switch (item.CategoryStatus)
@@ -58,7 +58,7 @@
 										</span>
 									</a>
 								</td>
-								<td>
+								<td class="align-middle">
 									<a href="/Admin/Category/Update/@item.CategoryId" class="btn btn-warning">Düzenle</a>
 								</td>
 							</tr>

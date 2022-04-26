@@ -1,0 +1,22 @@
+﻿@using System.Globalization
+@using WebApp.Areas.Admin.ViewComponents.Statistics
+
+@model Weather
+
+@{
+	var textInfo = new CultureInfo("tr-TR", false).TextInfo;
+}
+
+<div class="col-lg-3">
+	<div class="widget style1 navy-bg">
+		<div class="row">
+			<div class="col-4">
+				<i class="fa fa-cloud fa-5x"></i>
+			</div>
+			<div class="col-8 text-right">
+				<span>@Model.city, @Model.region_name: @textInfo.ToTitleCase(Model.weather[0].description)</span>
+				<h2 class="font-bold">@Model.main.temp'C</h2>
+			</div>
+		</div>
+	</div>
+</div>
