@@ -32,5 +32,7 @@ namespace DataAccess.Abstract
         List<Blog> GetAllByUserId(int userId);
 
         Blog GetLatestByCategoryStatusAndBlogStatus(bool categoryStatus, bool blogStatus);
+
+        Blog GetLatest();
     }
 }

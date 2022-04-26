@@ -113,5 +113,13 @@ namespace DataAccess.Concrete.EntityFramework
                 return context.Blogs.Where(x => x.Category.CategoryStatus == categoryStatus && x.BlogStatus == blogStatus).OrderByDescending(x => x.BlogDateOf).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).Take(1).SingleOrDefault();
             }
         }
-    }
+
+		public Blog GetLatest()
+		{
+			using (var context = new MvcCoreDbContext())
+			{
+                return context.Blogs.OrderByDescending(x => x.BlogDateOf).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).FirstOrDefault();
+			}
+		}
+	}
 }

@@ -77,5 +77,10 @@ namespace Business.Concrete
         {
             return _tdal.GetLatestByCategoryStatusAndBlogStatus(categoryStatus, blogStatus);
         }
-    }
+
+		public Blog GetLatest()
+		{
+			return _tdal.GetLatest();
+		}
+	}
 }

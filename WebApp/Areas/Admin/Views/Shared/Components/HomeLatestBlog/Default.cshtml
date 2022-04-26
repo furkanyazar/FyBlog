@@ -1,0 +1,18 @@
+﻿@using Entities.Concrete
+
+@model Blog
+
+<div class="col-lg-3">
+	<div class="widget lazur-bg no-padding">
+		<div class="p-m">
+			<h1 class="m-xs">Son Blog</h1>
+			<h3 class="font-bold no-margins">
+				@Model.Writer.User.UserFirstName @Model.Writer.User.UserLastName <i>- @Model.BlogDateOf.ToShortDateString() @Model.BlogDateOf.ToShortTimeString()</i>
+			</h3>
+			<small>@Model.BlogTitle</small>
+		</div>
+		<div class="flot-chart">
+			<div class="flot-chart-content" id="flot-chart2"></div>
+		</div>
+	</div>
+</div>
