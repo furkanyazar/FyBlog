@@ -25,9 +25,19 @@
 						<tbody>
 							@foreach (var item in Model)
 							{
-								<tr>
+								<tr class="@if (!item.MessageStatus)
+										{
+											Write("font-weight-bold");
+										}">
 									<td>
-										<a class="text-black" asp-controller="Message" asp-action="Read" asp-route-messageId="@item.MessageId"><img src="@item.SenderUser.UserImageUrl" class="mr-2" alt="image"> @item.SenderUser.UserFirstName @item.SenderUser.UserLastName</a>
+										<a class="text-black" asp-controller="Message" asp-action="Read" asp-route-messageId="@item.MessageId">
+											<img src="@item.SenderUser.UserImageUrl" class="mr-2" alt="image"> 
+											@if (!item.MessageStatus)
+											{
+												<i class="mdi mdi-star"></i>
+											}
+											@item.SenderUser.UserFirstName @item.SenderUser.UserLastName
+										</a>
 									</td>
 									<td><a class="text-black" asp-controller="Message" asp-action="Read" asp-route-messageId="@item.MessageId">@item.MessageSubject</a></td>
 									<td>

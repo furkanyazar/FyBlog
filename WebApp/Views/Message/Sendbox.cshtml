@@ -27,7 +27,9 @@
 							{
 								<tr>
 									<td>
-										<a class="text-black" asp-controller="Message" asp-action="Read" asp-route-messageId="@item.MessageId"><img src="@item.ReceiverUser.UserImageUrl" class="mr-2" alt="image"> @item.ReceiverUser.UserFirstName @item.ReceiverUser.UserLastName</a>
+										<a class="text-black" asp-controller="Message" asp-action="Read" asp-route-messageId="@item.MessageId">
+											<img src="@item.ReceiverUser.UserImageUrl" class="mr-2" alt="image"> @item.ReceiverUser.UserFirstName @item.ReceiverUser.UserLastName
+										</a>
 									</td>
 									<td><a class="text-black" asp-controller="Message" asp-action="Read" asp-route-messageId="@item.MessageId">@item.MessageSubject</a></td>
 									<td>
