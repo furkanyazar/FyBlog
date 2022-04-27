@@ -16,6 +16,7 @@
             <div class="ibox-content">
                 @using (Html.BeginForm("Update", "Notification", FormMethod.Post))
                 {
+                    @Html.HiddenFor(x => x.NotificationId)
                     <div class="form-group">
                         @Html.Label("Seçenek")
                         @Html.DropDownListFor(x => x.NotificationTypeId, (List<SelectListItem>)ViewBag.Types, new { @class = "form-control" })

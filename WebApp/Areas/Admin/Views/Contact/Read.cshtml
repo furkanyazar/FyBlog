@@ -1,0 +1,29 @@
+﻿@using Entities.Concrete
+
+@model Contact
+
+@{
+    ViewData["Title"] = @Model.ContactSubject;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox ">
+            <div class="ibox-title">
+                <h5>@Model.ContactUserFullName<small class="m-l-sm"><a href="mailto:@Model.ContactEmail"> @Model.ContactEmail</a></small></h5>
+            </div>
+            <div class="ibox-content">
+                <h2>
+                    @Model.ContactSubject<br />
+                </h2>
+                <p>
+                    @Model.ContactMessage
+                </p>
+            </div>
+            <div class="ibox-footer">
+                @Model.ContactDateOf.ToShortDateString() @Model.ContactDateOf.ToShortTimeString()
+            </div>
+        </div>
+    </div>
+</div>

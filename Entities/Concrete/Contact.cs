@@ -14,6 +14,6 @@ namespace Entities.Concrete
         public string ContactSubject { get; set; }
         public string ContactMessage { get; set; }
         public DateTime ContactDateOf { get; set; } = DateTime.Now;
-        public bool ContactStatus { get; set; } = true;
+        public bool ContactStatus { get; set; } = false;
     }
 }
