@@ -7,7 +7,7 @@ namespace DataAccess.Concrete
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=MvcCore;Trusted_Connection=true");
+            optionsBuilder.UseSqlServer(@"Server=localhost;Database=MvcCore;Trusted_Connection=true");
 
             //optionsBuilder.UseSqlServer(@"Server=tcp:fymvcdemo.database.windows.net,1433;Initial Catalog=MvcCore;Persist Security Info=False;User ID=furkan;Password={your_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
         }

@@ -7,5 +7,7 @@ namespace DataAccess.Abstract
     public interface INotificationDal : IEntityRepository<Notification>
     {
         List<Notification> GetLatestsByCount();
+
+        List<Notification> GetAllWithIncludes();
     }
 }

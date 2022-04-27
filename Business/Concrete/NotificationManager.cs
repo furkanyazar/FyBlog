@@ -12,6 +12,16 @@ namespace Business.Concrete
         {
         }
 
+        public List<Notification> GetAllWithIncludes()
+        {
+            return _tdal.GetAllWithIncludes();
+        }
+
+        public Notification GetById(int id)
+        {
+            return _tdal.Get(x => x.NotificationId == id);
+        }
+
         public List<Notification> GetLatestsByCount()
         {
             return _tdal.GetLatestsByCount();

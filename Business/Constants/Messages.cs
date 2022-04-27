@@ -50,5 +50,9 @@
 		public static string CategoryNameMaximumLength = "Kategori adı en fazla 20 karakterden oluşabilir";
 		public static string CategoryDescriptionMinimumLength = "Kategori adı en az 5 karakterden oluşmalı";
 		public static string CategoryDescriptionMaximumLength = "Kategori açıklaması en fazla 50 karakterden oluşabilir";
-	}
+
+        public static string NotificationDetailNotEmpty = "Detay boş bırakılamaz";
+        public static string NotificationDetailMinimumLength = "Detay en az 5 karakterden oluşmalı";
+        public static string NotificationDetailMaximumLength = "Detay en fazla 50 karakterden oluşabilir";
+    }
 }

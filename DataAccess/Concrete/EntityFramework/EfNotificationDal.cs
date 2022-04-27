@@ -9,6 +9,14 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfNotificationDal : EfEntityRepository<Notification, MvcCoreDbContext>, INotificationDal
     {
+        public List<Notification> GetAllWithIncludes()
+        {
+            using (var context = new MvcCoreDbContext())
+            {
+                return context.Notifications.OrderByDescending(x => x.NotificationDateOf).Include(x => x.NotificationType).ToList();
+            }
+        }
+
         public List<Notification> GetLatestsByCount()
         {
             using (var context = new MvcCoreDbContext())
