@@ -15,7 +15,7 @@ namespace WebApp.ViewComponents.Blog
 
 		public IViewComponentResult Invoke()
 		{
-			var result = _aboutService.GetAll().LastOrDefault();
+			var result = _aboutService.GetAllByStatus(true).LastOrDefault();
 
 			return View(result);
 		}
