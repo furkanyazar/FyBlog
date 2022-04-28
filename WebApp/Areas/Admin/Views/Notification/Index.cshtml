@@ -17,7 +17,6 @@
 				<table class="table table-hover">
 					<thead>
 						<tr>
-							<th class="align-middle">#</th>
 							<th class="align-middle">Seçenek</th>
 							<th class="align-middle">Açıklama</th>
 							<th class="align-middle">Durum</th>
@@ -28,7 +27,6 @@
 						@foreach (var item in Model)
 						{
 							<tr>
-								<td class="align-middle">@item.NotificationId</td>
 								<td class="align-middle">@item.NotificationType.NotificationTypeName</td>
 								<td class="align-middle">@item.NotificationDetail</td>
 								<td class="align-middle">

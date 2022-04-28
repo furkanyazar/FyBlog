@@ -7,5 +7,7 @@ namespace Business.Abstract
     public interface IAboutService : IEntityService<About>
     {
         List<About> GetAllByStatus(bool status);
+
+        About GetById(int id);
     }
 }

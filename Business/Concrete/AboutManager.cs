@@ -17,5 +17,10 @@ namespace Business.Concrete
         {
             return _tdal.GetAll(x => x.AboutStatus == status).ToList();
         }
+
+        public About GetById(int id)
+        {
+            return _tdal.Get(x => x.AboutId == id);
+        }
     }
 }

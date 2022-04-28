@@ -13,6 +13,7 @@
     <link href="/admin/css/plugins/iCheck/custom.css" rel="stylesheet">
     <link href="/admin/css/animate.css" rel="stylesheet">
     <link href="/admin/css/style.css" rel="stylesheet">
+    <script src="/admin/js/jquery-3.1.1.min.js"></script>
 </head>
 <body>
     <div id="wrapper">
@@ -49,8 +50,11 @@
                     <li>
                         <a><i class="fa fa-picture-o"></i><span class="nav-label">Galeri</span></a>
                     </li>
-                    <li>
-                        <a><i class="fa fa-bars"></i><span class="nav-label">Hakkımızda</span></a>
+                    <li class="@if (Context.Request.Path.Value.Contains("About"))
+							   {
+								   Write("active");
+							   }">
+                        <a href="/Admin/About"><i class="fa fa-bars"></i><span class="nav-label">Hakkımızda</span></a>
                     </li>
                     <li class="@if (Context.Request.Path.Value.Contains("Contact"))
 							   {
@@ -179,7 +183,6 @@
         </div>
     </div>
     <!-- Mainly scripts -->
-    <script src="/admin/js/jquery-3.1.1.min.js"></script>
     <script src="/admin/js/popper.min.js"></script>
     <script src="/admin/js/bootstrap.js"></script>
     <script src="/admin/js/plugins/metisMenu/jquery.metisMenu.js"></script>
