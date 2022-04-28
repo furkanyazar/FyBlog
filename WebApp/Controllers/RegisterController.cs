@@ -15,15 +15,13 @@ namespace WebApp.Controllers
     public class RegisterController : Controller
     {
         private IUserService _userService;
-        private IWriterService _writerService;
 
         private UserRegisterValidator userRegisterValidator = new UserRegisterValidator();
         private ValidationResult validation;
 
-        public RegisterController(IUserService userService, IWriterService writerService)
+        public RegisterController(IUserService userService)
         {
             _userService = userService;
-            _writerService = writerService;
         }
 
         [HttpGet]
@@ -56,14 +54,6 @@ namespace WebApp.Controllers
                 };
 
                 _userService.Add(user);
-
-                //var writer = new Writer
-                //{
-                //    UserId = _userService.GetAll().LastOrDefault().UserId,
-                //    WriterImageUrl = Defaults.DEFAULT_AVATAR_URL
-                //};
-
-                //_writerService.Add(writer);
 
                 return RedirectToAction("Index", "Login");
             }

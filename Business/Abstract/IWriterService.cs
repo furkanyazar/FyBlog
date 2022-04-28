@@ -11,5 +11,7 @@ namespace Business.Abstract
         Writer GetByUserEmail(string email);
 
         List<Writer> GetAllWithoutUserId(int userId);
+
+        List<Writer> GetAllWithIncludes();
     }
 }

@@ -119,6 +119,13 @@ namespace WebApp.Controllers
             {
                 var userToCheck = _writerService.GetByUserEmail(userLoginDto.UserEmail);
 
+                if (!userToCheck.User.UserStatus)
+                {
+                    ModelState.AddModelError("UserEmail", "Hesap askıya alındı");
+
+                    return View();
+                }
+
                 if (userToCheck is null)
                 {
                     ModelState.AddModelError("UserEmail", "E-posta hatalı");

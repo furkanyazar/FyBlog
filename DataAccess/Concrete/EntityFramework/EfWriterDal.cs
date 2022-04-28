@@ -32,5 +32,13 @@ namespace DataAccess.Concrete.EntityFramework
                 return context.Writers.Where(x => x.UserId != userId).Include(x => x.User).ToList();
             }
         }
+
+        public List<Writer> GetAllWithIncludes()
+        {
+            using (var context = new MvcCoreDbContext())
+            {
+                return context.Writers.Include(x => x.User).ToList();
+            }
+        }
     }
 }

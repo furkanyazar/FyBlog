@@ -26,5 +26,10 @@ namespace Business.Concrete
         {
             return _tdal.GetAllWithoutUserId(userId);
         }
+
+        public List<Writer> GetAllWithIncludes()
+        {
+            return _tdal.GetAllWithIncludes();
+        }
     }
 }

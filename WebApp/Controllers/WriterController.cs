@@ -21,9 +21,10 @@ namespace WebApp.Controllers
         private IBlogService _blogService;
         private ICategoryService _categoryService;
         private IUserService _userService;
-        private IMapper _mapper;
         private IWriterService _writerService;
         private INotificationService _notificationService;
+
+        private IMapper _mapper;
 
         private BlogValidator blogValidator = new BlogValidator();
         private WriterValidator writerValidator = new WriterValidator();

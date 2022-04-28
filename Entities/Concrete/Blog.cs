@@ -15,6 +15,12 @@ namespace Entities.Concrete
         public string BlogImageUrl { get; set; }
         public string BlogThumbnailImageUrl { get; set; }
         public DateTime BlogDateOf { get; set; } = DateTime.Now;
+
+        public object Where(Func<object, object> p)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool BlogStatus { get; set; } = true;
 
         public int CategoryId { get; set; }

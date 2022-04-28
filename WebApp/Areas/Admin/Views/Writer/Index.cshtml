@@ -1,0 +1,64 @@
+﻿@using Entities.Concrete
+
+@model List<Writer>
+
+@{
+    ViewData["Title"] = "Yazarlar";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-3">
+            <div class="contact-box center-version">
+                <a href="#">
+                    <img alt="image" class="rounded-circle" src="@item.User.UserImageUrl">
+                    <h3 class="m-b-xs"><strong>@item.User.UserFirstName @item.User.UserLastName</strong></h3>
+                    <div class="font-bold">@item.User.UserEmail</div>
+                    <address class="m-t-md">@item.WriterAbout</address>
+                </a>
+                <div class="contact-box-footer">
+                    <div class="m-t-xs btn-group">
+                        <a href="/Admin/Writer/Delete/@item.UserId" class="btn btn-xs @{
+												    switch (item.User.UserStatus)
+												    {
+													    case true:
+														    Write("btn-primary");
+														    break;
+													    default:
+														    Write("btn-danger");
+														    break;
+												    }
+												}">
+                            <i class="fa @{
+                                switch (item.User.UserStatus)
+                                {
+                                    case true:
+                                        Write("fa-check");
+                                        break;
+                                    default:
+                                        Write("fa-times");
+                                        break;
+                                }
+                            }"></i>
+                            @{
+                                switch (item.User.UserStatus)
+                                {
+                                    case true:
+                                        Write("Aktif");
+                                        break;
+                                    default:
+                                        Write("Pasif");
+                                        break;
+                                }
+                            }
+                        </a>
+                        <a href="/Admin/Writer/Update/@item.UserId" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i> Düzenle</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<a href="/Admin/Writer/Add" class="btn btn-success">Yeni Ekle</a>

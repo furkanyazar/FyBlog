@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace WebApp.ViewComponents.Blog
 {
@@ -14,7 +15,7 @@ namespace WebApp.ViewComponents.Blog
 
 		public IViewComponentResult Invoke()
 		{
-			var result = _blogService.GetLatestsByCategoryStatusAndBlogStatusWithCount(3, true, true);
+			var result = _blogService.GetLatestsByCategoryStatusAndBlogStatusWithCount(3, true, true).Where(x => x.Writer.User.UserStatus).ToList();
 
 			return View(result);
 		}

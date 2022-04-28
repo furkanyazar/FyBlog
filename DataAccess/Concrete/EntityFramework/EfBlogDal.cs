@@ -110,7 +110,7 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (var context = new MvcCoreDbContext())
             {
-                return context.Blogs.Where(x => x.Category.CategoryStatus == categoryStatus && x.BlogStatus == blogStatus).OrderByDescending(x => x.BlogDateOf).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).Take(1).SingleOrDefault();
+                return context.Blogs.Where(x => x.Category.CategoryStatus == categoryStatus && x.BlogStatus == blogStatus && x.Writer.User.UserStatus).OrderByDescending(x => x.BlogDateOf).Include(x => x.Category).Include(x => x.Writer).Include(x => x.Writer.User).Take(1).SingleOrDefault();
             }
         }
 

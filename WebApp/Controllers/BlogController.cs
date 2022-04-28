@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 using X.PagedList;
 
 namespace WebApp.Controllers
@@ -18,7 +19,7 @@ namespace WebApp.Controllers
 
         public IActionResult Index(int page = 1)
         {
-            var result = _blogService.GetAllByCategoryStatusAndBlogStatus(true, true);
+            var result = _blogService.GetAllByCategoryStatusAndBlogStatus(true, true).Where(x => x.Writer.User.UserStatus).ToList();
 
             return View(result.ToPagedList(page, 9));
         }
@@ -32,28 +33,28 @@ namespace WebApp.Controllers
 
         public IActionResult Category(int categoryId, int page = 1)
         {
-            var result = _blogService.GetAllByCategoryIdAndCategoryStatusAndBlogStatus(categoryId, true, true);
+            var result = _blogService.GetAllByCategoryIdAndCategoryStatusAndBlogStatus(categoryId, true, true).Where(x => x.Writer.User.UserStatus).ToList();
 
             return View(result.ToPagedList(page, 9));
         }
 
         public IActionResult Writer(int writerId, int page = 1)
         {
-            var result = _blogService.GetAllByWriterIdAndCategoryStatusAndBlogStatus(writerId, true, true);
+            var result = _blogService.GetAllByWriterIdAndCategoryStatusAndBlogStatus(writerId, true, true).Where(x => x.Writer.User.UserStatus).ToList();
 
             return View(result.ToPagedList(page, 9));
         }
 
         public IActionResult Date(string dateOf, int page = 1)
         {
-            var result = _blogService.GetAllByDateOfAndCategoryStatusAndBlogStatus(DateTime.Parse(dateOf), true, true);
+            var result = _blogService.GetAllByDateOfAndCategoryStatusAndBlogStatus(DateTime.Parse(dateOf), true, true).Where(x => x.Writer.User.UserStatus).ToList();
 
             return View(result.ToPagedList(page, 9));
         }
 
         public IActionResult Search(string searchKey, int page = 1)
         {
-            var result = _blogService.GetAllBySearchKeyAndCategoryStatusAndBlogStatus(searchKey, true, true);
+            var result = _blogService.GetAllBySearchKeyAndCategoryStatusAndBlogStatus(searchKey, true, true).Where(x => x.Writer.User.UserStatus).ToList();
 
             return View(result.ToPagedList(page, 9));
         }
