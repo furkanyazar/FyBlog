@@ -63,7 +63,7 @@
 				<!--//left-->
 			</div>
 		</div>
-		@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }), new X.PagedList.Web.Common.PagedListRenderOptions{
+		@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }), new X.PagedList.Mvc.Core.Common.PagedListRenderOptions{
 		UlElementClasses = new string[] { "pagination", "justify-content-center", "mt-4" },
 		LiElementClasses = new string[] { "page-item" },
 		PageClasses = new string[] { "page-link" },
